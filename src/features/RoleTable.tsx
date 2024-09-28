@@ -41,7 +41,11 @@ export const RoleTable = ({ content }: { content: Player[] | undefined }) => {
           }}
         >
           <option></option>
+          <option value={"ZSMve"}>ZSMve</option>
+          <option value={"ZSMun"}>ZSMun</option>
           <option value={"BBMun"}>BBMun</option>
+          <option value={"MEZun"}>MEZun</option>
+          <option value={"MEZan"}>MEZan</option>
         </select>
       </div>
       <div>

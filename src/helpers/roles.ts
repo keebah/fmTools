@@ -112,7 +112,7 @@ export const calculateRoleScore = (player: Player, role: Role) => {
   const secondaryScore = sumSecondary / role.secondary.length;
   const physisScore = physis[role.physis];
   const totalScore =
-    (primaryScore * 1.5 + secondaryScore * 1 + physisScore * 1) / 3.5;
+    (primaryScore * 2 + secondaryScore * 1 + physisScore * 1) / 4;
 
   return { primaryScore, secondaryScore, totalScore };
 };
