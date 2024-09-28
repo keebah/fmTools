@@ -48,13 +48,21 @@ export const RoleTable = ({ content }: { content: Player[] | undefined }) => {
         {role && playerData && playerData?.length > 1 && (
           <table className="text-2xs" style={{ fontSize: "12px" }}>
             <thead>
-              <th>Name</th>
-              <th>Defensiv</th>
-              <th>Mittelfeld</th>
-              <th>Offensiv</th>
-              <th>Primär</th>
-              <th>Sekundär</th>
-              <th>Total</th>
+              <tr>
+                <th>&nbsp;</th>
+                <th colSpan={3}>Physis</th>
+                <th colSpan={2}>Attribute</th>
+                <th>&nbsp;</th>
+              </tr>
+              <tr>
+                <th>Name</th>
+                <th>Defensiv</th>
+                <th>Mittelfeld</th>
+                <th>Offensiv</th>
+                <th>Primär</th>
+                <th>Sekundär</th>
+                <th>Total</th>
+              </tr>
             </thead>
             <tbody>
               {playerData?.map((player, index) => {
