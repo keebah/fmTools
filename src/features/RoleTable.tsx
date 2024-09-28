@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { calculateRoleScore, roleAttributes } from "../helpers/roles";
 import { Player } from "../types/player";
 import { Role } from "../types/role";
@@ -35,13 +35,13 @@ export const RoleTable = ({ content }: { content: Player[] | undefined }) => {
       <div>
         <select
           onChange={(e) => {
-            const role = e.target.value as "BBMu";
+            const role = e.target.value as "BBMun";
             const stuff = roleAttributes[role];
             setRole(stuff);
           }}
         >
           <option></option>
-          <option value={"BBMu"}>BBMu</option>
+          <option value={"BBMun"}>BBMun</option>
         </select>
       </div>
       <div>
