@@ -1,23 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { AttributesTable } from "./features/AttributesTable";
+import { RoleTable } from "./features/RoleTable";
+import { loadData } from "./helpers/loadData";
+import { Player } from "./types/player";
 
 function App() {
+  const [fileContent, setFileContent] = useState<Player[] | undefined>();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          <input
+            type="file"
+            className="border border-gray-300"
+            id="picker"
+            onChange={(e) => {
+              if (e.target.files?.length) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = (readerEvent) => {
+                  const content = readerEvent?.target?.result;
+                  if (typeof content === "string") {
+                    const superData = loadData(content);
+                    console.log(superData);
+                    setFileContent(superData);
+                  }
+                };
+              }
+            }}
+          />
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <RoleTable content={fileContent} />
+        <AttributesTable content={fileContent} />
       </header>
     </div>
   );
