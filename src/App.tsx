@@ -1,19 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { AttributesTable } from "./features/AttributesTable";
-import { RoleTable } from "./features/RoleTable";
-import { Data, Player } from "./types/player";
 import { Importer } from "./features/Importer";
+import { RoleTable } from "./features/RoleTable";
+import { loadDatabase, saveKeyToObjectStore } from "./indexDB";
+import { Data } from "./types/player";
+
+export interface IIndexDBData {
+  data: Data[];
+}
 
 function App() {
   const [data, setDataState] = useState<Data[]>();
   const [primaryDataSet, setPrimaryDataSet] = useState<Data>();
   const [secondaryDataSet, setSecondaryDataSet] = useState<Data>();
+
+  const setData = (updateData: (data: Data[]) => Data[]) => {
+    setDataState((prev) => {
+      if (prev) {
+        const update = updateData(structuredClone(prev));
+        if (update) {
+          saveKeyToObjectStore("data", update);
+          return update;
+        }
+      }
+      return prev;
+    });
+  };
+
+  const loadIDB = loadDatabase<IIndexDBData>("data", ["data"]);
+
+  useEffect(() => {
+    loadIDB().then((data) => setDataState(data.data));
+  }, [loadIDB]);
+
   return (
     <div className="App">
       <header className="App-header">
         <div>
-          <Importer setDataState={setDataState} />
+          <Importer setData={setData} />
         </div>
         <div className="flex">
           <RoleTable content={primaryDataSet} />
@@ -54,6 +79,16 @@ function App() {
                 checked={secondaryDataSet?.name === item.name}
               />
               {item.name}
+              <button
+                onClick={() => {
+                  const updateData = (data: Data[]) => {
+                    return data.filter((entry) => entry.name !== item.name);
+                  };
+                  setData(updateData);
+                }}
+              >
+                Remove
+              </button>
             </div>
           ))}
         </div>

@@ -3,9 +3,9 @@ import { loadData } from "../helpers/loadData";
 import { Data } from "../types/player";
 
 export const Importer = ({
-  setDataState,
+  setData,
 }: {
-  setDataState: React.Dispatch<React.SetStateAction<Data[] | undefined>>;
+  setData: (updateData: (data: Data[]) => Data[]) => void;
 }) => {
   const [file, setFile] = useState<File>();
   const [name, setName] = useState<string>();
@@ -37,13 +37,13 @@ export const Importer = ({
               const content = readerEvent?.target?.result;
               if (typeof content === "string") {
                 const players = loadData(content);
-                setDataState((prev) => {
-                  if (players) {
-                    const update = [...(prev || []), { name, players }];
-                    return update;
-                  }
-                  return prev;
-                });
+                if (name && players) {
+                  const newDataSet = { name, players };
+                  const updateData = (data: Data[]) => {
+                    return [...data, newDataSet];
+                  };
+                  setData(updateData);
+                }
               }
             };
           }
