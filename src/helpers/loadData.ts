@@ -110,7 +110,6 @@ export const loadData = (fileContent: string) => {
   for (const line of lines) {
     const split = line.split("|");
     if (split.length > 4) {
-      console.log(split);
       const player = convertLineToPlayer(split);
       if (output) {
         output = [...output, player];

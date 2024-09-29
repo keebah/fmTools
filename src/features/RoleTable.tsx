@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { calculateRoleScore, roleAttributes } from "../helpers/roles";
-import { Player } from "../types/player";
+import { Data, Player } from "../types/player";
 import { Role } from "../types/role";
-export const RoleTable = ({ content }: { content: Player[] | undefined }) => {
+export const RoleTable = ({ content }: { content: Data | undefined }) => {
   const [role, setRole] = useState<Role | undefined>();
 
   if (!content) {
@@ -10,7 +10,7 @@ export const RoleTable = ({ content }: { content: Player[] | undefined }) => {
   }
   const playerData =
     role &&
-    content
+    content.players
       ?.filter(
         (item) => item.name !== "Name" || !Object.keys(item).includes("name")
       )
@@ -46,6 +46,9 @@ export const RoleTable = ({ content }: { content: Player[] | undefined }) => {
           <option value={"BBMun"}>BBMun</option>
           <option value={"MEZun"}>MEZun</option>
           <option value={"MEZan"}>MEZan</option>
+          <option value={"PSTve"}>PSTve</option>
+          <option value={"PSTun"}>PSTun</option>
+          <option value={"PSTan"}>PSTan</option>
         </select>
       </div>
       <div>

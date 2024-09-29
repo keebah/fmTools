@@ -2,39 +2,65 @@ import { useState } from "react";
 import "./App.css";
 import { AttributesTable } from "./features/AttributesTable";
 import { RoleTable } from "./features/RoleTable";
-import { loadData } from "./helpers/loadData";
-import { Player } from "./types/player";
+import { Data, Player } from "./types/player";
+import { Importer } from "./features/Importer";
 
 function App() {
-  const [fileContent, setFileContent] = useState<Player[] | undefined>();
-
+  const [data, setDataState] = useState<Data[]>();
+  const [primaryDataSet, setPrimaryDataSet] = useState<Data>();
+  const [secondaryDataSet, setSecondaryDataSet] = useState<Data>();
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          <input
-            type="file"
-            className="border border-gray-300"
-            id="picker"
-            onChange={(e) => {
-              if (e.target.files?.length) {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.readAsText(file, "UTF-8");
-                reader.onload = (readerEvent) => {
-                  const content = readerEvent?.target?.result;
-                  if (typeof content === "string") {
-                    const superData = loadData(content);
-                    console.log(superData);
-                    setFileContent(superData);
+        <div>
+          <Importer setDataState={setDataState} />
+        </div>
+        <div className="flex">
+          <RoleTable content={primaryDataSet} />
+          <RoleTable content={primaryDataSet} />
+          <RoleTable content={primaryDataSet} />
+        </div>
+        <div>
+          <div>Existing Data Sets</div>
+          <div>1 / 2 / Name</div>
+          {data?.map((item) => (
+            <div>
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const selectedDataSet = data?.find(
+                      (entry) => entry.name === item.name
+                    );
+                    if (selectedDataSet) {
+                      setPrimaryDataSet(selectedDataSet);
+                    }
                   }
-                };
-              }
-            }}
-          />
-        </p>
-        <RoleTable content={fileContent} />
-        <AttributesTable content={fileContent} />
+                }}
+                checked={primaryDataSet?.name === item.name}
+              />
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const selectedDataSet = data?.find(
+                      (entry) => entry.name === item.name
+                    );
+                    if (selectedDataSet) {
+                      setSecondaryDataSet(selectedDataSet);
+                    }
+                  }
+                }}
+                checked={secondaryDataSet?.name === item.name}
+              />
+              {item.name}
+            </div>
+          ))}
+        </div>
+        <AttributesTable
+          primaryDataSet={primaryDataSet}
+          secondaryDataSet={secondaryDataSet}
+        />
       </header>
     </div>
   );

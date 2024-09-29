@@ -1,3 +1,8 @@
+export type Data = {
+  name: string;
+  players: Player[];
+};
+
 export type Player = {
   name: string;
   attributes: Attributes;
