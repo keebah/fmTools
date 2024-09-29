@@ -89,7 +89,7 @@ export const AttributesTable = ({
   return (
     <div>
       Attribute:
-      <div className="w-full h-[calc(100vh-82px)]">
+      <div className="w-full h-[calc(100vh-150px)]">
         <AgGridReact
           ref={gridRef}
           className="overflow-visible border-b-[2px] border-gray-900 pb-1"
