@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { calculateRoleScore, roleAttributes } from "../helpers/roles";
-import { Data, Player } from "../types/player";
+import { Data } from "../types/player";
 import { Role } from "../types/role";
 export const RoleTable = ({ content }: { content: Data | undefined }) => {
   const [role, setRole] = useState<Role | undefined>();
@@ -14,7 +14,7 @@ export const RoleTable = ({ content }: { content: Data | undefined }) => {
       ?.filter(
         (item) => item.name !== "Name" || !Object.keys(item).includes("name")
       )
-      ?.map((player, index) => {
+      ?.map((player) => {
         const roleValues = calculateRoleScore(player, role);
         return {
           ...player,

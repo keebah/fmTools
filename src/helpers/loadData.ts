@@ -109,7 +109,7 @@ export const loadData = (fileContent: string) => {
   let output;
   for (const line of lines) {
     const split = line.split("|");
-    if (split.length > 4) {
+    if (split.length > 4 && split[1].trim().toLowerCase() !== "name") {
       const player = convertLineToPlayer(split);
       if (output) {
         output = [...output, player];

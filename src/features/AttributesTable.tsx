@@ -1,4 +1,9 @@
+import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
+import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
+import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
+import { useCallback, useMemo, useRef } from "react";
 import { Attributes, Data } from "../types/player";
+type ColumnType = "name" & keyof Attributes;
 
 export const AttributesTable = ({
   primaryDataSet,
@@ -7,6 +12,46 @@ export const AttributesTable = ({
   primaryDataSet: Data | undefined;
   secondaryDataSet: Data | undefined;
 }) => {
+  const gridRef = useRef<AgGridReact>(null);
+
+  const attributes = primaryDataSet?.players[0].attributes;
+
+  const rowData = useMemo(
+    () =>
+      primaryDataSet?.players.map((player) => ({
+        name: player.name,
+        ...player.attributes,
+      })),
+    [primaryDataSet]
+  );
+
+  const colDefs = useMemo(() => {
+    const attributeFields = attributes
+      ? Object.keys(attributes).map((att) => {
+          return { field: att as ColumnType };
+        })
+      : [];
+    return [
+      {
+        field: "name" as ColumnType,
+        flex: 1,
+        sortable: true,
+        filter: true,
+        floatingFilter: false,
+      },
+      ...attributeFields,
+    ];
+  }, [attributes]);
+
+  const fitAllColumns = useCallback(() => {
+    gridRef?.current?.api.autoSizeAllColumns();
+  }, []);
+
+  const onFirstDataRendered = useCallback(() => {
+    fitAllColumns();
+  }, []);
+
+  // Column Definitions: Defines the columns to be displayed.
   return (
     <div>
       Attribute:
@@ -58,6 +103,16 @@ export const AttributesTable = ({
         </table>
       )}
       {/* {JSON.stringify(content)} */}
+      <div style={{ height: 1000, width: 1000 }}>
+        <AgGridReact
+          ref={gridRef}
+          className="overflow-visible border-b-[2px] border-gray-900 pb-1"
+          rowData={rowData}
+          columnDefs={colDefs}
+          animateRows={true}
+          onFirstDataRendered={onFirstDataRendered}
+        />
+      </div>
     </div>
   );
 };
