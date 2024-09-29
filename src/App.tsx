@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./index.css";
 import { AttributesTable } from "./features/AttributesTable";
 import { DataSelector } from "./features/DataSelector";
 import { Importer } from "./features/Importer";
@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>
+        <div className="border border-black bg-gray-50">
           <Importer setData={setData} />
         </div>
         <div>
