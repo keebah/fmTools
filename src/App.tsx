@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div>
-      <div className="border border-black bg-gray-50 w-1/3 m-1">
+      <div className="border border-black bg-gray-50 m-1">
         <Importer setData={setData} />
       </div>
       <div>Feature select</div>

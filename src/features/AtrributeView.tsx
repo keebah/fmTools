@@ -22,7 +22,7 @@ export const AttributeView = ({
 
   return (
     <>
-      <div className="w-1/6">
+      <div className="w-1/6 border border-black p-1 m-1">
         <DataSelector
           data={data}
           setData={setData}
@@ -40,7 +40,7 @@ export const AttributeView = ({
         />
         Show Changes Only
       </div>
-      <div className="w-full">
+      <div className="w-full border border-black m-1 p-1">
         <AttributesTable
           primaryDataSet={primaryDataSet}
           secondaryDataSet={secondaryDataSet}

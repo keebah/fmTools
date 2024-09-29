@@ -1,3 +1,4 @@
+import { Button } from "../components/Button";
 import { Data } from "../types/player";
 
 export const DataSelector = ({
@@ -20,54 +21,60 @@ export const DataSelector = ({
       <div>Select Data To Display</div>
       <div>1 / 2 / Name</div>
       {data?.map((item) => (
-        <div>
-          <input
-            type="checkbox"
-            onChange={(e) => {
-              if (e.target.checked) {
-                const selectedDataSet = data?.find(
-                  (entry) => entry.name === item.name
-                );
-                if (selectedDataSet) {
-                  setPrimaryDataSet(selectedDataSet);
+        <div className="flex gap-1">
+          <div>
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  const selectedDataSet = data?.find(
+                    (entry) => entry.name === item.name
+                  );
+                  if (selectedDataSet) {
+                    setPrimaryDataSet(selectedDataSet);
+                  }
+                } else {
+                  if (primaryDataSet?.name === item.name) {
+                    setPrimaryDataSet(undefined);
+                  }
                 }
-              } else {
-                if (primaryDataSet?.name === item.name) {
-                  setPrimaryDataSet(undefined);
+              }}
+              checked={primaryDataSet?.name === item.name}
+            />
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  const selectedDataSet = data?.find(
+                    (entry) => entry.name === item.name
+                  );
+                  if (selectedDataSet) {
+                    setSecondaryDataSet(selectedDataSet);
+                  }
+                } else {
+                  if (secondaryDataSet?.name === item.name) {
+                    setSecondaryDataSet(undefined);
+                  }
                 }
-              }
-            }}
-            checked={primaryDataSet?.name === item.name}
-          />
-          <input
-            type="checkbox"
-            onChange={(e) => {
-              if (e.target.checked) {
-                const selectedDataSet = data?.find(
-                  (entry) => entry.name === item.name
-                );
-                if (selectedDataSet) {
-                  setSecondaryDataSet(selectedDataSet);
-                }
-              } else {
-                if (secondaryDataSet?.name === item.name) {
-                  setSecondaryDataSet(undefined);
-                }
-              }
-            }}
-            checked={secondaryDataSet?.name === item.name}
-          />
-          {item.name}
-          <button
-            onClick={() => {
-              const updateData = (data: Data[]) => {
-                return data.filter((entry) => entry.name !== item.name);
-              };
-              setData(updateData);
-            }}
-          >
-            Remove
-          </button>
+              }}
+              checked={secondaryDataSet?.name === item.name}
+            />
+          </div>
+          <div>{item.name}</div>
+          <div>
+            <Button
+              onClick={() => {
+                const updateData = (data: Data[]) => {
+                  return data.filter((entry) => entry.name !== item.name);
+                };
+                setData(updateData);
+              }}
+            >
+              Remove
+            </Button>
+          </div>
         </div>
       ))}
     </div>
