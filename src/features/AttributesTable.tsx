@@ -9,14 +9,15 @@ type ColumnType = "name" & keyof Attributes;
 export const AttributesTable = ({
   primaryDataSet,
   secondaryDataSet,
+  showChangesOnly,
 }: {
   primaryDataSet: Data | undefined;
   secondaryDataSet: Data | undefined;
+  showChangesOnly: boolean;
 }) => {
   const gridRef = useRef<AgGridReact>(null);
 
   const attributes = primaryDataSet?.players[0].attributes;
-
   const returnAttributes = (firstPlayer: Player) => {
     if (secondaryDataSet) {
       const secondPlayer = secondaryDataSet.players.find(
@@ -35,10 +36,29 @@ export const AttributesTable = ({
     return firstPlayer.attributes;
   };
 
-  const rowData = primaryDataSet?.players.map((player) => ({
-    name: player.name,
-    ...returnAttributes(player),
-  }));
+  const rowData = primaryDataSet?.players
+    .map((player) => ({
+      name: player.name,
+      ...returnAttributes(player),
+    }))
+    .filter((item) => {
+      if (!secondaryDataSet) {
+        return true;
+      }
+      if (showChangesOnly) {
+        const hasNothing = Object.entries(item).map(([key, value]) => {
+          if (key === "name") {
+            return undefined;
+          }
+          if (Number.isNaN(value) || value === 0) {
+            return undefined;
+          }
+          return value;
+        });
+        return hasNothing.some((item) => item);
+      }
+      return true;
+    });
 
   const colDefs = useMemo(() => {
     const attributeFields = attributes

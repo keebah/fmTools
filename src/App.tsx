@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import "./index.css";
-import { AttributesTable } from "./features/AttributesTable";
-import { DataSelector } from "./features/DataSelector";
+import { AttributeView } from "./features/AtrributeView";
 import { Importer } from "./features/Importer";
 import { RoleTable } from "./features/RoleTable";
+import "./index.css";
 import { loadDatabase, saveKeyToObjectStore } from "./indexDB";
 import { Data } from "./types/player";
 
@@ -43,22 +42,14 @@ function App() {
       </div>
       <div>Feature select</div>
       <div className="flex">
-        <div className="w-1/6">
-          <DataSelector
-            data={data}
-            setData={setData}
-            primaryDataSet={primaryDataSet}
-            setPrimaryDataSet={setPrimaryDataSet}
-            secondaryDataSet={secondaryDataSet}
-            setSecondaryDataSet={setSecondaryDataSet}
-          />
-        </div>
-        <div className="w-full">
-          <AttributesTable
-            primaryDataSet={primaryDataSet}
-            secondaryDataSet={secondaryDataSet}
-          />
-        </div>
+        <AttributeView
+          data={data}
+          setData={setData}
+          primaryDataSet={primaryDataSet}
+          setPrimaryDataSet={setPrimaryDataSet}
+          secondaryDataSet={secondaryDataSet}
+          setSecondaryDataSet={setSecondaryDataSet}
+        />
       </div>
       <div className="flex">
         <RoleTable content={primaryDataSet} />
