@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { loadData } from "../helpers/loadData";
 import { Data } from "../types/player";
+import { Button } from "../components/Button";
+import { Input } from "../components/Input";
 
 export const Importer = ({
   setData,
@@ -11,9 +13,9 @@ export const Importer = ({
   const [name, setName] = useState<string>();
 
   return (
-    <>
-      {" "}
-      <p>
+    <div className=" flex p-1 items-center justify-center min-w-[780px]">
+      <div>Import Data</div>
+      <div>
         <input
           type="file"
           className="border border-gray-300"
@@ -25,10 +27,10 @@ export const Importer = ({
             }
           }}
         />
-      </p>
-      <p>Data Set Name</p>
-      <input type="text" onChange={(e) => setName(e.target.value)} />
-      <button
+      </div>
+      <div>Data Set Name:</div>
+      <Input type="text" onChange={(e) => setName(e.target.value)} />
+      <Button
         onClick={() => {
           if (file && name) {
             const reader = new FileReader();
@@ -50,7 +52,7 @@ export const Importer = ({
         }}
       >
         Import
-      </button>
-    </>
+      </Button>
+    </div>
   );
 };

@@ -33,15 +33,17 @@ function App() {
 
   useEffect(() => {
     loadIDB().then((data) => setDataState(data.data));
-  }, [loadIDB]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="border border-black bg-gray-50">
-          <Importer setData={setData} />
-        </div>
-        <div>
+    <div>
+      <div className="border border-black bg-gray-50 w-1/3 m-1">
+        <Importer setData={setData} />
+      </div>
+      <div>Feature select</div>
+      <div className="flex">
+        <div className="w-1/6">
           <DataSelector
             data={data}
             setData={setData}
@@ -51,17 +53,18 @@ function App() {
             setSecondaryDataSet={setSecondaryDataSet}
           />
         </div>
-        <div className="flex">
-          <RoleTable content={primaryDataSet} />
-          <RoleTable content={primaryDataSet} />
-          <RoleTable content={primaryDataSet} />
+        <div className="w-full">
+          <AttributesTable
+            primaryDataSet={primaryDataSet}
+            secondaryDataSet={secondaryDataSet}
+          />
         </div>
-
-        <AttributesTable
-          primaryDataSet={primaryDataSet}
-          secondaryDataSet={secondaryDataSet}
-        />
-      </header>
+      </div>
+      <div className="flex">
+        <RoleTable content={primaryDataSet} />
+        <RoleTable content={primaryDataSet} />
+        <RoleTable content={primaryDataSet} />
+      </div>
     </div>
   );
 }

@@ -1,8 +1,9 @@
-import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
-import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import { useCallback, useMemo, useRef } from "react";
-import { Attributes, Data } from "../types/player";
+import { Attributes, Data, Player } from "../types/player";
+
 type ColumnType = "name" & keyof Attributes;
 
 export const AttributesTable = ({
@@ -16,14 +17,28 @@ export const AttributesTable = ({
 
   const attributes = primaryDataSet?.players[0].attributes;
 
-  const rowData = useMemo(
-    () =>
-      primaryDataSet?.players.map((player) => ({
-        name: player.name,
-        ...player.attributes,
-      })),
-    [primaryDataSet]
-  );
+  const returnAttributes = (firstPlayer: Player) => {
+    if (secondaryDataSet) {
+      const secondPlayer = secondaryDataSet.players.find(
+        (secondPlayer) => firstPlayer.name === secondPlayer.name
+      );
+      if (secondPlayer) {
+        const attributes = structuredClone(firstPlayer.attributes);
+        Object.keys(attributes).forEach((key) => {
+          const thisKey = key as keyof Attributes;
+          attributes[thisKey] =
+            secondPlayer.attributes[thisKey] - firstPlayer.attributes[thisKey];
+        });
+        return attributes;
+      }
+    }
+    return firstPlayer.attributes;
+  };
+
+  const rowData = primaryDataSet?.players.map((player) => ({
+    name: player.name,
+    ...returnAttributes(player),
+  }));
 
   const colDefs = useMemo(() => {
     const attributeFields = attributes
@@ -49,61 +64,12 @@ export const AttributesTable = ({
 
   const onFirstDataRendered = useCallback(() => {
     fitAllColumns();
-  }, []);
+  }, [fitAllColumns]);
 
-  // Column Definitions: Defines the columns to be displayed.
   return (
     <div>
       Attribute:
-      {primaryDataSet && primaryDataSet.players.length > 1 && (
-        <table className="text-2xs" style={{ fontSize: "8px" }}>
-          <thead>
-            <th>Name</th>
-            {Object.keys(primaryDataSet.players[1].attributes).map((att) => (
-              <th>{att}</th>
-            ))}
-          </thead>
-          <tbody>
-            {primaryDataSet.players.map((player, index) => {
-              if (index >= 1) {
-                const compare = secondaryDataSet?.players.find(
-                  (item) => item.name === player.name
-                );
-                return (
-                  <tr>
-                    <td>{player.name}</td>
-                    {Object.entries(player.attributes).map(
-                      ([attribute, value]) => {
-                        if (compare) {
-                          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                          const compareAtt =
-                            compare?.attributes[attribute as keyof Attributes];
-                          if (compareAtt) {
-                            const delta = value - compareAtt;
-                            return (
-                              <td
-                                style={{
-                                  color: delta > 0 ? "#00FF00" : "#FF0000",
-                                }}
-                              >
-                                {(value - compareAtt).toFixed(0)}
-                              </td>
-                            );
-                          }
-                        }
-                        return <td>{value.toFixed(0)}</td>;
-                      }
-                    )}
-                  </tr>
-                );
-              }
-              return undefined;
-            })}
-          </tbody>
-        </table>
-      )}
-      {/* {JSON.stringify(content)} */}
-      <div style={{ height: 1000, width: 1000 }}>
+      <div className="w-full h-[calc(100vh-82px)]">
         <AgGridReact
           ref={gridRef}
           className="overflow-visible border-b-[2px] border-gray-900 pb-1"

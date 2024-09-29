@@ -16,8 +16,8 @@ export const DataSelector = ({
   setSecondaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
 }) => {
   return (
-    <>
-      <div>Existing Data Sets</div>
+    <div>
+      <div>Select Data To Display</div>
       <div>1 / 2 / Name</div>
       {data?.map((item) => (
         <div>
@@ -30,6 +30,10 @@ export const DataSelector = ({
                 );
                 if (selectedDataSet) {
                   setPrimaryDataSet(selectedDataSet);
+                }
+              } else {
+                if (primaryDataSet?.name === item.name) {
+                  setPrimaryDataSet(undefined);
                 }
               }
             }}
@@ -44,6 +48,10 @@ export const DataSelector = ({
                 );
                 if (selectedDataSet) {
                   setSecondaryDataSet(selectedDataSet);
+                }
+              } else {
+                if (secondaryDataSet?.name === item.name) {
+                  setSecondaryDataSet(undefined);
                 }
               }
             }}
@@ -62,6 +70,6 @@ export const DataSelector = ({
           </button>
         </div>
       ))}
-    </>
+    </div>
   );
 };
