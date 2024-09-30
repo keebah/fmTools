@@ -48,7 +48,6 @@ export type Attributes = {
   Sprunghoehe: number;
   Abschlag: number;
   Abwurf: number;
-  BallannahmeTW: number;
   EinsgegenEins: number;
   Extentrizitaet: number;
   Fausttendenz: number;
@@ -56,7 +55,6 @@ export type Attributes = {
   Herauslaufen: number;
   HoheBaelle: number;
   Kommunikation: number;
-  PassenTW: number;
   Reflexe: number;
   Strafraumkontrolle: number;
 };

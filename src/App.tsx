@@ -19,12 +19,10 @@ function App() {
 
   const setData = (updateData: (data: Data[]) => Data[]) => {
     setDataState((prev) => {
-      if (prev) {
-        const update = updateData(structuredClone(prev));
-        if (update) {
-          saveKeyToObjectStore("data", update);
-          return update;
-        }
+      const update = updateData(structuredClone(prev || []));
+      if (update) {
+        saveKeyToObjectStore("data", update);
+        return update;
       }
       return prev;
     });
