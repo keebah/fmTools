@@ -1,5 +1,5 @@
-import { Button } from "../components/Button";
-import { Data } from "../types/player";
+import { Button } from "../../components/Button";
+import { Data } from "../../types/player";
 
 export const DataSelector = ({
   data,

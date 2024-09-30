@@ -2,7 +2,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import { useCallback, useMemo, useRef } from "react";
-import { Attributes, Data, Player } from "../types/player";
+import { Attributes, Data, Player } from "../../types/player";
 
 type ColumnType = "name" & keyof Attributes;
 
@@ -89,14 +89,18 @@ export const AttributesTable = ({
   return (
     <div>
       Attribute:
-      <div className="w-full h-[calc(100vh-150px)]">
+      <div className="w-full h-[calc(100vh-150px)] overflow-visible border-b-[2px] border-gray-900 pb-1 ag-theme-alpine">
         <AgGridReact
-          ref={gridRef}
-          className="overflow-visible border-b-[2px] border-gray-900 pb-1"
-          rowData={rowData}
-          columnDefs={colDefs}
           animateRows={true}
+          columnDefs={colDefs}
+          defaultColDef={{
+            sortable: true,
+            filter: true,
+            floatingFilter: false,
+          }}
           onFirstDataRendered={onFirstDataRendered}
+          ref={gridRef}
+          rowData={rowData}
         />
       </div>
     </div>

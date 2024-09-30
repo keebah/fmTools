@@ -14,7 +14,7 @@ export const Importer = ({
 
   return (
     <div className=" flex p-1 items-center justify-center min-w-[780px]">
-      <div>Import Data</div>
+      <div className="mr-1">Import Data:</div>
       <div>
         <input
           type="file"
@@ -31,6 +31,7 @@ export const Importer = ({
       <div>Data Set Name:</div>
       <Input type="text" onChange={(e) => setName(e.target.value)} />
       <Button
+        disabled={!name || !file}
         onClick={() => {
           if (file && name) {
             const reader = new FileReader();

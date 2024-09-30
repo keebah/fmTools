@@ -1,8 +1,27 @@
 import { Role } from "../../types/role";
 
 const BSVve: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Deckung",
+    "Kopfball",
+    "Passen",
+    "Tackling",
+    "Nervenstaerke",
+    "Stellungsspiel",
+    "Kraft",
+    "Sprunghoehe",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Technik",
+    "Aggressivitaet",
+    "Antizipation",
+    "Entscheidungen",
+    "Konzentration",
+    "Mut",
+    "Uebersicht",
+    "Schnelligkeit",
+  ],
   physis: "mittelfeld",
 };
 

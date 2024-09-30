@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Data } from "../types/player";
+import { Data } from "../../types/player";
 import { AttributesTable } from "./AttributesTable";
 import { DataSelector } from "./DataSelector";
 

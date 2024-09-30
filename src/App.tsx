@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { AttributeView } from "./features/AtrributeView";
+import { AttributeView } from "./features/attributes/AtrributeView";
 import { Importer } from "./features/Importer";
-import { RoleTable } from "./features/RoleTable";
+import { RoleGrid } from "./features/roles/RoleGrid";
 import "./index.css";
 import { loadDatabase, saveKeyToObjectStore } from "./indexDB";
 import { Data } from "./types/player";
@@ -14,6 +14,8 @@ function App() {
   const [data, setDataState] = useState<Data[]>();
   const [primaryDataSet, setPrimaryDataSet] = useState<Data>();
   const [secondaryDataSet, setSecondaryDataSet] = useState<Data>();
+
+  const [visibleFeature, setVisibleFeature] = useState("Att");
 
   const setData = (updateData: (data: Data[]) => Data[]) => {
     setDataState((prev) => {
@@ -40,22 +42,34 @@ function App() {
       <div className="border border-black bg-gray-50 m-1">
         <Importer setData={setData} />
       </div>
-      <div>Feature select</div>
-      <div className="flex">
-        <AttributeView
-          data={data}
-          setData={setData}
-          primaryDataSet={primaryDataSet}
-          setPrimaryDataSet={setPrimaryDataSet}
-          secondaryDataSet={secondaryDataSet}
-          setSecondaryDataSet={setSecondaryDataSet}
-        />
+      <div>
+        <select
+          onChange={(e) => {
+            setVisibleFeature(e.target.value);
+          }}
+        >
+          <option>Select Feature</option>
+          <option>Att</option>
+          <option>Role</option>
+        </select>
       </div>
-      <div className="flex">
-        <RoleTable content={primaryDataSet} />
-        <RoleTable content={primaryDataSet} />
-        <RoleTable content={primaryDataSet} />
-      </div>
+      {visibleFeature === "Att" && (
+        <div className="flex">
+          <AttributeView
+            data={data}
+            setData={setData}
+            primaryDataSet={primaryDataSet}
+            setPrimaryDataSet={setPrimaryDataSet}
+            secondaryDataSet={secondaryDataSet}
+            setSecondaryDataSet={setSecondaryDataSet}
+          />
+        </div>
+      )}
+      {visibleFeature === "Role" && (
+        <div className="flex">
+          <RoleGrid primaryDataSet={primaryDataSet} />
+        </div>
+      )}
     </div>
   );
 }

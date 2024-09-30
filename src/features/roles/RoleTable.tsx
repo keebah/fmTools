@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { calculateRoleScore, roleAttributes } from "../helpers/roles";
-import { Data } from "../types/player";
-import { Role } from "../types/role";
+import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
+import { Data } from "../../types/player";
+import { Role } from "../../types/role";
 export const RoleTable = ({ content }: { content: Data | undefined }) => {
   const [role, setRole] = useState<Role | undefined>();
 
@@ -28,7 +28,6 @@ export const RoleTable = ({ content }: { content: Data | undefined }) => {
         return 1;
       });
 
-  // console.log(playerData);
   return (
     <div>
       <div>Role:</div>
@@ -41,6 +40,7 @@ export const RoleTable = ({ content }: { content: Data | undefined }) => {
           }}
         >
           <option></option>
+          <option value={"BSVve"}>BSVve</option>
           <option value={"ZSMve"}>ZSMve</option>
           <option value={"ZSMun"}>ZSMun</option>
           <option value={"BBMun"}>BBMun</option>

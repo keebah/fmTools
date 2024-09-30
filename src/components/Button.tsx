@@ -1,9 +1,17 @@
 import { ComponentProps } from "react";
+import { cn } from "../features/utils/tailwind";
 
 export const Button = (props: ComponentProps<"button">) => {
-  const { children, ...otherProps } = props;
+  const { children, disabled, ...otherProps } = props;
   return (
-    <button className="rounded border border-gray-300 px-1" {...otherProps}>
+    <button
+      className={cn(
+        "rounded border border-gray-300 px-1",
+        disabled && "text-gray-400"
+      )}
+      disabled={disabled}
+      {...otherProps}
+    >
       {children}
     </button>
   );
