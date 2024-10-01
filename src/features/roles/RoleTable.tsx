@@ -2,7 +2,13 @@ import { useState } from "react";
 import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
 import { Data } from "../../types/player";
 import { Role } from "../../types/role";
-export const RoleTable = ({ content }: { content: Data | undefined }) => {
+export const RoleTable = ({
+  content,
+  group,
+}: {
+  content: Data | undefined;
+  group: any;
+}) => {
   const [role, setRole] = useState<Role | undefined>();
 
   if (!content) {
@@ -26,7 +32,8 @@ export const RoleTable = ({ content }: { content: Data | undefined }) => {
           return -1;
         }
         return 1;
-      });
+      })
+      .slice(0, 5);
 
   return (
     <div>
@@ -40,15 +47,9 @@ export const RoleTable = ({ content }: { content: Data | undefined }) => {
           }}
         >
           <option></option>
-          <option value={"BSVve"}>BSVve</option>
-          <option value={"ZSMve"}>ZSMve</option>
-          <option value={"ZSMun"}>ZSMun</option>
-          <option value={"BBMun"}>BBMun</option>
-          <option value={"MEZun"}>MEZun</option>
-          <option value={"MEZan"}>MEZan</option>
-          <option value={"PSTve"}>PSTve</option>
-          <option value={"PSTun"}>PSTun</option>
-          <option value={"PSTan"}>PSTan</option>
+          {Object.keys(group).map((key) => (
+            <option key={key}>{key}</option>
+          ))}
         </select>
       </div>
       <div>
@@ -72,7 +73,7 @@ export const RoleTable = ({ content }: { content: Data | undefined }) => {
               </tr>
             </thead>
             <tbody>
-              {playerData?.map((player, index) => {
+              {playerData?.map((player) => {
                 return (
                   <tr>
                     <td>{player?.name}</td>

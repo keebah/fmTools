@@ -43,6 +43,55 @@ import { ZM } from "./roles/zm";
 import { ZS } from "./roles/zs";
 import { ZSM } from "./roles/zsm";
 
+export const keeperGroup = TW;
+export const defenseGroup = {
+  ...AV,
+  ...BSV,
+  ...FV,
+  ...IV,
+  ...IAV,
+  ...KFV,
+  ...KIA,
+  ...KIV,
+  ...LI,
+};
+export const midfieldGroup = {
+  ...ABR,
+  ...AM,
+  ...ASM,
+  ...AZS,
+  ...BEM,
+  ...BBM,
+  ...CAR,
+  ...DFL,
+  ...DM,
+  ...ENG,
+  ...FLG,
+  ...IAS,
+  ...IFL,
+  ...MEZ,
+  ...OM,
+  ...RMD,
+  ...REG,
+  ...SNS,
+  ...VOL,
+  ...TS,
+  ...VESM,
+  ...VOSM,
+  ...ZM,
+  ...ZSM,
+};
+export const attackGroup = {
+  ...F9,
+  ...HAS,
+  ...KNI,
+  ...KOS,
+  ...PST,
+  ...STS,
+  ...T,
+  ...ZS,
+};
+
 export const roleAttributes: Roles = {
   ...ABR,
   ...AM,
