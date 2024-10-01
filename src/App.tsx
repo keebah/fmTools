@@ -1,44 +1,46 @@
 import { useState } from "react";
 import { AttributeView } from "./features/attributes/AtrributeView";
-import { Importer } from "./features/Importer";
+import { DataManager } from "./features/DataManager";
 import { RoleGrid } from "./features/roles/RoleGrid";
+import { cn } from "./features/utils/tailwind";
 import "./index.css";
 import { Data } from "./types/player";
-import { cn } from "./features/utils/tailwind";
 
 export interface IIndexDBData {
   data: Data[];
 }
 
-type Feature = "Attributes" | "Tactics";
-const RenderSwitch = ({ feature }: { feature: Feature }) => {
-  switch (feature) {
-    case "Attributes":
-      return <AttributeView />;
-    case "Tactics":
-      return <RoleGrid />;
-    default:
-      return <></>;
+const features = {
+  Attributes: <AttributeView />,
+  Tactics: <RoleGrid />,
+  DataManager: <DataManager />,
+};
+
+const RenderSwitch = ({ feature }: { feature: string }) => {
+  if (Object.keys(features).includes(feature)) {
+    return features[feature as keyof typeof features];
   }
+  return <></>;
 };
 
 function App() {
-  const [visibleFeature, setVisibleFeature] = useState<Feature>("Attributes");
+  const [visibleFeature, setVisibleFeature] = useState<string>("Attributes");
 
-  const features: Feature[] = ["Attributes", "Tactics"];
   return (
     <div>
-      <div className="border border-black bg-gray-50 m-1">
-        <Importer />
+      <div className="">
+        <div className="border border-black bg-gray-50 m-1 w-1/3 text-center text-xl">
+          Football Manager Tools
+        </div>
       </div>
       <div className="flex mx-1 px-1 border border-black">
         <div>Click to select Feature:</div>
-        {features.map((feature) => (
+        {Object.keys(features).map((feature) => (
           <div
             key={feature}
             className={cn(
-              "cursor-pointer mx-1",
-              visibleFeature === feature && "underline"
+              "cursor-pointer mx-1 underline",
+              visibleFeature === feature && "font-bold"
             )}
             onClick={() => {
               setVisibleFeature(feature);
