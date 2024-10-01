@@ -1,17 +1,14 @@
-import { useState } from "react";
-import { loadData } from "../helpers/loadData";
-import { Data } from "../types/player";
+import { useContext, useState } from "react";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
+import { AppContext } from "../context/AppContext";
+import { loadData } from "../helpers/loadData";
+import { Data } from "../types/player";
 
-export const Importer = ({
-  setData,
-}: {
-  setData: (updateData: (data: Data[]) => Data[]) => void;
-}) => {
+export const Importer = () => {
   const [file, setFile] = useState<File>();
   const [name, setName] = useState<string>();
-
+  const { setData } = useContext(AppContext);
   return (
     <div className=" flex p-1 items-center justify-center min-w-[780px]">
       <div className="mr-1">Import Data:</div>

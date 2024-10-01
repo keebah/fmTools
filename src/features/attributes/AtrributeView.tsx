@@ -1,24 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../context/AppContext";
 import { Data } from "../../types/player";
 import { AttributesTable } from "./AttributesTable";
 import { DataSelector } from "./DataSelector";
 
 export const AttributeView = ({
-  data,
-  setData,
   primaryDataSet,
   setPrimaryDataSet,
   secondaryDataSet,
   setSecondaryDataSet,
 }: {
-  data: Data[] | undefined;
-  setData: (updateData: (data: Data[]) => Data[]) => void;
   primaryDataSet: Data | undefined;
   setPrimaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
   secondaryDataSet: Data | undefined;
   setSecondaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
 }) => {
   const [showChangesOnly, setShowChangesOnly] = useState(false);
+  const { data, setData } = useContext(AppContext);
 
   return (
     <>
