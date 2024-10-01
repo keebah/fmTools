@@ -63,7 +63,11 @@ export const AttributesTable = ({
   const colDefs = useMemo(() => {
     const attributeFields = attributes
       ? Object.keys(attributes).map((att) => {
-          return { field: att as ColumnType };
+          return {
+            field: att as ColumnType,
+            maxWidth: 78,
+            headerName: att.substring(0, 4),
+          };
         })
       : [];
     return [
