@@ -1,11 +1,9 @@
-import { Data } from "../../types/player";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 import { RoleTable } from "./RoleTable";
 
-export const RoleGrid = ({
-  primaryDataSet,
-}: {
-  primaryDataSet: Data | undefined;
-}) => {
+export const RoleGrid = () => {
+  const { primaryDataSet } = useContext(AppContext);
   if (!primaryDataSet) {
     return <>Need to select data set</>;
   }

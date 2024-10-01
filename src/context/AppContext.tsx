@@ -6,11 +6,19 @@ import { IIndexDBData } from "../App";
 export type AppContextType = {
   data: Data[] | undefined;
   setData: (updateData: (data: Data[]) => Data[]) => void;
+  primaryDataSet: Data | undefined;
+  setPrimaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
+  secondaryDataSet: Data | undefined;
+  setSecondaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
 };
 
 export const AppContext = createContext<AppContextType>({
   data: undefined,
   setData: () => {},
+  primaryDataSet: undefined,
+  setPrimaryDataSet: () => {},
+  secondaryDataSet: undefined,
+  setSecondaryDataSet: () => {},
 });
 
 export const AppContextProvider = ({
@@ -19,6 +27,8 @@ export const AppContextProvider = ({
   children: ReactElement;
 }) => {
   const [data, setDataState] = useState<Data[]>();
+  const [primaryDataSet, setPrimaryDataSet] = useState<Data>();
+  const [secondaryDataSet, setSecondaryDataSet] = useState<Data>();
 
   const setData = (updateData: (data: Data[]) => Data[]) => {
     setDataState((prev) => {
@@ -39,7 +49,16 @@ export const AppContextProvider = ({
   }, []);
 
   return (
-    <AppContext.Provider value={{ data, setData }}>
+    <AppContext.Provider
+      value={{
+        data,
+        setData,
+        primaryDataSet,
+        setPrimaryDataSet,
+        secondaryDataSet,
+        setSecondaryDataSet,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

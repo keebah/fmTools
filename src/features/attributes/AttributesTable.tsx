@@ -65,7 +65,7 @@ export const AttributesTable = ({
       ? Object.keys(attributes).map((att) => {
           return {
             field: att as ColumnType,
-            maxWidth: 78,
+            maxWidth: 76,
             headerName: att.substring(0, 4),
           };
         })
@@ -91,22 +91,19 @@ export const AttributesTable = ({
   }, [fitAllColumns]);
 
   return (
-    <div>
-      Attribute:
-      <div className="w-full h-[calc(100vh-150px)] overflow-visible border-b-[2px] border-gray-900 pb-1 ag-theme-alpine">
-        <AgGridReact
-          animateRows={true}
-          columnDefs={colDefs}
-          defaultColDef={{
-            sortable: true,
-            filter: true,
-            floatingFilter: false,
-          }}
-          onFirstDataRendered={onFirstDataRendered}
-          ref={gridRef}
-          rowData={rowData}
-        />
-      </div>
+    <div className="w-full h-[calc(100vh-150px)] overflow-visible border-b-[2px] border-gray-900 pb-1 ag-theme-alpine">
+      <AgGridReact
+        animateRows={true}
+        columnDefs={colDefs}
+        defaultColDef={{
+          sortable: true,
+          filter: true,
+          floatingFilter: false,
+        }}
+        onFirstDataRendered={onFirstDataRendered}
+        ref={gridRef}
+        rowData={rowData}
+      />
     </div>
   );
 };
