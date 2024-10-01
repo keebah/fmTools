@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
 import { Data } from "../../types/player";
-import { Role } from "../../types/role";
+import { Role, Roles } from "../../types/role";
 export const RoleTable = ({
   content,
   group,
@@ -41,8 +41,7 @@ export const RoleTable = ({
       <div>
         <select
           onChange={(e) => {
-            const role = e.target.value as "BBMun";
-            const stuff = roleAttributes[role];
+            const stuff = roleAttributes[e.target.value as keyof Roles];
             setRole(stuff);
           }}
         >
