@@ -12,8 +12,18 @@ const AMun: Role = {
 };
 
 const AMan: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: ["Passen", "Technik", "Entscheidungen", "Antritt"],
+  secondary: [
+    "Ballannahme",
+    "Dribbling",
+    "Flanken",
+    "Weitschuesse",
+    "Nervenstaerke",
+    "OhneBall",
+    "Uebersicht",
+    "Beweglichkeit",
+    "Schnelligkeit",
+  ],
   physis: "mittelfeld",
 };
 

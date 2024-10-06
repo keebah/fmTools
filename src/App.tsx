@@ -5,6 +5,7 @@ import { RoleGrid } from "./features/roles/RoleGrid";
 import { cn } from "./features/utils/tailwind";
 import "./index.css";
 import { Data } from "./types/player";
+import { PlayerPage } from "./features/player/PlayerPage";
 
 export interface IIndexDBData {
   data: Data[];
@@ -14,6 +15,7 @@ const features = {
   Attributes: <AttributeView />,
   Tactics: <RoleGrid />,
   DataManager: <DataManager />,
+  Player: <PlayerPage />,
 };
 
 const RenderSwitch = ({ feature }: { feature: string }) => {

@@ -1,6 +1,6 @@
 import { Attributes, Player } from "../types/player";
 
-const calcPhysisAbwehr = (attributes: Player["attributes"]) => {
+export const calcPhysisAbwehr = (attributes: Player["attributes"]) => {
   const gewichte = 13;
   const summe =
     attributes.Antritt * 2 +
@@ -13,7 +13,7 @@ const calcPhysisAbwehr = (attributes: Player["attributes"]) => {
     attributes.Sprunghoehe * 3;
   return summe / gewichte;
 };
-const calcPhysisMittelfeld = (attributes: Player["attributes"]) => {
+export const calcPhysisMittelfeld = (attributes: Player["attributes"]) => {
   const gewichte = 14;
   const summe =
     attributes.Antritt * 3 +
@@ -26,7 +26,7 @@ const calcPhysisMittelfeld = (attributes: Player["attributes"]) => {
     attributes.Sprunghoehe * 1;
   return summe / gewichte;
 };
-const calcPhysisAngriff = (attributes: Player["attributes"]) => {
+export const calcPhysisAngriff = (attributes: Player["attributes"]) => {
   const gewichte = 13;
   const summe =
     attributes.Antritt * 3 +

@@ -49,7 +49,8 @@ export const AttributeView = () => {
           }}
           checked={showChangesOnly}
         />
-        Show Changes Only <input disabled type="checkbox" checked={false} />
+        Show Changes Only (+ means secondary is higher than primary){" "}
+        <input disabled type="checkbox" checked={false} />
         Hide empty columns
         <select disabled>
           <option>Select Role to filter key attributes</option>

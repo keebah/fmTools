@@ -6,6 +6,15 @@ import { Attributes, Data, Player } from "../../types/player";
 
 type ColumnType = "name" & keyof Attributes;
 
+const calcTotalAttributes = (attributes: Attributes | undefined) => {
+  if (!attributes) {
+    return 0;
+  }
+  return Object.values(attributes).reduce((a, b) => {
+    return a + b;
+  });
+};
+
 export const AttributesTable = ({
   primaryDataSet,
   secondaryDataSet,
@@ -30,10 +39,15 @@ export const AttributesTable = ({
           attributes[thisKey] =
             secondPlayer.attributes[thisKey] - firstPlayer.attributes[thisKey];
         });
-        return attributes;
+
+        return { total: calcTotalAttributes(attributes), ...attributes };
       }
+      return undefined;
     }
-    return firstPlayer.attributes;
+    return {
+      total: calcTotalAttributes(firstPlayer.attributes),
+      ...firstPlayer.attributes,
+    };
   };
 
   const rowData = primaryDataSet?.players
@@ -62,14 +76,29 @@ export const AttributesTable = ({
 
   const colDefs = useMemo(() => {
     const attributeFields = attributes
-      ? Object.keys(attributes).map((att) => {
-          return {
-            field: att as ColumnType,
-            maxWidth: 76,
-            headerName: att.substring(0, 4),
-          };
-        })
+      ? Object.keys(attributes)
+          .map((att) => {
+            if (showChangesOnly) {
+              const hasValue = rowData?.find(
+                (item) => item[att as keyof Attributes] !== 0
+              );
+              if (!hasValue) {
+                return {
+                  field: undefined,
+                  maxWidth: 1,
+                  headerName: att.substring(0, 4),
+                };
+              }
+            }
+            return {
+              field: att as ColumnType,
+              maxWidth: 76,
+              headerName: att.substring(0, 4),
+            };
+          })
+          .filter((item) => item.field !== undefined)
       : [];
+
     return [
       {
         field: "name" as ColumnType,
@@ -78,9 +107,20 @@ export const AttributesTable = ({
         filter: true,
         floatingFilter: false,
       },
+      ...(showChangesOnly
+        ? [
+            {
+              field: "total" as ColumnType,
+              flex: 1,
+              sortable: true,
+              filter: true,
+              floatingFilter: false,
+            },
+          ]
+        : []),
       ...attributeFields,
     ];
-  }, [attributes]);
+  }, [attributes, rowData, showChangesOnly]);
 
   const fitAllColumns = useCallback(() => {
     gridRef?.current?.api.autoSizeAllColumns();

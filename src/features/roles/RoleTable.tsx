@@ -28,12 +28,12 @@ export const RoleTable = ({
         };
       })
       .sort((a, b) => {
-        if (a?.totalScore > b?.totalScore) {
+        if (a?.primaryScore > b?.primaryScore) {
           return -1;
         }
         return 1;
       })
-      .slice(0, 5);
+      .slice(0, 10);
 
   return (
     <div>
