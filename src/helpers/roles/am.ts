@@ -1,28 +1,66 @@
 import { Role } from "../../types/role";
 
 const AMve: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Passen",
+    "Tackling",
+    "Einsatzfreude",
+    "Entscheidungen",
+    "Konzentration",
+    "Stellungsspiel",
+    "Teamwork",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Deckung",
+    "Flanken",
+    "Technik",
+    "Antizipation",
+    "Nervenstaerke",
+    "Ausdauer",
+  ],
   physis: "mittelfeld",
 };
 const AMun: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Passen",
+    "Tackling",
+    "Einsatzfreude",
+    "Entscheidungen",
+    "Teamwork",
+    "Ausdauer",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Flanken",
+    "Technik",
+    "Antizipation",
+    "Konzentration",
+    "Nervenstaerke",
+    "OhneBall",
+    "Stellungsspiel",
+    "Uebersicht",
+  ],
   physis: "mittelfeld",
 };
 
 const AMan: Role = {
-  primary: ["Passen", "Technik", "Entscheidungen", "Antritt"],
-  secondary: [
+  primary: [
     "Ballannahme",
-    "Dribbling",
     "Flanken",
-    "Weitschuesse",
+    "Passen",
+    "Einsatzfreude",
+    "Entscheidungen",
+    "Teamwork",
+    "Ausdauer",
+  ],
+  secondary: [
+    "Tackling",
+    "Technik",
+    "Antizipation",
     "Nervenstaerke",
     "OhneBall",
     "Uebersicht",
-    "Beweglichkeit",
-    "Schnelligkeit",
   ],
   physis: "mittelfeld",
 };

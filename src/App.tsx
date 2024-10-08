@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AttributeView } from "./features/attributes/AtrributeView";
 import { DataManager } from "./features/DataManager";
 import { RoleGrid } from "./features/roles/RoleGrid";
@@ -6,6 +6,7 @@ import { cn } from "./features/utils/tailwind";
 import "./index.css";
 import { Data } from "./types/player";
 import { PlayerPage } from "./features/player/PlayerPage";
+import { AppContext } from "./context/AppContext";
 
 export interface IIndexDBData {
   data: Data[];
@@ -27,7 +28,7 @@ const RenderSwitch = ({ feature }: { feature: string }) => {
 
 function App() {
   const [visibleFeature, setVisibleFeature] = useState<string>("Attributes");
-
+  const { data, setPrimaryDataSet } = useContext(AppContext);
   return (
     <div>
       <div className="">
@@ -51,6 +52,22 @@ function App() {
             {feature}
           </div>
         ))}
+        <div className="ml-20">Select Primary Data:</div>
+        <div>
+          <select
+            onChange={(e) => {
+              const selectedDataSet = data?.find(
+                (entry) => entry.name === e.target.value
+              );
+              setPrimaryDataSet(selectedDataSet);
+            }}
+          >
+            <option></option>
+            {data?.map((entry) => (
+              <option>{entry.name}</option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="flex">
         <RenderSwitch feature={visibleFeature} />

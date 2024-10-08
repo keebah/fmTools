@@ -4,31 +4,12 @@ import { AttributesTable } from "./AttributesTable";
 
 export const AttributeView = () => {
   const [showChangesOnly, setShowChangesOnly] = useState(false);
-  const {
-    data,
-    primaryDataSet,
-    setPrimaryDataSet,
-    secondaryDataSet,
-    setSecondaryDataSet,
-  } = useContext(AppContext);
+  const { data, primaryDataSet, secondaryDataSet, setSecondaryDataSet } =
+    useContext(AppContext);
   return (
     <div className="w-full border border-black m-1 p-1">
       <div>
-        Baseline:
-        <select
-          onChange={(e) => {
-            const selectedDataSet = data?.find(
-              (entry) => entry.name === e.target.value
-            );
-            setPrimaryDataSet(selectedDataSet);
-          }}
-        >
-          <option></option>
-          {data?.map((entry) => (
-            <option>{entry.name}</option>
-          ))}
-        </select>
-        Compare: Secondary:
+        Select Compare Set:
         <select
           onChange={(e) => {
             const selectedDataSet = data?.find(

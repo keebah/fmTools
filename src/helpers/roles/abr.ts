@@ -1,8 +1,15 @@
 import { Role } from "../../types/role";
 
 const ABRve: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Deckung",
+    "Tackling",
+    "Antizipation",
+    "Entscheidungen",
+    "Konzentration",
+    "Stellungsspiel",
+  ],
+  secondary: ["Nervenstaerke", "Teamwork", "Kraft"],
   physis: "mittelfeld",
 };
 

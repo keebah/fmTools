@@ -22,18 +22,54 @@ const BSVve: Role = {
     "Uebersicht",
     "Schnelligkeit",
   ],
-  physis: "mittelfeld",
+  physis: "abwehr",
 };
 
 const BSVvo: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
-  physis: "mittelfeld",
+  primary: [
+    "Kopfball",
+    "Passen",
+    "Tackling",
+    "Aggressivitaet",
+    "Entscheidungen",
+    "Mut",
+    "Nervenstaerke",
+    "Stellungsspiel",
+    "Kraft",
+    "Sprunghoehe",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Deckung",
+    "Technik",
+    "Antizipation",
+    "Konzentration",
+    "Uebersicht",
+  ],
+  physis: "abwehr",
 };
 const BSVru: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
-  physis: "mittelfeld",
+  primary: [
+    "Deckung",
+    "Passen",
+    "Tackling",
+    "Antizipation",
+    "Entscheidungen",
+    "Konzentration",
+    "Nervenstaerke",
+    "Stellungsspiel",
+    "Schnelligkeit",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Kopfball",
+    "Technik",
+    "Mut",
+    "Uebersicht",
+    "Kraft",
+    "Sprunghoehe",
+  ],
+  physis: "abwehr",
 };
 
 export const BSV = {

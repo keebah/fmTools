@@ -1,14 +1,32 @@
 import { Role } from "../../types/role";
 
 const ASMun: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Ballannahme",
+    "Passen",
+    "Technik",
+    "Entscheidungen",
+    "Nervenstaerke",
+    "Teamwork",
+    "Uebersicht",
+  ],
+  secondary: ["OhneBall", "Beweglichkeit"],
   physis: "mittelfeld",
 };
 
 const ASMan: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Ballannahme",
+    "Dribbling",
+    "Passen",
+    "Technik",
+    "Entscheidungen",
+    "Nervenstaerke",
+    "OhneBall",
+    "Teamwork",
+    "Uebersicht",
+  ],
+  secondary: ["Antizipation", "Flair", "Antritt", "Beweglichkeit"],
   physis: "mittelfeld",
 };
 
