@@ -4,7 +4,7 @@ import { Player } from "../../types/player";
 import { AppContext } from "../../context/AppContext";
 import { sortByTotalScore } from "../../helpers/sorting";
 
-export const BestRoleForPlayer = ({
+export const AllRolesForPlayer = ({
   selectedPlayer,
 }: {
   selectedPlayer: Player | undefined;
@@ -19,8 +19,6 @@ export const BestRoleForPlayer = ({
         return { name: key, ...roleScore };
       })
       .sort(sortByTotalScore);
-
-  console.log(rolesWithScore);
 
   return (
     <div className="grid grid-cols-4">

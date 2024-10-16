@@ -6,7 +6,7 @@ import { Player } from "../../types/player";
 import { Role, Roles } from "../../types/role";
 import { PlayerProfile } from "./PlayerProfile";
 import { cn } from "../utils/tailwind";
-import { BestRoleForPlayer } from "./BestRoleForPlayer";
+import { AllRolesForPlayer } from "./AllRolesForPlayer";
 
 export const PlayerPage = () => {
   const { primaryDataSet } = useContext(AppContext);
@@ -56,7 +56,7 @@ export const PlayerPage = () => {
           />
         </div>
         <div>
-          <BestRoleForPlayer selectedPlayer={selectedPlayer} />
+          <AllRolesForPlayer selectedPlayer={selectedPlayer} />
         </div>
       </div>
 
