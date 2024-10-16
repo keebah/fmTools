@@ -5,7 +5,7 @@ import { RoleGrid } from "./features/roles/RoleGrid";
 import { cn } from "./features/utils/tailwind";
 import "./index.css";
 import { Data } from "./types/player";
-import { PlayerPage } from "./features/player/PlayerPage";
+import { PlayerPage } from "./features/PlayerPage";
 import { AppContext } from "./context/AppContext";
 
 export interface IIndexDBData {

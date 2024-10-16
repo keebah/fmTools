@@ -2,6 +2,7 @@ import { createContext, ReactElement, useEffect, useState } from "react";
 import { loadDatabase, saveKeyToObjectStore } from "../indexDB";
 import { Data } from "../types/player";
 import { IIndexDBData } from "../App";
+import { Settings } from "../types/app";
 
 export type AppContextType = {
   data: Data[] | undefined;
@@ -10,6 +11,7 @@ export type AppContextType = {
   setPrimaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
   secondaryDataSet: Data | undefined;
   setSecondaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
+  settings: Settings;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -19,6 +21,7 @@ export const AppContext = createContext<AppContextType>({
   setPrimaryDataSet: () => {},
   secondaryDataSet: undefined,
   setSecondaryDataSet: () => {},
+  settings: { decimals: 1 },
 });
 
 export const AppContextProvider = ({
@@ -29,7 +32,7 @@ export const AppContextProvider = ({
   const [data, setDataState] = useState<Data[]>();
   const [primaryDataSet, setPrimaryDataSet] = useState<Data>();
   const [secondaryDataSet, setSecondaryDataSet] = useState<Data>();
-
+  const [settings] = useState<Settings>({ decimals: 1 });
   const setData = (updateData: (data: Data[]) => Data[]) => {
     setDataState((prev) => {
       const update = updateData(structuredClone(prev || []));
@@ -57,6 +60,7 @@ export const AppContextProvider = ({
         setPrimaryDataSet,
         secondaryDataSet,
         setSecondaryDataSet,
+        settings,
       }}
     >
       {children}

@@ -5,6 +5,8 @@ import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
 import { Player } from "../../types/player";
 import { Role, Roles } from "../../types/role";
 import { PlayerProfile } from "./PlayerProfile";
+import { cn } from "../utils/tailwind";
+import { BestRoleForPlayer } from "./BestRoleForPlayer";
 
 export const PlayerPage = () => {
   const { primaryDataSet } = useContext(AppContext);
@@ -31,8 +33,8 @@ export const PlayerPage = () => {
     });
 
   return (
-    <div>
-      <div>
+    <div className="flex">
+      <div className="ml-2">
         Select Player:
         <select
           onChange={(e) => {
@@ -47,7 +49,19 @@ export const PlayerPage = () => {
             <option key={player.name}>{player.name}</option>
           ))}
         </select>
-        Role:
+        <div>
+          <PlayerProfile
+            selectedPlayer={selectedPlayer}
+            setSelectedPlayer={setSelectedPlayer}
+          />
+        </div>
+        <div>
+          <BestRoleForPlayer selectedPlayer={selectedPlayer} />
+        </div>
+      </div>
+
+      <div>
+        Select role to compare to rest of the squad:
         <select
           onChange={(e) => {
             const stuff = roleAttributes[e.target.value as keyof Roles];
@@ -59,36 +73,36 @@ export const PlayerPage = () => {
             <option key={key}>{key}</option>
           ))}
         </select>
-      </div>
-      <div className="flex">
-        <div>
-          <PlayerProfile
-            selectedPlayer={selectedPlayer}
-            setSelectedPlayer={setSelectedPlayer}
-          />
-        </div>
-        <div>
-          <div>All Players for these Roles</div>
-          <div className="grid grid-cols-4 gap-x-2">
-            <div>Name</div>
-            <div>Primary</div>
-            <div>Secondary</div>
-            <div>Total</div>
-            <div>{selectedPlayer && selectedPlayer.name}</div>
-            <div>{roleScore && roleScore.primaryScore.toFixed(1)}</div>
-            <div>{roleScore && roleScore.secondaryScore.toFixed(1)}</div>
-            <div>{roleScore && roleScore.totalScore.toFixed(1)}</div>
-            {sortedPlayers?.map((player) => {
-              return (
-                <>
-                  <div>{player.name}</div>
-                  <div>{player.primaryScore.toFixed(1)}</div>
-                  <div>{player.secondaryScore.toFixed(1)}</div>
-                  <div>{player.totalScore.toFixed(1)}</div>
-                </>
-              );
-            })}
+        <div className="grid grid-cols-4 gap-x-2">
+          <div>Name</div>
+          <div>Primary</div>
+          <div>Secondary</div>
+          <div>Total</div>
+          <div className="border border-black">
+            {selectedPlayer && selectedPlayer.name}
           </div>
+          <div className="border border-black">
+            {roleScore && roleScore.primaryScore.toFixed(1)}
+          </div>
+          <div className="border border-black">
+            {roleScore && roleScore.secondaryScore.toFixed(1)}
+          </div>
+          <div className="border border-black">
+            {roleScore && roleScore.totalScore.toFixed(1)}
+          </div>
+          {sortedPlayers?.map((player) => {
+            const isSelectedPlayer = player.name === selectedPlayer.name;
+            return (
+              <>
+                <div className={cn(isSelectedPlayer && "font-bold")}>
+                  {player.name}
+                </div>
+                <div>{player.primaryScore.toFixed(1)}</div>
+                <div>{player.secondaryScore.toFixed(1)}</div>
+                <div>{player.totalScore.toFixed(1)}</div>
+              </>
+            );
+          })}
         </div>
       </div>
     </div>
