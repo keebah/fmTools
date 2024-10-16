@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { AttributeView } from "./features/attributes/AtrributeView";
+import { AttributeView } from "./features/AttributesPage";
 import { DataManager } from "./features/DataManager";
-import { RoleGrid } from "./features/roles/RoleGrid";
+import { RoleGrid } from "./features/TacticsPage";
 import { cn } from "./features/utils/tailwind";
 import "./index.css";
 import { Data } from "./types/player";
