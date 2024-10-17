@@ -1,5 +1,18 @@
 import { Attributes, Player } from "../types/player";
 
+export const calcPhysisTor = (attributes: Player["attributes"]) => {
+  const gewichte = 8;
+  const summe =
+    attributes.Antritt * 1 +
+    attributes.Ausdauer * 1 +
+    attributes.Balance * 1 +
+    attributes.Beweglichkeit * 1 +
+    attributes.Grundfitness * 1 +
+    attributes.Kraft * 1 +
+    attributes.Schnelligkeit * 1 +
+    attributes.Sprunghoehe * 1;
+  return summe / gewichte;
+};
 export const calcPhysisAbwehr = (attributes: Player["attributes"]) => {
   const gewichte = 13;
   const summe =
@@ -94,6 +107,7 @@ const convertLineToPlayer = (line: string[]): Player => {
     name: line[1].trim(),
     attributes,
     physis: {
+      tor: calcPhysisTor(attributes),
       abwehr: calcPhysisAbwehr(attributes),
       mittelfeld: calcPhysisMittelfeld(attributes),
       angriff: calcPhysisAngriff(attributes),

@@ -11,7 +11,16 @@ const TSve: Role = {
     "Teamwork",
     "Ausdauer",
   ],
-  secondary: ["Abschluss"],
+  secondary: [
+    "Kopfball",
+    "Passen",
+    "Aggressivitaet",
+    "Entscheidungen",
+    "Mut",
+    "Nervenstaerke",
+    "Kraft",
+    "Sprunghoehe",
+  ],
   physis: "mittelfeld",
 };
 

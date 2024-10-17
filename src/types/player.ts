@@ -6,7 +6,7 @@ export type Data = {
 export type Player = {
   name: string;
   attributes: Attributes;
-  physis: { abwehr: number; mittelfeld: number; angriff: number };
+  physis: { tor: number; abwehr: number; mittelfeld: number; angriff: number };
 };
 
 export type Attributes = {

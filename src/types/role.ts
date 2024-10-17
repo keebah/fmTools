@@ -3,7 +3,7 @@ import { Attributes } from "./player";
 export type Role = {
   primary: (keyof Attributes)[];
   secondary: (keyof Attributes)[];
-  physis: "abwehr" | "mittelfeld" | "angriff";
+  physis: "tor" | "abwehr" | "mittelfeld" | "angriff";
 };
 
 export type Roles = {
