@@ -1,13 +1,44 @@
 import { Role } from "../../types/role";
 
 const DMve: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Tackling",
+    "Antizipation",
+    "Einsatzfreude",
+    "Konzentration",
+    "Stellungsspiel",
+    "Teamwork",
+    "Ausdauer",
+  ],
+  secondary: [
+    "Deckung",
+    "Passen",
+    "Aggressivitaet",
+    "Entscheidungen",
+    "Nervenstaerke",
+    "Kraft",
+  ],
   physis: "mittelfeld",
 };
 const DMun: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Tackling",
+    "Antizipation",
+    "Einsatzfreude",
+    "Konzentration",
+    "Stellungsspiel",
+    "Teamwork",
+    "Ausdauer",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Deckung",
+    "Passen",
+    "Aggressivitaet",
+    "Entscheidungen",
+    "Nervenstaerke",
+    "Kraft",
+  ],
   physis: "mittelfeld",
 };
 

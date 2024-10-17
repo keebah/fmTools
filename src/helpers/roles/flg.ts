@@ -1,14 +1,36 @@
 import { Role } from "../../types/role";
 
 const FLGun: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: ["Flanken", "Technik", "OhneBall", "Antritt", "Schnelligkeit"],
+  secondary: [
+    "Ballannahme",
+    "Dribbling",
+    "Passen",
+    "Einsatzfreude",
+    "Ausdauer",
+    "Beweglichkeit",
+  ],
   physis: "mittelfeld",
 };
 
 const FLGan: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Dribbling",
+    "Flanken",
+    "Technik",
+    "OhneBall",
+    "Antritt",
+    "Beweglichkeit",
+    "Schnelligkeit",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Passen",
+    "Antizipation",
+    "Einsatzfreude",
+    "Flair",
+    "Ausdauer",
+  ],
   physis: "mittelfeld",
 };
 

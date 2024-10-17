@@ -1,9 +1,9 @@
 import { Role } from "../../types/role";
 
 const KIAve: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
-  physis: "mittelfeld",
+  primary: ["Deckung", "Tackling", "Antizipation", "Stellungsspiel", "Kraft"],
+  secondary: ["Kopfball", "Aggressivitaet", "Konzentration", "Mut", "Teamwork"],
+  physis: "abwehr",
 };
 
 export const KIA = {

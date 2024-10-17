@@ -1,13 +1,51 @@
 import { Role } from "../../types/role";
 
 const DFLve: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Technik",
+    "Antizipation",
+    "Einsatzfreude",
+    "OhneBall",
+    "Stellungsspiel",
+    "Teamwork",
+    "Ausdauer",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Deckung",
+    "Dribbling",
+    "Flanken",
+    "Tackling",
+    "Aggressivitaet",
+    "Entscheidungen",
+    "Konzentration",
+    "Antritt",
+  ],
   physis: "mittelfeld",
 };
 const DFLun: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Flanken",
+    "Technik",
+    "Einsatzfreude",
+    "OhneBall",
+    "Teamwork",
+    "Ausdauer",
+  ],
+  secondary: [
+    "Ballannahme",
+    "Deckung",
+    "Dribbling",
+    "Passen",
+    "Tackling",
+    "Aggressivitaet",
+    "Antizipation",
+    "Entscheidungen",
+    "Konzentration",
+    "Nervenstaerke",
+    "Stellungsspiel",
+    "Antritt",
+  ],
   physis: "mittelfeld",
 };
 

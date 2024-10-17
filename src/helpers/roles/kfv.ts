@@ -1,15 +1,55 @@
 import { Role } from "../../types/role";
 
 const KFVun: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
-  physis: "mittelfeld",
+  primary: [
+    "Ballannahme",
+    "Dribbling",
+    "Flanken",
+    "Passen",
+    "Technik",
+    "Einsatzfreude",
+    "Entscheidungen",
+    "OhneBall",
+    "Teamwork",
+    "Antritt",
+    "Ausdauer",
+    "Schnelligkeit",
+  ],
+  secondary: [
+    "Tackling",
+    "Antizipation",
+    "Flair",
+    "Nervenstaerke",
+    "Balance",
+    "Beweglichkeit",
+  ],
+  physis: "abwehr",
 };
 
 const KFVan: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
-  physis: "mittelfeld",
+  primary: [
+    "Ballannahme",
+    "Dribbling",
+    "Flanken",
+    "Passen",
+    "Technik",
+    "Einsatzfreude",
+    "Entscheidungen",
+    "Flair",
+    "OhneBall",
+    "Teamwork",
+    "Antritt",
+    "Ausdauer",
+    "Schnelligkeit",
+  ],
+  secondary: [
+    "Tackling",
+    "Antizipation",
+    "Nervenstaerke",
+    "Balance",
+    "Beweglichkeit",
+  ],
+  physis: "abwehr",
 };
 
 export const KFV = {

@@ -25,7 +25,7 @@ const F9un: Role = {
     "Kraft",
     "Schnelligkeit",
   ],
-  physis: "mittelfeld",
+  physis: "angriff",
 };
 
 export const F9 = {

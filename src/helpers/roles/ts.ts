@@ -1,7 +1,16 @@
 import { Role } from "../../types/role";
 
 const TSve: Role = {
-  primary: ["Passen"],
+  primary: [
+    "Deckung",
+    "Tackling",
+    "Antizipation",
+    "Einsatzfreude",
+    "Konzentration",
+    "Stellungsspiel",
+    "Teamwork",
+    "Ausdauer",
+  ],
   secondary: ["Abschluss"],
   physis: "mittelfeld",
 };

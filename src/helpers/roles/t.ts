@@ -1,9 +1,20 @@
 import { Role } from "../../types/role";
 
 const Tan: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
-  physis: "mittelfeld",
+  primary: [
+    "Ballannahme",
+    "Dribbling",
+    "Passen",
+    "Technik",
+    "Entscheidungen",
+    "Flair",
+    "Nervenstaerke",
+    "OhneBall",
+    "Uebersicht",
+    "Antritt",
+  ],
+  secondary: ["Abschluss", "Antizipation", "Balance", "Beweglichkeit"],
+  physis: "angriff",
 };
 
 export const T = {
