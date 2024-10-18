@@ -1,14 +1,33 @@
 import { Role } from "../../types/role";
 
 const VOSMun: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Ballannahme",
+    "Passen",
+    "Technik",
+    "Entscheidungen",
+    "Nervenstaerke",
+    "OhneBall",
+    "Teamwork",
+    "Uebersicht",
+  ],
+  secondary: ["Dribbling", "Antizipation", "Flair", "Beweglichkeit"],
   physis: "mittelfeld",
 };
 
 const VOSMan: Role = {
-  primary: ["Passen"],
-  secondary: ["Abschluss"],
+  primary: [
+    "Ballannahme",
+    "Dribbling",
+    "Passen",
+    "Technik",
+    "Entscheidungen",
+    "Nervenstaerke",
+    "OhneBall",
+    "Teamwork",
+    "Uebersicht",
+  ],
+  secondary: ["Antizipation", "Flair", "Antritt", "Beweglichkeit"],
   physis: "mittelfeld",
 };
 
