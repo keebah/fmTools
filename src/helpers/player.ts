@@ -51,5 +51,5 @@ export const dummyPlayer: Player = {
     Reflexe: 0,
     Strafraumkontrolle: 0,
   },
-  physis: { abwehr: 0, mittelfeld: 0, angriff: 0 },
+  physis: { tor: 0, abwehr: 0, mittelfeld: 0, angriff: 0 },
 };
