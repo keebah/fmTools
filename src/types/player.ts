@@ -1,7 +1,16 @@
+import { Roles } from "./role";
+
 export type Data = {
   name: string;
   players: Player[];
 };
+
+export type PlayerWithRole = {
+  roleName: keyof Roles;
+  primaryScore: number;
+  secondaryScore: number;
+  totalScore: number;
+} & Player;
 
 export type Player = {
   name: string;

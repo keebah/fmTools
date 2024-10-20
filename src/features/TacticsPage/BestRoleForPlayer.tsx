@@ -1,26 +1,26 @@
 import { useContext } from "react";
-import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
-import { Player } from "../../types/player";
 import { AppContext } from "../../context/AppContext";
-import { sortByTotalScore } from "../../helpers/sorting";
+import { Player } from "../../types/player";
 
+type playerWithAllRoleScores = Player & {
+  sortedScores: {
+    primaryScore: number;
+    secondaryScore: number;
+    totalScore: number;
+    name: string;
+  }[];
+  totalScore: number;
+};
 export const BestRoleForPlayer = ({
   roleFilter,
-  selectedPlayer,
+  playerWithAllRoleScores,
 }: {
   roleFilter: string[];
-  selectedPlayer: Player | undefined;
+  playerWithAllRoleScores: playerWithAllRoleScores | undefined;
 }) => {
   const { settings } = useContext(AppContext);
 
-  const sortedRoles =
-    selectedPlayer &&
-    Object.entries(roleAttributes)
-      .map(([key, role]) => {
-        const roleScore = calculateRoleScore(selectedPlayer, role);
-        return { name: key, ...roleScore };
-      })
-      .sort(sortByTotalScore);
+  const sortedRoles = playerWithAllRoleScores?.sortedScores;
 
   if (!sortedRoles) {
     return <></>;

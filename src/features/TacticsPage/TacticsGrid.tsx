@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import {
   attackGroup,
@@ -6,103 +6,230 @@ import {
   keeperGroup,
   midfieldGroup,
 } from "../../helpers/roles";
-import { RoleTable } from "./RoleTable";
+import { TacticsGridEntry } from "./TacticsGridEntry";
+import { PlayerWithRole } from "../../types/player";
 
-export const TacticsGrid = () => {
+export const TacticsGrid = ({
+  selectedPlayers,
+  setSelectedPlayers,
+}: {
+  selectedPlayers: PlayerWithRole[];
+  setSelectedPlayers: Dispatch<SetStateAction<PlayerWithRole[]>>;
+}) => {
   const { primaryDataSet } = useContext(AppContext);
 
   return (
-    <div className="grid grid-cols-7 w-full border border-black">
+    <div className="grid grid-cols-7 w-full border border-black gap-1 p-1 m-1">
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={attackGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={attackGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={attackGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={attackGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={attackGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={attackGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       {/* 10er Reihe */}
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       {/* 8er Reihe */}
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       {/* 6er Reihe */}{" "}
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={midfieldGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={midfieldGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       {/* Abwehr */}
       <div>
-        <RoleTable content={primaryDataSet} group={defenseGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={defenseGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={defenseGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={defenseGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={defenseGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={defenseGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>
-        <RoleTable content={primaryDataSet} group={defenseGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={defenseGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={defenseGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={defenseGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       {/* Torwart */} <div>&nbsp;</div>
       <div>&nbsp;</div>
       <div>&nbsp;</div>
       <div>
-        <RoleTable content={primaryDataSet} group={keeperGroup} />
+        <TacticsGridEntry
+          content={primaryDataSet}
+          group={keeperGroup}
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
       </div>
       <div>&nbsp;</div>
       <div>&nbsp;</div>

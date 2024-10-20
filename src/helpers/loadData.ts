@@ -71,7 +71,7 @@ const convertLineToPlayer = (line: string[]): Player => {
     Aggressivitaet: parseFloat(line[16]),
     Antizipation: parseFloat(line[17]),
     Einsatzfreude: parseFloat(line[18]),
-    Entscheidungen: parseFloat(line[16]),
+    Entscheidungen: parseFloat(line[19]),
     Flair: parseFloat(line[20]),
     Fuehrungsqualitaeten: parseFloat(line[21]),
     Konzentration: parseFloat(line[22]),
