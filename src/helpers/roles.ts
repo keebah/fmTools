@@ -140,15 +140,10 @@ export const roleAttributes: Roles = {
 export const calculateRoleScore = (player: Player, role: Role) => {
   const attributes = player.attributes;
   const physis = player.physis;
-  if (player.name === "Kevin Rohde") {
-    console.log(attributes);
-  }
+
   const sumPrimary = role.primary.reduce(
     (total: number, value: keyof Attributes) => {
       const attValue = attributes[value];
-      if (player.name === "Kevin Rohde") {
-        console.log(value, attributes[value]);
-      }
       if (player && player.attributes) {
         return total + (attValue || 0);
       }
@@ -156,7 +151,6 @@ export const calculateRoleScore = (player: Player, role: Role) => {
     },
     0
   );
-  console.log(player.name, role, sumPrimary);
   const sumSecondary = role.secondary.reduce((total, value) => {
     if (player && player.attributes) {
       return total + (attributes[value] || 0);
