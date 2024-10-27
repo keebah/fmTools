@@ -5,7 +5,14 @@ import { Data, Player, PlayerWithRole } from "../../types/player";
 import { Role, Roles } from "../../types/role";
 import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
 
-type SelectedRole = { name: string } & Role;
+type SelectedRole = { roleName: string } & Role;
+
+const emptyRoleScore = {
+  roleName: "F9" as keyof Roles,
+  primaryScore: 0,
+  secondaryScore: 0,
+  totalScore: 0,
+};
 
 export const TacticsGridEntry = ({
   content,
@@ -24,41 +31,6 @@ export const TacticsGridEntry = ({
     (player) => !selectedPlayers.some((item) => item.name === player.name)
   );
 
-  const handleChange = (
-    prevPlayer: PlayerWithRole | undefined,
-    newPlayerName: string | undefined,
-    newRoleName: keyof Roles | undefined
-  ) => {
-    const newPlayer = newPlayerName
-      ? availablePlayers?.find((player) => player.name === newPlayerName)
-      : prevPlayer;
-    const newRole = newRoleName
-      ? { name: newRoleName, ...roleAttributes[newRoleName] }
-      : role;
-    const roleScore =
-      newPlayer && newRole
-        ? calculateRoleScore(newPlayer, newRole)
-        : { primaryScore: 0, secondaryScore: 0, totalScore: 0 };
-    const playerWithRole = {
-      ...newPlayer,
-      roleName: newRoleName,
-      ...roleScore,
-    };
-    if (playerWithRole) {
-      setSelectedPlayers((prev) => {
-        return [
-          ...(prev.filter((item) => item.name !== prevPlayer?.name) || []),
-          playerWithRole,
-        ];
-      });
-
-      setPlayer(playerWithRole);
-    }
-    setRole(newRole);
-  };
-
-  console.log(selectedPlayers, player);
-
   if (!content) {
     return <>No content</>;
   }
@@ -68,7 +40,37 @@ export const TacticsGridEntry = ({
       <div>
         <select
           onChange={(e) => {
-            handleChange(player, e.target.value, undefined);
+            const newPlayer =
+              availablePlayers?.find(
+                (player) => player.name === e.target.value
+              ) || undefined;
+            if (newPlayer) {
+              if (role) {
+                const newRoleScore = calculateRoleScore(newPlayer, role);
+                const playerWithRole = {
+                  ...newPlayer,
+                  ...newRoleScore,
+                  roleName: role.roleName as keyof Roles,
+                };
+                setSelectedPlayers((prev) => [
+                  ...prev.filter((item) => item.name !== player?.name),
+                  playerWithRole,
+                ]);
+                setPlayer(playerWithRole);
+              } else {
+                const playerWithEmptyRole = { ...newPlayer, ...emptyRoleScore };
+                setSelectedPlayers((prev) => [
+                  ...prev.filter((item) => item.name !== player?.name),
+                  playerWithEmptyRole,
+                ]);
+                setPlayer(playerWithEmptyRole);
+              }
+            } else {
+              setSelectedPlayers((prev) => [
+                ...prev.filter((item) => item.name !== player?.name),
+              ]);
+              setPlayer(undefined);
+            }
           }}
           value={player?.name}
         >
@@ -88,7 +90,23 @@ export const TacticsGridEntry = ({
       <div className="items-center justify-center w-full flex">
         <select
           onChange={(e) => {
-            handleChange(player, undefined, e.target.value as keyof Roles);
+            const newRoleName = e.target.value as keyof Roles;
+            const newRole = {
+              roleName: newRoleName,
+              ...roleAttributes[newRoleName],
+            };
+            if (newRoleName) {
+              setRole(newRole);
+              if (player) {
+                const newRoleScore = calculateRoleScore(player, newRole);
+                setPlayer({ ...player, ...newRoleScore });
+              }
+            } else {
+              setRole(undefined);
+              if (player) {
+                setPlayer({ ...player, ...emptyRoleScore });
+              }
+            }
           }}
         >
           <option></option>

@@ -1,10 +1,12 @@
+import { Roles } from "./role";
+
 export type Data = {
   name: string;
   players: Player[];
 };
 
 export type PlayerWithRole = {
-  roleName: string | undefined;
+  roleName: keyof Roles | undefined;
   primaryScore: number;
   secondaryScore: number;
   totalScore: number;
