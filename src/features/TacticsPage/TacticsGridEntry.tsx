@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { Select } from "../../components/Select";
-import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
-import { Data, Player, PlayerWithRole } from "../../types/player";
-import { Role, Roles } from "../../types/role";
 import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
+import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
+import { Data, PlayerWithRole } from "../../types/player";
+import { Role, Roles } from "../../types/role";
+import { ProposalForEntry } from "./ProposalForEntry";
 
-type SelectedRole = { roleName: string } & Role;
+export type SelectedRole = { roleName: string } & Role;
 
 const emptyRoleScore = {
   roleName: "F9" as keyof Roles,
@@ -99,12 +99,26 @@ export const TacticsGridEntry = ({
               setRole(newRole);
               if (player) {
                 const newRoleScore = calculateRoleScore(player, newRole);
-                setPlayer({ ...player, ...newRoleScore });
+                const playerWithRole = {
+                  ...player,
+                  ...newRoleScore,
+                  roleName: newRoleName as keyof Roles,
+                };
+                setSelectedPlayers((prev) => [
+                  ...prev.filter((item) => item.name !== player?.name),
+                  playerWithRole,
+                ]);
+                setPlayer(playerWithRole);
               }
             } else {
               setRole(undefined);
               if (player) {
-                setPlayer({ ...player, ...emptyRoleScore });
+                const playerWithEmptyRole = { ...player, ...emptyRoleScore };
+                setSelectedPlayers((prev) => [
+                  ...prev.filter((item) => item.name !== player?.name),
+                  playerWithEmptyRole,
+                ]);
+                setPlayer(playerWithEmptyRole);
               }
             }
           }}
@@ -116,6 +130,11 @@ export const TacticsGridEntry = ({
         </select>
         {player && <RoleScoreDisplay roleScore={player} />}
       </div>
+      {!player && role && (
+        <>
+          <ProposalForEntry availablePlayers={availablePlayers} role={role} />
+        </>
+      )}
     </div>
   );
 };

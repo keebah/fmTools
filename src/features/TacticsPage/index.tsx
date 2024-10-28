@@ -17,10 +17,9 @@ import { TacticsGrid } from "./TacticsGrid";
 import { PlayerWithRole } from "../../types/player";
 
 export const RoleGrid = () => {
-  const { primaryDataSet } = useContext(AppContext);
+  const { primaryDataSet, settings } = useContext(AppContext);
   const [roleFilter, setRoleFilter] = useState([""]);
   const [selectedPlayers, setSelectedPlayers] = useState<PlayerWithRole[]>([]);
-  console.log(selectedPlayers);
   const playersWithAllRoleScores = primaryDataSet?.players
     .filter(
       (player) => !selectedPlayers.some((item) => item.name === player.name)
@@ -50,7 +49,12 @@ export const RoleGrid = () => {
   return (
     <div>
       <div>
-        <Button onClick={() => setSelectedPlayers([])}>Clear</Button>
+        <Button onClick={() => setSelectedPlayers([])}>Clear</Button>Total
+        score:
+        {(
+          selectedPlayers.reduce((acc, val) => acc + val.totalScore, 0) /
+          selectedPlayers.length
+        ).toFixed(settings.decimals)}
       </div>
       <div className="flex">
         <div className="w-full">
