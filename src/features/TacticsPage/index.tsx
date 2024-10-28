@@ -16,7 +16,7 @@ import { BestRoleForPlayer } from "./BestRoleForPlayer";
 import { TacticsGrid } from "./TacticsGrid";
 import { PlayerWithRole } from "../../types/player";
 
-export const RoleGrid = () => {
+export const TacticsPage = () => {
   const { primaryDataSet, settings } = useContext(AppContext);
   const [roleFilter, setRoleFilter] = useState([""]);
   const [selectedPlayers, setSelectedPlayers] = useState<PlayerWithRole[]>([]);

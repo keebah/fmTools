@@ -1,22 +1,24 @@
 import { useContext, useState } from "react";
-import { AttributeView } from "./features/AttributesPage";
+import { AppContext } from "./context/AppContext";
+import { AttributesPage } from "./features/AttributesPage";
 import { DataManager } from "./features/DataManager";
-import { RoleGrid } from "./features/TacticsPage";
+import { PlayerPage } from "./features/PlayerPage";
+import { Settings } from "./features/Settings";
+import { TacticsPage } from "./features/TacticsPage";
 import { cn } from "./features/utils/tailwind";
 import "./index.css";
 import { Data } from "./types/player";
-import { PlayerPage } from "./features/PlayerPage";
-import { AppContext } from "./context/AppContext";
 
 export interface IIndexDBData {
   data: Data[];
 }
 
 const features = {
-  Attributes: <AttributeView />,
-  Tactics: <RoleGrid />,
+  Attributes: <AttributesPage />,
+  Tactics: <TacticsPage />,
   DataManager: <DataManager />,
   Player: <PlayerPage />,
+  Settings: <Settings />,
 };
 
 const RenderSwitch = ({ feature }: { feature: string }) => {
@@ -30,29 +32,12 @@ function App() {
   const [visibleFeature, setVisibleFeature] = useState<string>("Attributes");
   const { data, setPrimaryDataSet } = useContext(AppContext);
   return (
-    <div>
-      <div className="">
-        <div className="border border-black bg-gray-50 m-1 w-1/3 text-center text-xl">
-          Football Manager Tools
-        </div>
+    <>
+      <div className="border border-black bg-gray-50 m-1 w-1/3 text-center text-xl">
+        Football Manager Tools
       </div>
       <div className="flex mx-1 px-1 border border-black">
-        <div>Click to select Feature:</div>
-        {Object.keys(features).map((feature) => (
-          <div
-            key={feature}
-            className={cn(
-              "cursor-pointer mx-1 underline",
-              visibleFeature === feature && "font-bold"
-            )}
-            onClick={() => {
-              setVisibleFeature(feature);
-            }}
-          >
-            {feature}
-          </div>
-        ))}
-        <div className="ml-20">Select Primary Data:</div>
+        <div>Primary Data:</div>
         <div>
           <select
             onChange={(e) => {
@@ -68,11 +53,26 @@ function App() {
             ))}
           </select>
         </div>
+        <div className="ml-20"></div>
+        {Object.keys(features).map((feature) => (
+          <div
+            key={feature}
+            className={cn(
+              "cursor-pointer mx-1 underline",
+              visibleFeature === feature && "font-bold"
+            )}
+            onClick={() => {
+              setVisibleFeature(feature);
+            }}
+          >
+            {feature}
+          </div>
+        ))}
       </div>
-      <div className="flex">
+      <div className="flex border border-black m-1 p-1">
         <RenderSwitch feature={visibleFeature} />
       </div>
-    </div>
+    </>
   );
 }
 
