@@ -3,9 +3,16 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import { useCallback, useMemo, useRef } from "react";
 import { Attributes, Data, Player } from "../../types/player";
+import { Role } from "../../types/role";
+import { filterInvalidRows, filterZeroRows, filterZeros } from "./helpers";
 
 type ColumnType = "name" & keyof Attributes;
-
+export type RowDataType =
+  | ({
+      name: string;
+      total: number;
+    } & Attributes)
+  | undefined;
 const calcTotalAttributes = (attributes: Attributes | undefined) => {
   if (!attributes) {
     return 0;
@@ -16,87 +23,87 @@ const calcTotalAttributes = (attributes: Attributes | undefined) => {
 };
 
 export const AttributesTable = ({
+  hideEmptyColumns,
   primaryDataSet,
+  roleFilter,
   secondaryDataSet,
   showChangesOnly,
 }: {
+  hideEmptyColumns: boolean;
   primaryDataSet: Data | undefined;
+  roleFilter?: Role;
   secondaryDataSet: Data | undefined;
   showChangesOnly: boolean;
 }) => {
   const gridRef = useRef<AgGridReact>(null);
-
   const attributes = primaryDataSet?.players[0].attributes;
-  const returnAttributes = (firstPlayer: Player) => {
-    if (secondaryDataSet) {
-      const secondPlayer = secondaryDataSet.players.find(
-        (secondPlayer) => firstPlayer.name === secondPlayer.name
-      );
-      if (secondPlayer) {
-        const attributes = structuredClone(firstPlayer.attributes);
-        Object.keys(attributes).forEach((key) => {
-          const thisKey = key as keyof Attributes;
-          attributes[thisKey] =
-            secondPlayer.attributes[thisKey] - firstPlayer.attributes[thisKey];
-        });
-
-        return { total: calcTotalAttributes(attributes), ...attributes };
+  const returnAttributes = (playerInPrimaryDataSet: Player) => {
+    const returnPlayerAttributes = () => {
+      if (!secondaryDataSet) {
+        return playerInPrimaryDataSet.attributes;
       }
-      return undefined;
-    }
+      const playerInSecondaryDataSet = secondaryDataSet.players.find(
+        (secondPlayer) => playerInPrimaryDataSet.name === secondPlayer.name
+      );
+      if (playerInSecondaryDataSet) {
+        const deltaObject = Object.keys(playerInPrimaryDataSet.attributes).map(
+          (key) => {
+            const thisKey = key as keyof Attributes;
+            const p1 = playerInPrimaryDataSet.attributes[thisKey];
+            const s1 = playerInSecondaryDataSet.attributes[thisKey] || NaN;
+            return [key, p1 - s1];
+          }
+        );
+        return Object.fromEntries(deltaObject);
+      }
+      // if we don't find the player in the compare set we return NaNs to be able to
+      // filter easier afterwards
+      return Object.fromEntries(
+        Object.keys(playerInPrimaryDataSet.attributes).map((key) => [key, NaN])
+      );
+    };
+
     return {
-      total: calcTotalAttributes(firstPlayer.attributes),
-      ...firstPlayer.attributes,
+      total: calcTotalAttributes(returnPlayerAttributes()),
+      ...returnPlayerAttributes(),
     };
   };
 
-  const rowData = primaryDataSet?.players
+  const rowData: RowDataType[] | undefined = primaryDataSet?.players
     .map((player) => ({
       name: player.name,
       ...returnAttributes(player),
     }))
-    .filter((item) => {
-      if (!secondaryDataSet) {
-        return true;
-      }
-      if (showChangesOnly) {
-        const hasNothing = Object.entries(item).map(([key, value]) => {
-          if (key === "name") {
-            return undefined;
-          }
-          if (Number.isNaN(value) || value === 0) {
-            return undefined;
-          }
-          return value;
-        });
-        return hasNothing.some((item) => item);
-      }
-      return true;
-    });
+    .filter(filterInvalidRows)
+    .filter(filterZeroRows(showChangesOnly));
 
   const colDefs = useMemo(() => {
     const attributeFields = attributes
       ? Object.keys(attributes)
           .map((att) => {
-            if (showChangesOnly) {
-              const hasValue = rowData?.find(
-                (item) => item[att as keyof Attributes] !== 0
-              );
-              if (!hasValue) {
-                return {
-                  field: undefined,
-                  maxWidth: 1,
-                  headerName: att.substring(0, 4),
-                };
-              }
-            }
             return {
               field: att as ColumnType,
               maxWidth: 76,
               headerName: att.substring(0, 4),
             };
           })
-          .filter((item) => item.field !== undefined)
+          .filter(filterZeros(hideEmptyColumns, rowData))
+          .filter((item) => {
+            if (!item.field) {
+              return false;
+            }
+            if (!roleFilter) {
+              return true;
+            }
+            const requiredRoleKeys = [
+              ...(roleFilter?.primary || []),
+              ...(roleFilter?.secondary || []),
+            ];
+            if (requiredRoleKeys.includes(item.field)) {
+              return true;
+            }
+            return false;
+          })
       : [];
 
     return [
@@ -120,7 +127,7 @@ export const AttributesTable = ({
         : []),
       ...attributeFields,
     ];
-  }, [attributes, rowData, showChangesOnly]);
+  }, [attributes, hideEmptyColumns, rowData, roleFilter, showChangesOnly]);
 
   const fitAllColumns = useCallback(() => {
     gridRef?.current?.api.autoSizeAllColumns();

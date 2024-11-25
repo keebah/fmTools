@@ -1,14 +1,20 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { AttributesTable } from "./AttributesTable";
+import { RoleSelector } from "../common/RoleSelector";
+import { Role } from "../../types/role";
 
 export const AttributesPage = () => {
   const [showChangesOnly, setShowChangesOnly] = useState(false);
+  const [hideEmptyColumns, setHideEmptyColumns] = useState(false);
+
+  const [role, setRole] = useState<Role | undefined>();
+
   const { data, primaryDataSet, secondaryDataSet, setSecondaryDataSet } =
     useContext(AppContext);
   return (
     <div className="w-full">
-      <div className="m-1">
+      <div className="m-1 flex">
         Select Compare Set:
         <select
           className="mx-1"
@@ -31,13 +37,24 @@ export const AttributesPage = () => {
           }}
           checked={showChangesOnly}
         />
-        Show Changes Only (+ means secondary is higher than primary){" "}
-        <input disabled type="checkbox" checked={false} />
-        Hide empty columns
+        Changes Only (+ primary &gt; secondary)
+        <input
+          type="checkbox"
+          onChange={(e) => {
+            setHideEmptyColumns(!hideEmptyColumns);
+          }}
+          checked={hideEmptyColumns}
+        />
+        Hide empty columns{" "}
+        <div className="ml-2">
+          Role Filter <RoleSelector setRole={setRole} />
+        </div>
       </div>
       <div>
         <AttributesTable
+          hideEmptyColumns={hideEmptyColumns}
           primaryDataSet={primaryDataSet}
+          roleFilter={role}
           secondaryDataSet={secondaryDataSet}
           showChangesOnly={showChangesOnly}
         />

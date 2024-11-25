@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { dummyPlayer } from "../../helpers/player";
-import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
+import { calculateRoleScore } from "../../helpers/roles";
 import { Player } from "../../types/player";
-import { Role, Roles } from "../../types/role";
-import { PlayerProfile } from "./PlayerProfile";
+import { Role } from "../../types/role";
+import { RoleSelector } from "../common/RoleSelector";
 import { cn } from "../utils/tailwind";
 import { AllRolesForPlayer } from "./AllRolesForPlayer";
+import { PlayerProfile } from "./PlayerProfile";
 
 export const PlayerPage = () => {
   const { primaryDataSet } = useContext(AppContext);
@@ -62,17 +63,7 @@ export const PlayerPage = () => {
 
       <div>
         Select role to compare to rest of the squad:
-        <select
-          onChange={(e) => {
-            const stuff = roleAttributes[e.target.value as keyof Roles];
-            setRole(stuff);
-          }}
-        >
-          <option></option>
-          {Object.keys(roleAttributes).map((key) => (
-            <option key={key}>{key}</option>
-          ))}
-        </select>
+        <RoleSelector setRole={setRole} />
         <div className="grid grid-cols-4 gap-x-2">
           <div>Name</div>
           <div>Primary</div>
