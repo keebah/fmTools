@@ -1,15 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { AppContext } from "../context/AppContext";
 import { loadData } from "../helpers/loadData";
 import { Data } from "../types/player";
-import { getAllDb } from "../indexDB";
+import { exportDbToJson, importDbFomJson } from "../indexDB";
 
 export const Importer = () => {
   const [file, setFile] = useState<File>();
   const [name, setName] = useState<string>();
   const { setData } = useContext(AppContext);
+  const inputFile = useRef<HTMLInputElement>(null);
+
   return (
     <div className=" flex p-1 items-center justify-center min-w-[780px]">
       <div className="mr-1">Import Data:</div>
@@ -54,12 +56,39 @@ export const Importer = () => {
       </Button>
       <Button
         onClick={() => {
-          getAllDb();
+          exportDbToJson();
         }}
       >
         Export Data
       </Button>
-      <Button>Import Data</Button>
+      <Button
+        onClick={() => {
+          inputFile?.current?.click();
+        }}
+      >
+        Import Data
+      </Button>{" "}
+      <input
+        type="file"
+        id="file"
+        ref={inputFile}
+        style={{ display: "none" }}
+        onChange={() => {
+          if (!inputFile?.current?.files?.length) return;
+          const file = inputFile?.current?.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.addEventListener("load", (readerEvent) => {
+              const content = readerEvent?.target?.result;
+              if (content instanceof ArrayBuffer) {
+                importDbFomJson(content);
+              }
+            });
+            reader.readAsArrayBuffer(file);
+          }
+          inputFile.current.value = "";
+        }}
+      />
     </div>
   );
 };

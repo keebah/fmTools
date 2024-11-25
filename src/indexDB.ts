@@ -80,7 +80,7 @@ export const saveKeyToObjectStore = async <IIndexDBData extends object>(
   }
 };
 
-export const getAllDb = async () => {
+export const exportDbToJson = async (filename?: string) => {
   const db = await indexDb;
   const promiseArray = Object.entries(ObjectStores).map(
     async ([key, value]) => {
@@ -97,6 +97,17 @@ export const getAllDb = async () => {
     }),
   ]);
   a.href = URL.createObjectURL(file);
-  a.download = `fmtools.json`;
+  a.download = `${filename ?? "fmtools"}.json`;
   a.click();
+};
+
+export const importDbFomJson = async (content: ArrayBuffer) => {
+  const a = JSON.parse(new TextDecoder().decode(content));
+  const db = await indexDb;
+
+  Object.entries(a).map(async ([key, value]) => {
+    if (Object.keys(ObjectStores).includes(key) && value) {
+      await db.put(key, value, key);
+    }
+  });
 };
