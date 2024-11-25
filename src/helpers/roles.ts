@@ -137,28 +137,42 @@ export const roleAttributes: Roles = {
   ...ZSM,
 };
 
+export const calculateRoleAttributeScore = (
+  attributes: Attributes,
+  roleAttributes: (keyof Attributes)[]
+) => {
+  const sumPrimary = roleAttributes.reduce(
+    (total: number, value: keyof Attributes) => {
+      const attValue = attributes[value];
+      return total + (attValue || 0);
+    },
+    0
+  );
+  return sumPrimary / roleAttributes.length;
+};
+
+export const calculateTotalRoleAttributeScore = (
+  player: Player,
+  role: Role
+) => {
+  const primaryScore = calculateRoleAttributeScore(
+    player.attributes,
+    role.primary
+  );
+  const secondaryScore = calculateRoleAttributeScore(
+    player.attributes,
+    role.secondary
+  );
+};
 export const calculateRoleScore = (player: Player, role: Role) => {
   const attributes = player.attributes;
   const physis = player.physis;
 
-  const sumPrimary = role.primary.reduce(
-    (total: number, value: keyof Attributes) => {
-      const attValue = attributes[value];
-      if (player && player.attributes) {
-        return total + (attValue || 0);
-      }
-      return total;
-    },
-    0
+  const primaryScore = calculateRoleAttributeScore(attributes, role.primary);
+  const secondaryScore = calculateRoleAttributeScore(
+    attributes,
+    role.secondary
   );
-  const sumSecondary = role.secondary.reduce((total, value) => {
-    if (player && player.attributes) {
-      return total + (attributes[value] || 0);
-    }
-    return total;
-  }, 0);
-  const primaryScore = sumPrimary / role.primary.length;
-  const secondaryScore = sumSecondary / role.secondary.length;
   const physisScore = physis[role.physis];
   const totalScore =
     (primaryScore * 2 + secondaryScore * 1 + physisScore * 1) / 4;
