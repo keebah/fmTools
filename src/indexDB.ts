@@ -12,7 +12,7 @@ export type AvailableObjectStoresType = keyof typeof ObjectStores;
 
 // open the index DB and upgrade if we need a new version
 // no top level await so will return a promise here
-export const orhIdb = openDB("fmTools", idbVersion, {
+export const indexDb = openDB("fmTools", idbVersion, {
   upgrade(db) {
     for (const store of Object.keys(ObjectStores)) {
       if (!db.objectStoreNames.contains(store)) {
@@ -28,7 +28,7 @@ export const loadDatabase = <IIndexDBData extends object>(
   requestKeys: Extract<keyof IIndexDBData, string>[]
 ) => {
   return async () => {
-    const db = await orhIdb;
+    const db = await indexDb;
     const promiseArray = requestKeys.map((key) =>
       db.get(objectStore, key).then((value) => {
         return { key: key, value };
@@ -50,7 +50,7 @@ export const loadFullObjectStore = <IIndexDBData extends object>(
   objectStore: AvailableObjectStoresType
 ) => {
   return async () => {
-    const output = orhIdb.then((db) =>
+    const output = indexDb.then((db) =>
       db
         .getAllKeys(objectStore)
         .then((keyArray) =>
@@ -73,9 +73,30 @@ export const saveKeyToObjectStore = async <IIndexDBData extends object>(
   data: Partial<IIndexDBData>
 ) => {
   try {
-    const db = await orhIdb;
+    const db = await indexDb;
     await db.put(objectStore, data, "data");
   } catch (err) {
     console.error("Error saving to IndexDB: ", err);
   }
+};
+
+export const getAllDb = async () => {
+  const db = await indexDb;
+  const promiseArray = Object.entries(ObjectStores).map(
+    async ([key, value]) => {
+      const data = await db.getAll(value);
+      return [[key], ...data];
+    }
+  );
+
+  const loadedData = await Promise.all(promiseArray);
+  const a = document.createElement("a");
+  const file = new Blob([
+    JSON.stringify({
+      ...Object.fromEntries(loadedData),
+    }),
+  ]);
+  a.href = URL.createObjectURL(file);
+  a.download = `fmtools.json`;
+  a.click();
 };

@@ -4,6 +4,7 @@ import { Input } from "../components/Input";
 import { AppContext } from "../context/AppContext";
 import { loadData } from "../helpers/loadData";
 import { Data } from "../types/player";
+import { getAllDb } from "../indexDB";
 
 export const Importer = () => {
   const [file, setFile] = useState<File>();
@@ -51,6 +52,14 @@ export const Importer = () => {
       >
         Import
       </Button>
+      <Button
+        onClick={() => {
+          getAllDb();
+        }}
+      >
+        Export Data
+      </Button>
+      <Button>Import Data</Button>
     </div>
   );
 };
