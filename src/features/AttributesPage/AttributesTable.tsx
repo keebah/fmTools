@@ -5,6 +5,9 @@ import { useCallback, useMemo, useRef } from "react";
 import { Attributes, Data, Player } from "../../types/player";
 import { Role } from "../../types/role";
 import { filterInvalidRows, filterZeroRows, filterZeros } from "./helpers";
+import { calculateTotalRoleAttributeScore } from "../../helpers/roles";
+import { dummyPlayer } from "../../helpers/player";
+import { ICellRendererParams } from "ag-grid-community";
 
 type ColumnType = "name" & keyof Attributes;
 export type RowDataType =
@@ -59,13 +62,17 @@ export const AttributesTable = ({
       // if we don't find the player in the compare set we return NaNs to be able to
       // filter easier afterwards
       return Object.fromEntries(
-        Object.keys(playerInPrimaryDataSet.attributes).map((key) => [key, NaN])
+        Object.keys(dummyPlayer.attributes).map((key) => [key, NaN])
       );
     };
 
+    const attributes = returnPlayerAttributes();
     return {
-      total: calcTotalAttributes(returnPlayerAttributes()),
-      ...returnPlayerAttributes(),
+      total: calcTotalAttributes(attributes),
+      role: roleFilter?.physis
+        ? calculateTotalRoleAttributeScore(attributes, roleFilter)
+        : NaN,
+      ...attributes,
     };
   };
 
@@ -122,6 +129,19 @@ export const AttributesTable = ({
               sortable: true,
               filter: true,
               floatingFilter: false,
+            },
+          ]
+        : []),
+      ...(roleFilter
+        ? [
+            {
+              field: "role" as ColumnType,
+              flex: 1,
+              sortable: true,
+              filter: true,
+              floatingFilter: false,
+              cellRenderer: ({ value }: ICellRendererParams) =>
+                value.toFixed(3),
             },
           ]
         : []),

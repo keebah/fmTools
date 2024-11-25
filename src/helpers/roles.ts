@@ -141,28 +141,27 @@ export const calculateRoleAttributeScore = (
   attributes: Attributes,
   roleAttributes: (keyof Attributes)[]
 ) => {
-  const sumPrimary = roleAttributes.reduce(
-    (total: number, value: keyof Attributes) => {
-      const attValue = attributes[value];
-      return total + (attValue || 0);
-    },
-    0
-  );
-  return sumPrimary / roleAttributes.length;
+  console.log(attributes);
+  if (!attributes) {
+    return NaN;
+  }
+  const sumScores = roleAttributes.reduce((total: number, value) => {
+    const attValue = attributes[value] || NaN;
+    return total + (attValue || 0);
+  }, 0);
+  return sumScores / roleAttributes.length;
 };
 
 export const calculateTotalRoleAttributeScore = (
-  player: Player,
+  attributes: Attributes,
   role: Role
 ) => {
-  const primaryScore = calculateRoleAttributeScore(
-    player.attributes,
-    role.primary
-  );
+  const primaryScore = calculateRoleAttributeScore(attributes, role.primary);
   const secondaryScore = calculateRoleAttributeScore(
-    player.attributes,
+    attributes,
     role.secondary
   );
+  return (primaryScore * 2 + secondaryScore * 1) / 3;
 };
 export const calculateRoleScore = (player: Player, role: Role) => {
   const attributes = player.attributes;
