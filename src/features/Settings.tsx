@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+
 import { Input } from "../components/Input";
+import { AppContext } from "../context/AppContext";
 
 export const Settings = () => {
   const { settings, setSettings } = useContext(AppContext);

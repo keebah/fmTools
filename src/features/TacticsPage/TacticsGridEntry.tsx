@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+
 import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
 import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
 import { Data, PlayerWithRole } from "../../types/player";
@@ -21,6 +22,7 @@ export const TacticsGridEntry = ({
   setSelectedPlayers,
 }: {
   content: Data | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   group: any;
   selectedPlayers: PlayerWithRole[];
   setSelectedPlayers: Dispatch<SetStateAction<PlayerWithRole[]>>;

@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { AppContext } from "../../context/AppContext";
 
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
+import { AppContext } from "../../context/AppContext";
 import {
   attackGroup,
   calculateRoleScore,
@@ -12,9 +12,9 @@ import {
   roleAttributes,
 } from "../../helpers/roles";
 import { sortByTotalScore } from "../../helpers/sorting";
+import { PlayerWithRole } from "../../types/player";
 import { BestRoleForPlayer } from "./BestRoleForPlayer";
 import { TacticsGrid } from "./TacticsGrid";
-import { PlayerWithRole } from "../../types/player";
 
 export const TacticsPage = () => {
   const { primaryDataSet, settings } = useContext(AppContext);

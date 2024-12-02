@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
+
 import { AppContext } from "../../context/AppContext";
-import { AttributesTable } from "./AttributesTable";
-import { RoleSelector } from "../common/RoleSelector";
 import { Role } from "../../types/role";
+import { RoleSelector } from "../common/RoleSelector";
+import { AttributesTable } from "./AttributesTable";
 
 export const AttributesPage = () => {
   const [showChangesOnly, setShowChangesOnly] = useState(false);
@@ -32,7 +33,7 @@ export const AttributesPage = () => {
         </select>
         <input
           type="checkbox"
-          onChange={(e) => {
+          onChange={() => {
             setShowChangesOnly(!showChangesOnly);
           }}
           checked={showChangesOnly}
@@ -40,7 +41,7 @@ export const AttributesPage = () => {
         Changes Only (+ primary &gt; secondary)
         <input
           type="checkbox"
-          onChange={(e) => {
+          onChange={() => {
             setHideEmptyColumns(!hideEmptyColumns);
           }}
           checked={hideEmptyColumns}

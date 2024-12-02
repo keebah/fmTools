@@ -6,10 +6,11 @@ import {
   useEffect,
   useState,
 } from "react";
-import { loadDatabase, saveKeyToObjectStore } from "../indexDB";
-import { Data } from "../types/player";
+
 import { IIndexDBData } from "../App";
+import { loadDatabase, saveKeyToObjectStore } from "../indexDB";
 import { Settings } from "../types/app";
+import { Data } from "../types/player";
 
 export type AppContextType = {
   data: Data[] | undefined;
@@ -57,7 +58,6 @@ export const AppContextProvider = ({
   const loadIDB = loadDatabase<IIndexDBData>("data", ["data"]);
   useEffect(() => {
     loadIDB().then((data) => setDataState(data.data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

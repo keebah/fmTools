@@ -1,7 +1,8 @@
 import { useContext } from "react";
+
 import { Button } from "../components/Button";
-import { Data } from "../types/player";
 import { AppContext } from "../context/AppContext";
+import { Data } from "../types/player";
 import { Importer } from "./Importer";
 
 export const DataManager = () => {

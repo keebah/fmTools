@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+
 import { AppContext } from "./context/AppContext";
 import { AttributesPage } from "./features/AttributesPage";
 import { DataManager } from "./features/DataManager";
@@ -6,8 +7,8 @@ import { PlayerPage } from "./features/PlayerPage";
 import { Settings } from "./features/Settings";
 import { TacticsPage } from "./features/TacticsPage";
 import { cn } from "./features/utils/tailwind";
-import "./index.css";
 import { Data } from "./types/player";
+import "./index.css";
 
 export interface IIndexDBData {
   data: Data[];

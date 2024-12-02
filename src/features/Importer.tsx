@@ -1,10 +1,11 @@
 import { useContext, useRef, useState } from "react";
+
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { AppContext } from "../context/AppContext";
 import { loadData } from "../helpers/loadData";
-import { Data } from "../types/player";
 import { exportDbToJson, importDbFomJson } from "../indexDB";
+import { Data } from "../types/player";
 
 export const Importer = () => {
   const [file, setFile] = useState<File>();

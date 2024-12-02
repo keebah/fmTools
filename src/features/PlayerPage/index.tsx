@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+
 import { AppContext } from "../../context/AppContext";
 import { dummyPlayer } from "../../helpers/player";
 import { calculateRoleScore } from "../../helpers/roles";
@@ -42,7 +43,9 @@ export const PlayerPage = () => {
             const player = primaryDataSet?.players.find(
               (player) => player.name === e.target.value
             );
-            player && setSelectedPlayer(player);
+            if (player) {
+              setSelectedPlayer(player);
+            }
           }}
         >
           <option></option>

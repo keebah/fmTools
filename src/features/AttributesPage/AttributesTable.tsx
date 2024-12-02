@@ -1,13 +1,14 @@
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import { useCallback, useMemo, useRef } from "react";
+
+import { dummyPlayer } from "../../helpers/player";
+import { calculateTotalRoleAttributeScore } from "../../helpers/roles";
 import { Attributes, Data, Player } from "../../types/player";
 import { Role } from "../../types/role";
 import { filterInvalidRows, filterZeroRows, filterZeros } from "./helpers";
-import { calculateTotalRoleAttributeScore } from "../../helpers/roles";
-import { dummyPlayer } from "../../helpers/player";
-import { ICellRendererParams } from "ag-grid-community";
 
 type ColumnType = "name" & keyof Attributes;
 export type RowDataType =

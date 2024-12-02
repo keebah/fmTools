@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { AttributeLine } from "./AttributeLine";
+
 import { Attributes, Player } from "../../../types/player";
+import { AttributeLine } from "./AttributeLine";
 
 const groupedAttributes = {
   Technik: [

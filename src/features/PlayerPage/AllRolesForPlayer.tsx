@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
-import { Player } from "../../types/player";
+
 import { AppContext } from "../../context/AppContext";
+import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
 import { sortByTotalScore } from "../../helpers/sorting";
+import { Player } from "../../types/player";
 
 export const AllRolesForPlayer = ({
   selectedPlayer,

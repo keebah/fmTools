@@ -6,7 +6,7 @@ export const filterZeros = (
   hideEmptyColumns: boolean,
   rowData: RowDataType[] | undefined
 ) => {
-  return (item: any) => {
+  return (item: { field: string }) => {
     if (!rowData) {
       return true;
     }

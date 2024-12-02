@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useContext } from "react";
+
 import { AppContext } from "../../context/AppContext";
 import {
   attackGroup,
@@ -6,8 +7,8 @@ import {
   keeperGroup,
   midfieldGroup,
 } from "../../helpers/roles";
-import { TacticsGridEntry } from "./TacticsGridEntry";
 import { PlayerWithRole } from "../../types/player";
+import { TacticsGridEntry } from "./TacticsGridEntry";
 
 export const TacticsGrid = ({
   selectedPlayers,
