@@ -22,7 +22,6 @@ export const TacticsGridEntry = ({
   setSelectedPlayers,
 }: {
   content: Data | undefined;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   group: any;
   selectedPlayers: PlayerWithRole[];
   setSelectedPlayers: Dispatch<SetStateAction<PlayerWithRole[]>>;
