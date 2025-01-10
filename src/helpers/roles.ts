@@ -44,43 +44,43 @@ import { ZS } from "./roles/zs";
 import { ZSM } from "./roles/zsm";
 
 export const keeperGroup = TW;
-export const defenseGroup = {
-  ...AV,
-  ...BSV,
-  ...FV,
-  ...IV,
-  ...IAV,
-  ...KFV,
-  ...KIA,
-  ...KIV,
-  ...LI,
-};
-export const midfieldGroup = {
-  ...ABR,
-  ...AM,
-  ...ASM,
-  ...AZS,
-  ...BEM,
-  ...BBM,
-  ...CAR,
-  ...DFL,
-  ...DM,
-  ...ENG,
-  ...FLG,
-  ...IAS,
-  ...IFL,
-  ...MEZ,
-  ...OM,
-  ...RMD,
-  ...REG,
-  ...SNS,
-  ...VOL,
-  ...TS,
-  ...VESM,
-  ...VOSM,
-  ...ZM,
-  ...ZSM,
-};
+// export const defenseGroup = {
+//   ...AV,
+//   ...BSV,
+//   ...FV,
+//   ...IV,
+//   ...IAV,
+//   ...KFV,
+//   ...KIA,
+//   ...KIV,
+//   ...LI,
+// };
+// export const midfieldGroup = {
+//   ...ABR,
+//   ...AM,
+//   ...ASM,
+//   ...AZS,
+//   ...BEM,
+//   ...BBM,
+//   ...CAR,
+//   ...DFL,
+//   ...DM,
+//   ...ENG,
+//   ...FLG,
+//   ...IAS,
+//   ...IFL,
+//   ...MEZ,
+//   ...OM,
+//   ...RMD,
+//   ...REG,
+//   ...SNS,
+//   ...VOL,
+//   ...TS,
+//   ...VESM,
+//   ...VOSM,
+//   ...ZM,
+//   ...ZSM,
+// };
 export const attackGroup = {
   ...F9,
   ...HAS,
@@ -92,6 +92,63 @@ export const attackGroup = {
   ...ZS,
 };
 
+// offensive midfield outside
+export const omaGroup = {
+  ...FLG,
+  ...VOSM,
+  ...IAS,
+  ...T,
+  ...AZS,
+  ...RMD,
+};
+
+// offensive midfield central
+export const omcGroup = { ...OM, ...VOSM, ...T, ...ENG, ...SNS };
+
+// central midfield outside
+export const maGroup = { ...AM, ...FLG, ...DFL, ...ASM, ...IFL };
+
+//central midfield central
+export const mGroup = {
+  ...ZM,
+  ...ZSM,
+  ...BBM,
+  ...VOSM,
+  ...BEM,
+  ...VESM,
+};
+
+export const mzGroup = {
+  ...mGroup,
+  ...MEZ,
+  ...CAR,
+};
+
+// defensive midfield outside
+export const fvaGroup = { ...FV, ...KFV, ...IAV };
+
+/// defensive midfield central
+export const dmGroup = {
+  ...DM,
+  ...ZSM,
+  ...BEM,
+  ...ABR,
+  ...TS,
+  ...REG,
+  ...VESM,
+};
+
+// defensive midfield inside
+export const dmzGroup = { ...dmGroup, ...VOL };
+
+// defender outside
+export const vaGroup = { ...AV, ...FV, ...KIA, ...KFV, ...IAV };
+
+// defender inside
+export const vzGroup = { ...IV, ...BSV, ...KIV };
+
+// defender center
+export const vGroup = { ...vzGroup, ...LI };
 export const roleAttributes: Roles = {
   ...ABR,
   ...AM,

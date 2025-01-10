@@ -22,7 +22,7 @@ export const TacticsGridEntry = ({
   setSelectedPlayers,
 }: {
   content: Data | undefined;
-  group: any;
+  group: { [key: string]: Role };
   selectedPlayers: PlayerWithRole[];
   setSelectedPlayers: Dispatch<SetStateAction<PlayerWithRole[]>>;
 }) => {

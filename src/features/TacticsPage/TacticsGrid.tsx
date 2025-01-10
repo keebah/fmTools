@@ -3,9 +3,18 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import {
   attackGroup,
-  defenseGroup,
+  dmGroup,
+  dmzGroup,
+  fvaGroup,
   keeperGroup,
-  midfieldGroup,
+  maGroup,
+  mGroup,
+  mzGroup,
+  omaGroup,
+  omcGroup,
+  vaGroup,
+  vGroup,
+  vzGroup,
 } from "../../helpers/roles";
 import { PlayerWithRole } from "../../types/player";
 import { TacticsGridEntry } from "./TacticsGridEntry";
@@ -53,7 +62,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={omaGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -62,7 +71,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={omcGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -70,7 +79,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={omcGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -78,7 +87,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={omcGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -87,7 +96,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={omaGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -96,7 +105,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={maGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -105,7 +114,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={mzGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -113,7 +122,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={mGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -121,7 +130,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={mzGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -130,7 +139,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={maGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -139,7 +148,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={fvaGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -148,7 +157,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={dmGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -156,7 +165,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={dmzGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -164,7 +173,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={dmGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -173,7 +182,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={midfieldGroup}
+          group={fvaGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -182,7 +191,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={defenseGroup}
+          group={vaGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -191,7 +200,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={defenseGroup}
+          group={vzGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -199,7 +208,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={defenseGroup}
+          group={vGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -207,7 +216,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={defenseGroup}
+          group={vzGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
@@ -216,7 +225,7 @@ export const TacticsGrid = ({
       <div>
         <TacticsGridEntry
           content={primaryDataSet}
-          group={defenseGroup}
+          group={vaGroup}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
         />
