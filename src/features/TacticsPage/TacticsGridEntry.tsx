@@ -1,7 +1,9 @@
 import { SetTacticType } from ".";
+import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
 import { Data } from "../../types/player";
 import { Role } from "../../types/role";
 import { Tactic } from "../../types/tactics";
+import { ProposalForEntry } from "./ProposalForEntry";
 
 export type SelectedRole = { roleName: string } & Role;
 
@@ -19,6 +21,8 @@ export const TacticsGridEntry = ({
   setTactic: SetTacticType;
 }) => {
   const player = tactic[position]?.player;
+  const role = tactic[position]?.role;
+
   const availablePlayers = content?.players.filter(
     (player) =>
       !Object.values(tactic).some((item) => item?.player?.name === player.name)
@@ -66,13 +70,13 @@ export const TacticsGridEntry = ({
             <option key={key}>{key}</option>
           ))}
         </select>
-        {/* {player && <RoleScoreDisplay roleScore={player} />} */}
+        {player && <RoleScoreDisplay player={player} role={role} />}
       </div>
-      {/* {!player && role && (
+      {!player && role && (
         <>
           <ProposalForEntry availablePlayers={availablePlayers} role={role} />
         </>
-      )} */}
+      )}
     </div>
   );
 };

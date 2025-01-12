@@ -2,14 +2,14 @@ import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
 import { calculateRoleScore } from "../../helpers/roles";
 import { sortByTotalScore } from "../../helpers/sorting";
 import { Player } from "../../types/player";
-import { SelectedRole } from "./TacticsGridEntry";
+import { Role } from "../../types/role";
 
 export const ProposalForEntry = ({
   availablePlayers,
   role,
 }: {
   availablePlayers: Player[] | undefined;
-  role: SelectedRole;
+  role: Role;
 }) => {
   if (!availablePlayers) {
     return <></>;
@@ -28,7 +28,7 @@ export const ProposalForEntry = ({
           <>
             <div>{player.name}</div>
             <div>
-              <RoleScoreDisplay roleScore={player} />
+              <RoleScoreDisplay player={player} role={role} />
             </div>
           </>
         ))
