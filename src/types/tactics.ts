@@ -1,28 +1,31 @@
 import { Player } from "./player";
+import { Role } from "./role";
 
-export type Tactics = {
-  TW?: Player;
-  VR?: Player;
-  VZR?: Player;
-  VZ?: Player;
-  VZL?: Player;
-  VL?: Player;
-  FVR?: Player;
-  DMZR?: Player;
-  DM?: Player;
-  DMZL?: Player;
-  FVL?: Player;
-  MR?: Player;
-  MZR?: Player;
-  MZ?: Player;
-  MZL?: Player;
-  ML?: Player;
-  OMR?: Player;
-  OMZR?: Player;
-  OM?: Player;
-  OMZL?: Player;
-  OML?: Player;
-  STZR?: Player;
-  STZ?: Player;
-  STR?: Player;
+type TacticSlot = { player?: Player; role?: Role };
+
+export type Tactic = {
+  TW?: TacticSlot;
+  VR?: TacticSlot;
+  VZR?: TacticSlot;
+  VZ?: TacticSlot;
+  VZL?: TacticSlot;
+  VL?: TacticSlot;
+  FVR?: TacticSlot;
+  DMZR?: TacticSlot;
+  DM?: TacticSlot;
+  DMZL?: TacticSlot;
+  FVL?: TacticSlot;
+  MR?: TacticSlot;
+  MZR?: TacticSlot;
+  MZ?: TacticSlot;
+  MZL?: TacticSlot;
+  ML?: TacticSlot;
+  OMR?: TacticSlot;
+  OMZR?: TacticSlot;
+  OM?: TacticSlot;
+  OMZL?: TacticSlot;
+  OML?: TacticSlot;
+  STZR?: TacticSlot;
+  STZ?: TacticSlot;
+  STZL?: TacticSlot;
 };

@@ -175,7 +175,6 @@ export const calculateRoleAttributeScore = (
   attributes: Attributes,
   roleAttributes: (keyof Attributes)[]
 ) => {
-  console.log(attributes);
   if (!attributes) {
     return NaN;
   }

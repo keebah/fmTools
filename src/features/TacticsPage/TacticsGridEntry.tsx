@@ -1,77 +1,43 @@
-import { Dispatch, SetStateAction, useState } from "react";
-
-import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
-import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
-import { Data, PlayerWithRole } from "../../types/player";
-import { Role, Roles } from "../../types/role";
-import { ProposalForEntry } from "./ProposalForEntry";
+import { SetTacticType } from ".";
+import { Data } from "../../types/player";
+import { Role } from "../../types/role";
+import { Tactic } from "../../types/tactics";
 
 export type SelectedRole = { roleName: string } & Role;
 
-const emptyRoleScore = {
-  roleName: "F9" as keyof Roles,
-  primaryScore: 0,
-  secondaryScore: 0,
-  totalScore: 0,
-};
-
 export const TacticsGridEntry = ({
+  allowedRoles,
   content,
-  group,
-  selectedPlayers,
-  setSelectedPlayers,
+  position,
+  tactic,
+  setTactic,
 }: {
+  allowedRoles: { [key: string]: Role };
   content: Data | undefined;
-  group: { [key: string]: Role };
-  selectedPlayers: PlayerWithRole[];
-  setSelectedPlayers: Dispatch<SetStateAction<PlayerWithRole[]>>;
+  position: keyof Tactic;
+  tactic: Tactic;
+  setTactic: SetTacticType;
 }) => {
-  const [role, setRole] = useState<SelectedRole | undefined>();
-  const [player, setPlayer] = useState<PlayerWithRole | undefined>();
+  const player = tactic[position]?.player;
   const availablePlayers = content?.players.filter(
-    (player) => !selectedPlayers.some((item) => item.name === player.name)
+    (player) =>
+      !Object.values(tactic).some((item) => item?.player?.name === player.name)
   );
 
   if (!content) {
     return <>No content</>;
   }
 
+  console.log(tactic[position]?.player?.name);
   return (
     <div className="border border-black p-1 rounded-md">
       <div>
         <select
           onChange={(e) => {
-            const newPlayer =
-              availablePlayers?.find(
-                (player) => player.name === e.target.value
-              ) || undefined;
-            if (newPlayer) {
-              if (role) {
-                const newRoleScore = calculateRoleScore(newPlayer, role);
-                const playerWithRole = {
-                  ...newPlayer,
-                  ...newRoleScore,
-                  roleName: role.roleName as keyof Roles,
-                };
-                setSelectedPlayers((prev) => [
-                  ...prev.filter((item) => item.name !== player?.name),
-                  playerWithRole,
-                ]);
-                setPlayer(playerWithRole);
-              } else {
-                const playerWithEmptyRole = { ...newPlayer, ...emptyRoleScore };
-                setSelectedPlayers((prev) => [
-                  ...prev.filter((item) => item.name !== player?.name),
-                  playerWithEmptyRole,
-                ]);
-                setPlayer(playerWithEmptyRole);
-              }
-            } else {
-              setSelectedPlayers((prev) => [
-                ...prev.filter((item) => item.name !== player?.name),
-              ]);
-              setPlayer(undefined);
-            }
+            const player = content.players.find(
+              (player) => player.name === e.target.value
+            );
+            setTactic("player", player, position, undefined);
           }}
           value={player?.name}
         >
@@ -91,51 +57,22 @@ export const TacticsGridEntry = ({
       <div className="items-center justify-center w-full flex">
         <select
           onChange={(e) => {
-            const newRoleName = e.target.value as keyof Roles;
-            const newRole = {
-              roleName: newRoleName,
-              ...roleAttributes[newRoleName],
-            };
-            if (newRoleName) {
-              setRole(newRole);
-              if (player) {
-                const newRoleScore = calculateRoleScore(player, newRole);
-                const playerWithRole = {
-                  ...player,
-                  ...newRoleScore,
-                  roleName: newRoleName as keyof Roles,
-                };
-                setSelectedPlayers((prev) => [
-                  ...prev.filter((item) => item.name !== player?.name),
-                  playerWithRole,
-                ]);
-                setPlayer(playerWithRole);
-              }
-            } else {
-              setRole(undefined);
-              if (player) {
-                const playerWithEmptyRole = { ...player, ...emptyRoleScore };
-                setSelectedPlayers((prev) => [
-                  ...prev.filter((item) => item.name !== player?.name),
-                  playerWithEmptyRole,
-                ]);
-                setPlayer(playerWithEmptyRole);
-              }
-            }
+            const role = allowedRoles[e.target.value];
+            setTactic("role", undefined, position, role);
           }}
         >
           <option></option>
-          {Object.keys(group).map((key) => (
+          {Object.keys(allowedRoles).map((key) => (
             <option key={key}>{key}</option>
           ))}
         </select>
-        {player && <RoleScoreDisplay roleScore={player} />}
+        {/* {player && <RoleScoreDisplay roleScore={player} />} */}
       </div>
-      {!player && role && (
+      {/* {!player && role && (
         <>
           <ProposalForEntry availablePlayers={availablePlayers} role={role} />
         </>
-      )}
+      )} */}
     </div>
   );
 };

@@ -12,14 +12,24 @@ import {
   roleAttributes,
 } from "../../helpers/roles";
 import { sortByTotalScore } from "../../helpers/sorting";
-import { PlayerWithRole } from "../../types/player";
+import { Player, PlayerWithRole } from "../../types/player";
+import { Role } from "../../types/role";
+import { Tactic } from "../../types/tactics";
 import { BestRoleForPlayer } from "./BestRoleForPlayer";
 import { TacticsGrid } from "./TacticsGrid";
+
+export type SetTacticType = (
+  action: "player" | "role",
+  player: Player | undefined,
+  position: keyof Tactic,
+  role: Role | undefined
+) => void;
 
 export const TacticsPage = () => {
   const { primaryDataSet, settings } = useContext(AppContext);
   const [roleFilter, setRoleFilter] = useState([""]);
   const [selectedPlayers, setSelectedPlayers] = useState<PlayerWithRole[]>([]);
+  const [tactic, setTacticState] = useState<Tactic>({});
   const playersWithAllRoleScores = primaryDataSet?.players
     .filter(
       (player) => !selectedPlayers.some((item) => item.name === player.name)
@@ -43,9 +53,29 @@ export const TacticsPage = () => {
     })
     .sort(sortByTotalScore);
 
+  const setTactic: SetTacticType = (
+    action: "player" | "role",
+    player: Player | undefined,
+    position: keyof Tactic,
+    role: Role | undefined
+  ) => {
+    console.log(player, position);
+    setTacticState((prev) => {
+      const prevSlot = prev[position];
+      switch (action) {
+        case "player":
+          return { ...prev, [position]: { ...prevSlot, player } };
+        case "role":
+          return { ...prev, [position]: { ...prevSlot, role } };
+      }
+    });
+  };
+
   if (!primaryDataSet) {
     return <>Need to select data set</>;
   }
+
+  console.log(tactic);
   return (
     <div>
       <div>
@@ -58,10 +88,7 @@ export const TacticsPage = () => {
       </div>
       <div className="flex">
         <div className="w-full">
-          <TacticsGrid
-            selectedPlayers={selectedPlayers}
-            setSelectedPlayers={setSelectedPlayers}
-          />
+          <TacticsGrid tactic={tactic} setTactic={setTactic} />
           <div className="grid grid-cols-4 gap-x-2">
             <div>Name</div>
             <div>Role 1</div>

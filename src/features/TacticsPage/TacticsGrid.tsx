@@ -1,30 +1,17 @@
-import { Dispatch, SetStateAction, useContext } from "react";
+import { useContext } from "react";
 
+import { SetTacticType } from ".";
 import { AppContext } from "../../context/AppContext";
-import {
-  attackGroup,
-  dmGroup,
-  dmzGroup,
-  fvaGroup,
-  keeperGroup,
-  maGroup,
-  mGroup,
-  mzGroup,
-  omaGroup,
-  omcGroup,
-  vaGroup,
-  vGroup,
-  vzGroup,
-} from "../../helpers/roles";
-import { PlayerWithRole } from "../../types/player";
+import { attackGroup } from "../../helpers/roles";
+import { Tactic } from "../../types/tactics";
 import { TacticsGridEntry } from "./TacticsGridEntry";
 
 export const TacticsGrid = ({
-  selectedPlayers,
-  setSelectedPlayers,
+  tactic,
+  setTactic,
 }: {
-  selectedPlayers: PlayerWithRole[];
-  setSelectedPlayers: Dispatch<SetStateAction<PlayerWithRole[]>>;
+  tactic: Tactic;
+  setTactic: SetTacticType;
 }) => {
   const { primaryDataSet } = useContext(AppContext);
 
@@ -33,218 +20,13 @@ export const TacticsGrid = ({
       <div>&nbsp;</div>
       <div>
         <TacticsGridEntry
+          allowedRoles={attackGroup}
+          position={"STZL"}
           content={primaryDataSet}
-          group={attackGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
+          tactic={tactic}
+          setTactic={setTactic}
         />
       </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={attackGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={attackGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      {/* 10er Reihe */}
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={omaGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={omcGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={omcGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={omcGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={omaGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      {/* 8er Reihe */}
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={maGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={mzGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={mGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={mzGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={maGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      {/* 6er Reihe */}{" "}
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={fvaGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={dmGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={dmzGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={dmGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={fvaGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      {/* Abwehr */}
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={vaGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={vzGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={vGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={vzGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={vaGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      {/* Torwart */} <div>&nbsp;</div>
-      <div>&nbsp;</div>
-      <div>&nbsp;</div>
-      <div>
-        <TacticsGridEntry
-          content={primaryDataSet}
-          group={keeperGroup}
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-      <div>&nbsp;</div>
-      <div>&nbsp;</div>
-      <div>&nbsp;</div>
-      {/* a */}
     </div>
   );
 };
