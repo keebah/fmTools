@@ -44,43 +44,7 @@ import { ZS } from "./roles/zs";
 import { ZSM } from "./roles/zsm";
 
 export const keeperGroup = TW;
-// export const defenseGroup = {
-//   ...AV,
-//   ...BSV,
-//   ...FV,
-//   ...IV,
-//   ...IAV,
-//   ...KFV,
-//   ...KIA,
-//   ...KIV,
-//   ...LI,
-// };
-// export const midfieldGroup = {
-//   ...ABR,
-//   ...AM,
-//   ...ASM,
-//   ...AZS,
-//   ...BEM,
-//   ...BBM,
-//   ...CAR,
-//   ...DFL,
-//   ...DM,
-//   ...ENG,
-//   ...FLG,
-//   ...IAS,
-//   ...IFL,
-//   ...MEZ,
-//   ...OM,
-//   ...RMD,
-//   ...REG,
-//   ...SNS,
-//   ...VOL,
-//   ...TS,
-//   ...VESM,
-//   ...VOSM,
-//   ...ZM,
-//   ...ZSM,
-// };
+
 export const attackGroup = {
   ...F9,
   ...HAS,
@@ -149,6 +113,19 @@ export const vzGroup = { ...IV, ...BSV, ...KIV };
 
 // defender center
 export const vGroup = { ...vzGroup, ...LI };
+
+export const midfieldGroup = {
+  ...omaGroup,
+  ...omcGroup,
+  ...maGroup,
+  ...mGroup,
+  ...mzGroup,
+  ...fvaGroup,
+  ...dmGroup,
+  ...dmzGroup,
+};
+
+export const defenseGroup = { ...vaGroup, ...vzGroup, ...vGroup };
 export const roleAttributes: Roles = {
   ...ABR,
   ...AM,
