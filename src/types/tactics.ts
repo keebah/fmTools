@@ -1,9 +1,8 @@
 import { Player } from "./player";
-import { Role } from "./role";
+import { RoleWithKey } from "./role";
 
-type TacticSlot = { player?: Player; role?: Role };
-
-export type Tactic = {
+type TacticSlot = { player?: Player; role?: RoleWithKey };
+export type TacticPlayers = {
   TW?: TacticSlot;
   VR?: TacticSlot;
   VZR?: TacticSlot;
@@ -28,4 +27,8 @@ export type Tactic = {
   STZR?: TacticSlot;
   STZ?: TacticSlot;
   STZL?: TacticSlot;
+};
+export type Tactic = {
+  players?: TacticPlayers;
+  scores: { primaryScore: number; secondaryScore: number; totalScore: number };
 };

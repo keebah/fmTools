@@ -24,7 +24,7 @@ export const TacticsGrid = ({
   tactic,
   setTactic,
 }: {
-  tactic: Tactic;
+  tactic: Tactic | undefined;
   setTactic: SetTacticType;
 }) => {
   const { primaryDataSet } = useContext(AppContext);

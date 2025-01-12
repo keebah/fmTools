@@ -1,8 +1,8 @@
 import { SetTacticType } from ".";
 import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
 import { Data } from "../../types/player";
-import { Role } from "../../types/role";
-import { Tactic } from "../../types/tactics";
+import { Role, Roles } from "../../types/role";
+import { Tactic, TacticPlayers } from "../../types/tactics";
 import { ProposalForEntry } from "./ProposalForEntry";
 
 export type SelectedRole = { roleName: string } & Role;
@@ -16,23 +16,25 @@ export const TacticsGridEntry = ({
 }: {
   allowedRoles: { [key: string]: Role };
   content: Data | undefined;
-  position: keyof Tactic;
-  tactic: Tactic;
+  position: keyof TacticPlayers;
+  tactic: Tactic | undefined;
   setTactic: SetTacticType;
 }) => {
-  const player = tactic[position]?.player;
-  const role = tactic[position]?.role;
+  const players = tactic?.players;
+  const player = players && players[position]?.player;
+  const role = players && players[position]?.role;
 
   const availablePlayers = content?.players.filter(
     (player) =>
-      !Object.values(tactic).some((item) => item?.player?.name === player.name)
+      !Object.values(tactic?.players || {}).some(
+        (item) => item?.player?.name === player.name
+      )
   );
 
   if (!content) {
     return <>No content</>;
   }
 
-  console.log(tactic[position]?.player?.name);
   return (
     <div className="border border-black p-1 rounded-md">
       <div>
@@ -61,7 +63,11 @@ export const TacticsGridEntry = ({
       <div className="items-center justify-center w-full flex">
         <select
           onChange={(e) => {
-            const role = allowedRoles[e.target.value];
+            const role = {
+              ...allowedRoles[e.target.value],
+              key: e.target.value as keyof Roles,
+            };
+
             setTactic("role", undefined, position, role);
           }}
         >

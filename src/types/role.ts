@@ -6,6 +6,10 @@ export type Role = {
   physis: "tor" | "abwehr" | "mittelfeld" | "angriff";
 };
 
+export type RoleWithKey = {
+  key: keyof Roles;
+} & Role;
+
 export type Roles = {
   TWve: Role;
   MTWve: Role;
