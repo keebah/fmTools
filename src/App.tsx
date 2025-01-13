@@ -1,45 +1,28 @@
-import { useContext, useState } from "react";
+import { Box, Card, Flex, Heading, Tabs } from "@radix-ui/themes";
+import { useContext } from "react";
 
 import { AppContext } from "./context/AppContext";
 import { AttributesPage } from "./features/AttributesPage";
 import { DataManager } from "./features/DataManager";
-import { PlayerPage } from "./features/PlayerPage";
 import { Settings } from "./features/Settings";
 import { TacticsPage } from "./features/TacticsPage";
-import { cn } from "./features/utils/tailwind";
-import { Data } from "./types/player";
 import "./index.css";
+import { Data } from "./types/player";
 
 export interface IIndexDBData {
   data: Data[];
 }
 
-const features = {
-  Attributes: <AttributesPage />,
-  Tactics: <TacticsPage />,
-  DataManager: <DataManager />,
-  Player: <PlayerPage />,
-  Settings: <Settings />,
-};
-
-const RenderSwitch = ({ feature }: { feature: string }) => {
-  if (Object.keys(features).includes(feature)) {
-    return features[feature as keyof typeof features];
-  }
-  return <></>;
-};
-
 function App() {
-  const [visibleFeature, setVisibleFeature] = useState<string>("Attributes");
   const { data, setPrimaryDataSet } = useContext(AppContext);
   return (
-    <>
-      <div className="border border-black bg-gray-50 m-1 w-1/3 text-center text-xl">
-        Football Manager Tools
-      </div>
-      <div className="flex mx-1 px-1 border border-black">
-        <div>Primary Data:</div>
-        <div>
+    <Flex gap="2" direction="column">
+      <Card>
+        <Heading align="center">Football Manager Tools</Heading>
+      </Card>
+      <Card>
+        <Flex gap="3" align="center">
+          <div>Primary Data:</div>
           <select
             onChange={(e) => {
               const selectedDataSet = data?.find(
@@ -53,27 +36,33 @@ function App() {
               <option>{entry.name}</option>
             ))}
           </select>
-        </div>
-        <div className="ml-20"></div>
-        {Object.keys(features).map((feature) => (
-          <div
-            key={feature}
-            className={cn(
-              "cursor-pointer mx-1 underline",
-              visibleFeature === feature && "font-bold"
-            )}
-            onClick={() => {
-              setVisibleFeature(feature);
-            }}
-          >
-            {feature}
-          </div>
-        ))}
-      </div>
-      <div className="flex border border-black m-1 p-1">
-        <RenderSwitch feature={visibleFeature} />
-      </div>
-    </>
+        </Flex>
+      </Card>
+      <Card>
+        <Tabs.Root defaultValue="account">
+          <Tabs.List>
+            <Tabs.Trigger value="attributes">Attributes</Tabs.Trigger>
+            <Tabs.Trigger value="tactics">Tactics</Tabs.Trigger>
+            <Tabs.Trigger value="dataManager">Data Manager</Tabs.Trigger>
+            <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+          </Tabs.List>
+          <Box pt="3">
+            <Tabs.Content value="attributes">
+              <AttributesPage />
+            </Tabs.Content>
+            <Tabs.Content value="tactics">
+              <TacticsPage />
+            </Tabs.Content>
+            <Tabs.Content value="dataManager">
+              <DataManager />
+            </Tabs.Content>{" "}
+            <Tabs.Content value="settings">
+              <Settings />
+            </Tabs.Content>
+          </Box>
+        </Tabs.Root>
+      </Card>
+    </Flex>
   );
 }
 
