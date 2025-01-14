@@ -25,7 +25,7 @@ export const AttributesPage = () => {
               <Checkbox
                 defaultChecked={showChangesOnly}
                 disabled={!secondaryDataSet}
-                onChange={() => {
+                onClick={() => {
                   setShowChangesOnly(!showChangesOnly);
                 }}
               />
@@ -37,7 +37,8 @@ export const AttributesPage = () => {
             <Flex gap="1">
               <Checkbox
                 defaultChecked={hideEmptyColumns}
-                onChange={() => {
+                onClick={() => {
+                  console.log("a");
                   setHideEmptyColumns(!hideEmptyColumns);
                 }}
               />
@@ -53,7 +54,6 @@ export const AttributesPage = () => {
           </Flex>
         </Flex>
       </Card>
-
       <Card>
         <AttributesTable
           hideEmptyColumns={hideEmptyColumns}
