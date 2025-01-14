@@ -1,3 +1,5 @@
+import { Select } from "@radix-ui/themes";
+
 import { roleAttributes } from "../../helpers/roles";
 import { Role, Roles } from "../../types/role";
 
@@ -7,16 +9,20 @@ export const RoleSelector = ({
   setRole: React.Dispatch<React.SetStateAction<Role | undefined>>;
 }) => {
   return (
-    <select
-      onChange={(e) => {
-        const stuff = roleAttributes[e.target.value as keyof Roles];
+    <Select.Root
+      defaultValue=""
+      onValueChange={(value) => {
+        const stuff = roleAttributes[value as keyof Roles];
         setRole(stuff);
       }}
     >
-      <option></option>
-      {Object.keys(roleAttributes).map((key) => (
-        <option key={key}>{key}</option>
-      ))}
-    </select>
+      <Select.Trigger radius="large" placeholder="Select role" />
+      <Select.Content>
+        <Select.Item value="none">none</Select.Item>
+        {Object.keys(roleAttributes).map((key) => (
+          <Select.Item value={key}>{key}</Select.Item>
+        ))}
+      </Select.Content>
+    </Select.Root>
   );
 };
