@@ -159,7 +159,7 @@ export const AttributesTable = ({
   }, [fitAllColumns]);
 
   return (
-    <div className="w-full h-[calc(100vh-150px)] overflow-visible border-b-[2px] border-gray-900 pb-1 ag-theme-alpine">
+    <div className="w-full h-[calc(100vh-300px)] overflow-visible border-b-[2px] border-gray-900 pb-1 ag-theme-alpine">
       <AgGridReact
         animateRows={true}
         columnDefs={colDefs}

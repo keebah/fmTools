@@ -1,9 +1,11 @@
+import { Card, Checkbox, Flex, Separator, Text } from "@radix-ui/themes";
 import { useContext, useState } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { Role } from "../../types/role";
 import { RoleSelector } from "../common/RoleSelector";
 import { AttributesTable } from "./AttributesTable";
+import { ComparisonDataSelectBox } from "./ComparsionDataSelectBox";
 
 export const AttributesPage = () => {
   const [showChangesOnly, setShowChangesOnly] = useState(false);
@@ -11,47 +13,48 @@ export const AttributesPage = () => {
 
   const [role, setRole] = useState<Role | undefined>();
 
-  const { data, primaryDataSet, secondaryDataSet, setSecondaryDataSet } =
-    useContext(AppContext);
+  const { primaryDataSet, secondaryDataSet } = useContext(AppContext);
   return (
     <div className="w-full">
-      <div className="m-1 flex">
-        Select Compare Set:
-        <select
-          className="mx-1"
-          onChange={(e) => {
-            const selectedDataSet = data?.find(
-              (entry) => entry.name === e.target.value
-            );
-            setSecondaryDataSet(selectedDataSet);
-          }}
-        >
-          <option></option>
-          {data?.map((entry) => (
-            <option>{entry.name}</option>
-          ))}
-        </select>
-        <input
-          type="checkbox"
-          onChange={() => {
-            setShowChangesOnly(!showChangesOnly);
-          }}
-          checked={showChangesOnly}
-        />
-        Changes Only (+ primary &gt; secondary)
-        <input
-          type="checkbox"
-          onChange={() => {
-            setHideEmptyColumns(!hideEmptyColumns);
-          }}
-          checked={hideEmptyColumns}
-        />
-        Hide empty columns{" "}
-        <div className="ml-2">
-          Role Filter <RoleSelector setRole={setRole} />
-        </div>
-      </div>
-      <div>
+      <Card>
+        <Flex gap="3" align="center">
+          <ComparisonDataSelectBox />
+          <Separator orientation="vertical" />
+          <Text as="label" size="2">
+            <Flex gap="1">
+              <Checkbox
+                defaultChecked={showChangesOnly}
+                disabled={!secondaryDataSet}
+                onClick={() => {
+                  setShowChangesOnly(!showChangesOnly);
+                }}
+              />
+              Changes Only (+ primary &gt; secondary)
+            </Flex>
+          </Text>
+          <Separator orientation="vertical" />
+          <Text as="label" size="2">
+            <Flex gap="1">
+              <Checkbox
+                defaultChecked={hideEmptyColumns}
+                onClick={() => {
+                  console.log("a");
+                  setHideEmptyColumns(!hideEmptyColumns);
+                }}
+              />
+              Hide empty columns
+            </Flex>
+          </Text>
+          <Separator orientation="vertical" />
+          <Flex gap="1" align="center">
+            <Text as="label" size="2">
+              Role Filter:
+            </Text>
+            <RoleSelector setRole={setRole} />
+          </Flex>
+        </Flex>
+      </Card>
+      <Card>
         <AttributesTable
           hideEmptyColumns={hideEmptyColumns}
           primaryDataSet={primaryDataSet}
@@ -59,7 +62,7 @@ export const AttributesPage = () => {
           secondaryDataSet={secondaryDataSet}
           showChangesOnly={showChangesOnly}
         />
-      </div>
+      </Card>
     </div>
   );
 };
