@@ -1,11 +1,11 @@
-import { Box, Card, Flex, Heading, Tabs } from "@radix-ui/themes";
+import { Box, Card, Flex, Heading, Select, Tabs } from "@radix-ui/themes";
 import { useContext } from "react";
 
 import { AppContext } from "./context/AppContext";
 import { AttributesPage } from "./features/AttributesPage";
 import { DataManager } from "./features/DataManager";
 import { Settings } from "./features/Settings";
-import { TacticsPage } from "./features/TacticsPage";
+// import { TacticsPage } from "./features/TacticsPage";
 import "./index.css";
 import { Data } from "./types/player";
 
@@ -23,26 +23,29 @@ function App() {
       <Card>
         <Flex gap="3" align="center">
           <div>Primary Data:</div>
-          <select
-            onChange={(e) => {
+          <Select.Root
+            defaultValue=""
+            onValueChange={(value) => {
               const selectedDataSet = data?.find(
-                (entry) => entry.name === e.target.value
+                (entry) => entry.name === value
               );
               setPrimaryDataSet(selectedDataSet);
             }}
           >
-            <option></option>
-            {data?.map((entry) => (
-              <option>{entry.name}</option>
-            ))}
-          </select>
+            <Select.Trigger radius="large" />
+            <Select.Content>
+              {data?.map((entry) => (
+                <Select.Item value={entry.name}>{entry.name}</Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
         </Flex>
       </Card>
       <Card>
         <Tabs.Root defaultValue="account">
           <Tabs.List>
             <Tabs.Trigger value="attributes">Attributes</Tabs.Trigger>
-            <Tabs.Trigger value="tactics">Tactics</Tabs.Trigger>
+            {/* <Tabs.Trigger value="tactics">Tactics</Tabs.Trigger> */}
             <Tabs.Trigger value="dataManager">Data Manager</Tabs.Trigger>
             <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
           </Tabs.List>
@@ -50,9 +53,9 @@ function App() {
             <Tabs.Content value="attributes">
               <AttributesPage />
             </Tabs.Content>
-            <Tabs.Content value="tactics">
+            {/* <Tabs.Content value="tactics">
               <TacticsPage />
-            </Tabs.Content>
+            </Tabs.Content> */}
             <Tabs.Content value="dataManager">
               <DataManager />
             </Tabs.Content>{" "}
