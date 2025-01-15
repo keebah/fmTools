@@ -18,7 +18,7 @@ export const Settings = () => {
         />
       </Card>
       <Card>
-        <Text>Decimals:</Text>
+        <Text>FM Score balance:</Text>
         <Flex>
           <Text>Primary Weight:</Text>
           <Input

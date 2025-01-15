@@ -196,6 +196,25 @@ export const calculateTotalRoleAttributeScore = (
   );
   return (primaryScore * 2 + secondaryScore * 1) / 3;
 };
+
+export const calculateFMRoleScore = (
+  player: Player,
+  role: Role,
+  weights: { primaryWeightFM: number; secondaryWeightFM: number }
+) => {
+  const attributes = player.attributes;
+  const primaryScore = calculateRoleAttributeScore(attributes, role.primary);
+  const secondaryScore = calculateRoleAttributeScore(
+    attributes,
+    role.secondary
+  );
+  const totalScore =
+    (primaryScore * weights.primaryWeightFM +
+      secondaryScore * weights.secondaryWeightFM) /
+    (weights.primaryWeightFM + weights.secondaryWeightFM);
+  return { primaryScore, secondaryScore, totalScore };
+};
+
 export const calculateRoleScore = (player: Player, role: Role) => {
   const attributes = player.attributes;
   const physis = player.physis;
