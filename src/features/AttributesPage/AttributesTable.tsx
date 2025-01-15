@@ -1,11 +1,15 @@
+import { ICellRendererParams } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useContext, useMemo, useRef } from "react";
 
+import { AppContext } from "../../context/AppContext";
 import { dummyPlayer } from "../../helpers/player";
-import { calculateTotalRoleAttributeScore } from "../../helpers/roles";
+import {
+  calculateFMRoleScore,
+  calculateTotalRoleAttributeScore,
+} from "../../helpers/roles";
 import { Attributes, Data, Player } from "../../types/player";
 import { Role } from "../../types/role";
 import { filterInvalidRows, filterZeroRows, filterZeros } from "./helpers";
@@ -41,6 +45,7 @@ export const AttributesTable = ({
 }) => {
   const gridRef = useRef<AgGridReact>(null);
   const attributes = primaryDataSet?.players[0].attributes;
+  const { settings } = useContext(AppContext);
   const returnAttributes = (playerInPrimaryDataSet: Player) => {
     const returnPlayerAttributes = () => {
       if (!secondaryDataSet) {
@@ -68,7 +73,13 @@ export const AttributesTable = ({
     };
 
     const attributes = returnPlayerAttributes();
+    const roleValues =
+      roleFilter &&
+      calculateFMRoleScore(playerInPrimaryDataSet, roleFilter, settings);
     return {
+      fmp: roleValues?.primaryScore,
+      fms: roleValues?.secondaryScore,
+      fmt: roleValues?.totalScore,
       total: calcTotalAttributes(attributes),
       role: roleFilter?.physis
         ? calculateTotalRoleAttributeScore(attributes, roleFilter)
@@ -136,13 +147,40 @@ export const AttributesTable = ({
       ...(roleFilter
         ? [
             {
-              field: "role" as ColumnType,
-              flex: 1,
-              sortable: true,
-              filter: true,
-              floatingFilter: false,
               cellRenderer: ({ value }: ICellRendererParams) =>
-                value.toFixed(3),
+                value.toFixed(settings.decimals),
+              field: "fmp" as ColumnType,
+              filter: true,
+              flex: 1,
+              floatingFilter: false,
+              headerTooltip:
+                "Average of the primary attributes for selected role",
+              sortable: true,
+              title: "FMP",
+            },
+            {
+              cellRenderer: ({ value }: ICellRendererParams) =>
+                value.toFixed(settings.decimals),
+              field: "fms" as ColumnType,
+              filter: true,
+              flex: 1,
+              floatingFilter: false,
+              headerTooltip:
+                "Average of the secondary attributes for selected role",
+              sortable: true,
+              title: "FMS",
+            },
+            {
+              cellRenderer: ({ value }: ICellRendererParams) =>
+                value.toFixed(settings.decimals),
+              field: "fmt" as ColumnType,
+              filter: true,
+              flex: 1,
+              floatingFilter: false,
+              headerTooltip:
+                "Weighted average of the primary and secondary attributes for selected role",
+              sortable: true,
+              title: "FMT",
             },
           ]
         : []),

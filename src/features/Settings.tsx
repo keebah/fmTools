@@ -17,6 +17,27 @@ export const Settings = () => {
           value={settings.decimals}
         />
       </Card>
+      <Card>
+        <Text>FM Score balance:</Text>
+        <Flex>
+          <Text>Primary Weight:</Text>
+          <Input
+            onChange={(e) =>
+              setSettings({ primaryWeightFM: parseFloat(e.target.value) })
+            }
+            value={settings.primaryWeightFM}
+          />
+        </Flex>
+        <Flex>
+          <Text>Secondary Weight:</Text>
+          <Input
+            onChange={(e) =>
+              setSettings({ secondaryWeightFM: parseFloat(e.target.value) })
+            }
+            value={settings.secondaryWeightFM}
+          />
+        </Flex>
+      </Card>
     </Flex>
   );
 };
