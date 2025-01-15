@@ -1,11 +1,12 @@
 import { openDB } from "idb";
 
 // we could have a version number generated?
-const idbVersion = 1;
+const idbVersion = 2;
 
 // register every object store we want to save here; add new things here
 export const ObjectStores = {
   data: "data",
+  settings: "settings",
 };
 
 export type AvailableObjectStoresType = keyof typeof ObjectStores;
@@ -65,6 +66,22 @@ export const loadFullObjectStore = <IIndexDBData extends object>(
     );
     return output as IIndexDBData;
   };
+};
+
+// used to save an object to the idb. The individual keys of the object should
+// be converted to records
+export const saveObjectToObjectStore = async <IIndexDBData extends object>(
+  objectStore: keyof typeof ObjectStores,
+  data: Partial<IIndexDBData>
+) => {
+  try {
+    const db = await indexDb;
+    Object.entries(data).forEach(async ([key, value]) => {
+      await db.put(objectStore, value, key);
+    });
+  } catch (err) {
+    console.error("Error saving to IndexDB: ", err);
+  }
 };
 
 // If this now could somehow tell me that I am not allowed certain things...

@@ -1,16 +1,19 @@
-import {
-  createContext,
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactElement, useEffect, useState } from "react";
 
 import { IIndexDBData } from "../App";
-import { loadDatabase, saveKeyToObjectStore } from "../indexDB";
+import {
+  loadDatabase,
+  saveKeyToObjectStore,
+  saveObjectToObjectStore,
+} from "../indexDB";
 import { Settings } from "../types/app";
 import { Data } from "../types/player";
+
+const defaultSettings = {
+  decimals: 1,
+  primaryWeightFM: 2,
+  secondaryWeightFM: 1,
+};
 
 export type AppContextType = {
   data: Data[] | undefined;
@@ -20,7 +23,7 @@ export type AppContextType = {
   secondaryDataSet: Data | undefined;
   setSecondaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
   settings: Settings;
-  setSettings: Dispatch<SetStateAction<Settings>>;
+  setSettings: (changes: Partial<Settings>) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -30,7 +33,7 @@ export const AppContext = createContext<AppContextType>({
   setPrimaryDataSet: () => {},
   secondaryDataSet: undefined,
   setSecondaryDataSet: () => {},
-  settings: { decimals: 1 },
+  settings: defaultSettings,
   setSettings: () => {},
 });
 
@@ -42,7 +45,7 @@ export const AppContextProvider = ({
   const [data, setDataState] = useState<Data[]>();
   const [primaryDataSet, setPrimaryDataSet] = useState<Data>();
   const [secondaryDataSet, setSecondaryDataSet] = useState<Data>();
-  const [settings, setSettings] = useState<Settings>({ decimals: 1 });
+  const [settings, setSettingsState] = useState<Settings>(defaultSettings);
   const setData = (updateData: (data: Data[]) => Data[]) => {
     setDataState((prev) => {
       const update = updateData(structuredClone(prev || []));
@@ -53,7 +56,16 @@ export const AppContextProvider = ({
       return prev;
     });
   };
-
+  const setSettings = (changes: Partial<Settings>) => {
+    setSettingsState((prev) => {
+      const update = { ...prev, ...changes };
+      if (update) {
+        saveObjectToObjectStore("settings", update);
+        return update;
+      }
+      return prev;
+    });
+  };
   // load index db cache
   const loadIDB = loadDatabase<IIndexDBData>("data", ["data"]);
   useEffect(() => {
