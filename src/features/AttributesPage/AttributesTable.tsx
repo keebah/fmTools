@@ -157,8 +157,6 @@ export const AttributesTable = ({
                 "Average of the primary attributes for selected role",
               sortable: true,
               title: "FMP",
-              tooltipValueGetter: () =>
-                "Create any fixed message, e.g. This is the Athlete’s Age ",
             },
             {
               cellRenderer: ({ value }: ICellRendererParams) =>
@@ -171,8 +169,6 @@ export const AttributesTable = ({
                 "Average of the secondary attributes for selected role",
               sortable: true,
               title: "FMS",
-              tooltipValueGetter: () =>
-                "Create any fixed message, e.g. This is the Athlete’s Age ",
             },
             {
               cellRenderer: ({ value }: ICellRendererParams) =>
@@ -185,8 +181,6 @@ export const AttributesTable = ({
                 "Weighted average of the primary and secondary attributes for selected role",
               sortable: true,
               title: "FMT",
-              tooltipValueGetter: () =>
-                "Create any fixed message, e.g. This is the Athlete’s Age ",
             },
           ]
         : []),
