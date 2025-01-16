@@ -8,10 +8,10 @@ import { AppContext } from "../../context/AppContext";
 import { dummyPlayer } from "../../helpers/player";
 import {
   calculateFMRoleScore,
-  calculateTotalRoleAttributeScore,
+  calculateUserRoleScore,
 } from "../../helpers/roles";
 import { Attributes, Data, Player } from "../../types/player";
-import { Role } from "../../types/role";
+import { RoleWithKey } from "../../types/role";
 import { filterInvalidRows, filterZeroRows, filterZeros } from "./helpers";
 
 type ColumnType = "name" & keyof Attributes;
@@ -39,7 +39,7 @@ export const AttributesTable = ({
 }: {
   hideEmptyColumns: boolean;
   primaryDataSet: Data | undefined;
-  roleFilter?: Role;
+  roleFilter?: RoleWithKey;
   secondaryDataSet: Data | undefined;
   showChangesOnly: boolean;
 }) => {
@@ -74,16 +74,19 @@ export const AttributesTable = ({
 
     const attributes = returnPlayerAttributes();
     const roleValues =
-      roleFilter &&
-      calculateFMRoleScore(playerInPrimaryDataSet, roleFilter, settings);
+      roleFilter !== undefined
+        ? calculateFMRoleScore(playerInPrimaryDataSet, roleFilter, settings)
+        : { primaryScore: 0, secondaryScore: 0, totalScore: 0 };
+    const userRoleValue =
+      roleFilter !== undefined
+        ? calculateUserRoleScore(playerInPrimaryDataSet, roleFilter, settings)
+        : { primaryScore: 0, secondaryScore: 0, totalScore: 0 };
     return {
       fmp: roleValues?.primaryScore,
       fms: roleValues?.secondaryScore,
       fmt: roleValues?.totalScore,
-      total: calcTotalAttributes(attributes),
-      role: roleFilter?.physis
-        ? calculateTotalRoleAttributeScore(attributes, roleFilter)
-        : NaN,
+      total: calcTotalAttributes(attributes), // This is for the average of all the visible attributes
+      user: userRoleValue,
       ...attributes,
     };
   };
@@ -181,6 +184,18 @@ export const AttributesTable = ({
                 "Weighted average of the primary and secondary attributes for selected role",
               sortable: true,
               title: "FMT",
+            },
+            {
+              cellRenderer: ({ value }: ICellRendererParams) =>
+                value.toFixed(settings.decimals),
+              field: "user" as ColumnType,
+              filter: true,
+              flex: 1,
+              floatingFilter: false,
+              headerTooltip:
+                "Weighted average of attributes from the user setting",
+              sortable: true,
+              title: "User",
             },
           ]
         : []),

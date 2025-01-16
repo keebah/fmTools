@@ -2,7 +2,7 @@ import { Card, Checkbox, Flex, Separator, Text } from "@radix-ui/themes";
 import { useContext, useState } from "react";
 
 import { AppContext } from "../../context/AppContext";
-import { Role } from "../../types/role";
+import { RoleWithKey } from "../../types/role";
 import { RoleSelector } from "../common/RoleSelector";
 import { AttributesTable } from "./AttributesTable";
 import { ComparisonDataSelectBox } from "./ComparsionDataSelectBox";
@@ -11,7 +11,7 @@ export const AttributesPage = () => {
   const [showChangesOnly, setShowChangesOnly] = useState(false);
   const [hideEmptyColumns, setHideEmptyColumns] = useState(false);
 
-  const [role, setRole] = useState<Role | undefined>();
+  const [role, setRole] = useState<RoleWithKey | undefined>(undefined);
 
   const { primaryDataSet, secondaryDataSet } = useContext(AppContext);
   return (

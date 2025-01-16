@@ -1,5 +1,6 @@
+import { Settings } from "../types/app";
 import { Attributes, Player } from "../types/player";
-import { Role, Roles } from "../types/role";
+import { Role, Roles, RoleWithKey } from "../types/role";
 import { ABR } from "./roles/abr";
 import { AM } from "./roles/am";
 import { ASM } from "./roles/asm";
@@ -185,21 +186,18 @@ export const calculateRoleAttributeScore = (
   return sumScores / roleAttributes.length;
 };
 
-export const calculateTotalRoleAttributeScore = (
-  attributes: Attributes,
-  role: Role
+export const calculateUserRoleScore = (
+  player: Player,
+  role: RoleWithKey,
+  settings: Settings
 ) => {
-  const primaryScore = calculateRoleAttributeScore(attributes, role.primary);
-  const secondaryScore = calculateRoleAttributeScore(
-    attributes,
-    role.secondary
-  );
-  return (primaryScore * 2 + secondaryScore * 1) / 3;
+  console.log(player, role, settings);
+  return 0;
 };
 
 export const calculateFMRoleScore = (
   player: Player,
-  role: Role,
+  role: RoleWithKey,
   weights: { primaryWeightFM: number; secondaryWeightFM: number }
 ) => {
   const attributes = player.attributes;

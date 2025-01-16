@@ -4,7 +4,7 @@ import { AppContext } from "../../context/AppContext";
 import { dummyPlayer } from "../../helpers/player";
 import { calculateRoleScore } from "../../helpers/roles";
 import { Player } from "../../types/player";
-import { Role } from "../../types/role";
+import { RoleWithKey } from "../../types/role";
 import { RoleSelector } from "../common/RoleSelector";
 import { cn } from "../utils/tailwind";
 import { AllRolesForPlayer } from "./AllRolesForPlayer";
@@ -14,7 +14,7 @@ export const PlayerPage = () => {
   const { primaryDataSet } = useContext(AppContext);
 
   const [selectedPlayer, setSelectedPlayer] = useState<Player>(dummyPlayer);
-  const [role, setRole] = useState<Role | undefined>();
+  const [role, setRole] = useState<RoleWithKey | undefined>();
 
   const roleScore =
     selectedPlayer && role && calculateRoleScore(selectedPlayer, role);
