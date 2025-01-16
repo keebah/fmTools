@@ -8,12 +8,7 @@ import {
 } from "../indexDB";
 import { Settings } from "../types/app";
 import { Data } from "../types/player";
-
-const defaultSettings = {
-  decimals: 1,
-  primaryWeightFM: 2,
-  secondaryWeightFM: 1,
-};
+import { defaultSettings } from "./defaultSettings";
 
 export type AppContextType = {
   data: Data[] | undefined;
