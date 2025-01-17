@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { defaultAttributes } from "../../helpers/roles/abr";
-import { RoleAttributeWeights } from "../../types/app";
+import { Attributes } from "../../types/player";
 import { RoleWithKey } from "../../types/role";
 
 const groupedAttributes = {
@@ -63,7 +63,7 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
     ? settings.userRoleWeights[role.key]
     : defaultAttributes;
   const updateAttributeInRole = (
-    key: keyof RoleAttributeWeights,
+    key: keyof Attributes,
     stringValue: string
   ) => {
     const roleWeights = settings.userRoleWeights;
@@ -77,7 +77,6 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
       ...roleWeights,
       [role.key]: { ...selectedRoleWeight, [key]: value },
     };
-    console.log(updatedRoleWeights);
     setSettings({ userRoleWeights: updatedRoleWeights });
   };
 
@@ -85,7 +84,7 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
     <Flex gap="3">
       <DataList.Root>
         {groupedAttributes.Technik.map((item) => {
-          const key = item as keyof RoleAttributeWeights;
+          const key = item as keyof Attributes;
           const value = roleValues[key];
           return (
             <DataList.Item>
@@ -105,7 +104,7 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
       </DataList.Root>
       <DataList.Root>
         {groupedAttributes.Mental.map((item) => {
-          const key = item as keyof RoleAttributeWeights;
+          const key = item as keyof Attributes;
           const value = roleValues[key];
           return (
             <DataList.Item>
@@ -124,7 +123,7 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
       </DataList.Root>
       <DataList.Root>
         {groupedAttributes.Physis.map((item) => {
-          const key = item as keyof RoleAttributeWeights | undefined;
+          const key = item as keyof Attributes | undefined;
           const value = key && roleValues[key];
           return (
             <DataList.Item>

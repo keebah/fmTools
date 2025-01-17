@@ -80,7 +80,7 @@ export const AttributesTable = ({
     const userRoleValue =
       roleFilter !== undefined
         ? calculateUserRoleScore(playerInPrimaryDataSet, roleFilter, settings)
-        : { primaryScore: 0, secondaryScore: 0, totalScore: 0 };
+        : 0;
     return {
       fmp: roleValues?.primaryScore,
       fms: roleValues?.secondaryScore,

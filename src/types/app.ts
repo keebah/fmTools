@@ -1,9 +1,7 @@
 import { Attributes } from "./player";
 import { Roles } from "./role";
 
-export type RoleAttributeWeights = { [Key in keyof Attributes]: number };
-
-type UserRoleWeights = { [Key in keyof Roles]: RoleAttributeWeights };
+type UserRoleWeights = { [Key in keyof Roles]: Attributes };
 
 export type Settings = {
   decimals: number;
