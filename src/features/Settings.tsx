@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 import { AppContext } from "../context/AppContext";
 import { RoleWithKey } from "../types/role";
-import EditAttributesDialog from "./common/EditAttributesDialog";
+import { AttributeGrid } from "./common/AttributeGrid";
 import { RoleSelector } from "./common/RoleSelector";
 
 export const Settings = () => {
@@ -48,7 +48,7 @@ export const Settings = () => {
       <Card>
         <Heading size="3">User Role Score Balance</Heading>
         <RoleSelector setRole={setRole} />
-        <EditAttributesDialog role={role} />
+        <AttributeGrid role={role} />
       </Card>
     </Flex>
   );

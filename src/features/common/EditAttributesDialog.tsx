@@ -1,12 +1,9 @@
 import { Button, Dialog, Flex, Text, TextField } from "@radix-ui/themes";
-import { useState } from "react";
 
-import { defaultAttributes } from "../../helpers/roles/abr";
 import { RoleWithKey } from "../../types/role";
 import "./styles.css";
 
 const EditAttributesDialog = ({ role }: { role: RoleWithKey | undefined }) => {
-  const [attributes, setAttributes] = useState(defaultAttributes);
   return (
     <Dialog.Root>
       <Dialog.Trigger>
