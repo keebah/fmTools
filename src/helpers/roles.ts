@@ -1,5 +1,6 @@
+import { SettingsType } from "../types/app";
 import { Attributes, Player } from "../types/player";
-import { Role, Roles } from "../types/role";
+import { Role, Roles, RoleWithKey } from "../types/role";
 import { ABR } from "./roles/abr";
 import { AM } from "./roles/am";
 import { ASM } from "./roles/asm";
@@ -170,43 +171,50 @@ export const roleAttributes: Roles = {
   ...ZS,
   ...ZSM,
 };
-
 export const calculateRoleAttributeScore = (
-  attributes: Attributes,
-  roleAttributes: (keyof Attributes)[]
+  playerAttributes: Attributes,
+  roleAttributes: Partial<Attributes>
 ) => {
-  if (!attributes) {
+  if (!playerAttributes || !roleAttributes) {
     return NaN;
   }
-  const sumScores = roleAttributes.reduce((total: number, value) => {
-    const attValue = attributes[value] || NaN;
-    return total + (attValue || 0);
-  }, 0);
-  return sumScores / roleAttributes.length;
+  let sumScores = 0;
+  let sumWeights = 0;
+  for (const [key, value] of Object.entries(roleAttributes)) {
+    const attributeWeight = value;
+    const attributeValue =
+      attributeWeight * playerAttributes[key as keyof Attributes];
+    sumScores += attributeValue;
+    sumWeights += attributeWeight;
+  }
+  return sumScores / sumWeights;
 };
-
-export const calculateTotalRoleAttributeScore = (
-  attributes: Attributes,
-  role: Role
+export const calculateUserRoleScore = (
+  player: Player,
+  role: RoleWithKey,
+  settings: SettingsType
 ) => {
-  const primaryScore = calculateRoleAttributeScore(attributes, role.primary);
-  const secondaryScore = calculateRoleAttributeScore(
-    attributes,
-    role.secondary
-  );
-  return (primaryScore * 2 + secondaryScore * 1) / 3;
+  const roleAttributes = settings.userRoleWeights[role.key];
+  return calculateRoleAttributeScore(player.attributes, roleAttributes);
 };
 
 export const calculateFMRoleScore = (
   player: Player,
-  role: Role,
+  role: RoleWithKey,
   weights: { primaryWeightFM: number; secondaryWeightFM: number }
 ) => {
   const attributes = player.attributes;
-  const primaryScore = calculateRoleAttributeScore(attributes, role.primary);
+  const primaryWeight = Object.fromEntries(
+    role.primary.map((item) => [item, 1])
+  );
+  const secondaryWeight = Object.fromEntries(
+    role.secondary.map((item) => [item, 1])
+  );
+
+  const primaryScore = calculateRoleAttributeScore(attributes, primaryWeight);
   const secondaryScore = calculateRoleAttributeScore(
     attributes,
-    role.secondary
+    secondaryWeight
   );
   const totalScore =
     (primaryScore * weights.primaryWeightFM +
@@ -219,10 +227,17 @@ export const calculateRoleScore = (player: Player, role: Role) => {
   const attributes = player.attributes;
   const physis = player.physis;
 
-  const primaryScore = calculateRoleAttributeScore(attributes, role.primary);
+  const primaryWeight = Object.fromEntries(
+    role.primary.map((item) => [item, 1])
+  );
+  const secondaryWeight = Object.fromEntries(
+    role.secondary.map((item) => [item, 1])
+  );
+
+  const primaryScore = calculateRoleAttributeScore(attributes, primaryWeight);
   const secondaryScore = calculateRoleAttributeScore(
     attributes,
-    role.secondary
+    secondaryWeight
   );
   const physisScore = physis[role.physis];
   const totalScore =

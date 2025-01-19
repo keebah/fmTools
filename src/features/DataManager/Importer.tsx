@@ -1,10 +1,10 @@
 import { Button, Flex } from "@radix-ui/themes";
 import { useContext, useState } from "react";
 
-import { Input } from "../components/Input";
-import { AppContext } from "../context/AppContext";
-import { loadData } from "../helpers/loadData";
-import { Data } from "../types/player";
+import { Input } from "../../components/Input";
+import { AppContext } from "../../context/AppContext";
+import { loadData } from "../../helpers/loadData";
+import { Data } from "../../types/player";
 
 export const Importer = () => {
   const [file, setFile] = useState<File>();
@@ -14,7 +14,6 @@ export const Importer = () => {
   return (
     <>
       <Flex align="center">
-        <div className="mr-1">Import Data:</div>
         <div>
           <input
             type="file"

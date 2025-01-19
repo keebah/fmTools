@@ -2,18 +2,13 @@ import { createContext, ReactElement, useEffect, useState } from "react";
 
 import { IIndexDBData } from "../App";
 import {
-  loadDatabase,
+  loadFullDatabase,
   saveKeyToObjectStore,
   saveObjectToObjectStore,
 } from "../indexDB";
-import { Settings } from "../types/app";
+import { SettingsType } from "../types/app";
 import { Data } from "../types/player";
-
-const defaultSettings = {
-  decimals: 1,
-  primaryWeightFM: 2,
-  secondaryWeightFM: 1,
-};
+import { defaultSettings } from "./defaultSettings";
 
 export type AppContextType = {
   data: Data[] | undefined;
@@ -22,8 +17,8 @@ export type AppContextType = {
   setPrimaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
   secondaryDataSet: Data | undefined;
   setSecondaryDataSet: React.Dispatch<React.SetStateAction<Data | undefined>>;
-  settings: Settings;
-  setSettings: (changes: Partial<Settings>) => void;
+  settings: SettingsType;
+  setSettings: (changes: Partial<SettingsType>) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -45,7 +40,7 @@ export const AppContextProvider = ({
   const [data, setDataState] = useState<Data[]>();
   const [primaryDataSet, setPrimaryDataSet] = useState<Data>();
   const [secondaryDataSet, setSecondaryDataSet] = useState<Data>();
-  const [settings, setSettingsState] = useState<Settings>(defaultSettings);
+  const [settings, setSettingsState] = useState<SettingsType>(defaultSettings);
   const setData = (updateData: (data: Data[]) => Data[]) => {
     setDataState((prev) => {
       const update = updateData(structuredClone(prev || []));
@@ -56,7 +51,7 @@ export const AppContextProvider = ({
       return prev;
     });
   };
-  const setSettings = (changes: Partial<Settings>) => {
+  const setSettings = (changes: Partial<SettingsType>) => {
     setSettingsState((prev) => {
       const update = { ...prev, ...changes };
       if (update) {
@@ -67,9 +62,12 @@ export const AppContextProvider = ({
     });
   };
   // load index db cache
-  const loadIDB = loadDatabase<IIndexDBData>("data", ["data"]);
+  const loadIDB = loadFullDatabase<IIndexDBData>();
   useEffect(() => {
-    loadIDB().then((data) => setDataState(data.data));
+    loadIDB().then((idbData) => {
+      setDataState(idbData.data.data);
+      setSettingsState(idbData.settings);
+    });
   }, []);
 
   return (

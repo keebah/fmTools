@@ -23,48 +23,17 @@ export const indexDb = openDB("fmTools", idbVersion, {
   },
 });
 
-// function to be used with individual keys
-export const loadDatabase = <IIndexDBData extends object>(
-  objectStore: AvailableObjectStoresType,
-  requestKeys: Extract<keyof IIndexDBData, string>[]
-) => {
+export const loadFullDatabase = <IIndexDBData extends object>() => {
   return async () => {
     const db = await indexDb;
-    const promiseArray = requestKeys.map((key) =>
-      db.get(objectStore, key).then((value) => {
-        return { key: key, value };
-      })
-    );
+    const promiseArray = Object.keys(ObjectStores).map(async (storeName) => {
+      const keys = await db.getAllKeys(storeName);
+      const data = await db.getAll(storeName);
+      const returnArray = keys.map((item, index) => [item, data[index]]);
+      return [[storeName], Object.fromEntries(returnArray)];
+    });
     const loadedData = await Promise.all(promiseArray);
-    const output = loadedData.reduce((obj, item) => {
-      return { ...obj, ...{ [item.key]: item.value } };
-    }, {});
-
-    return output as IIndexDBData;
-  };
-};
-
-// function to get the full data from the store, as indexDB is performance limited
-// when opening a lot of transactions it might be better to get all data in a
-// single transaction
-export const loadFullObjectStore = <IIndexDBData extends object>(
-  objectStore: AvailableObjectStoresType
-) => {
-  return async () => {
-    const output = indexDb.then((db) =>
-      db
-        .getAllKeys(objectStore)
-        .then((keyArray) =>
-          db
-            .getAll(objectStore)
-            .then((data) =>
-              Object.fromEntries(
-                keyArray.map((key, index) => [key, data[index]])
-              )
-            )
-        )
-    );
-    return output as IIndexDBData;
+    return Object.fromEntries(loadedData) as IIndexDBData;
   };
 };
 
@@ -101,8 +70,10 @@ export const exportDbToJson = async (filename?: string) => {
   const db = await indexDb;
   const promiseArray = Object.entries(ObjectStores).map(
     async ([key, value]) => {
+      const childKeys = await db.getAllKeys(value);
       const data = await db.getAll(value);
-      return [[key], ...data];
+      const returnArray = childKeys.map((item, index) => [item, data[index]]);
+      return [[key], Object.fromEntries(returnArray)];
     }
   );
 
@@ -122,9 +93,11 @@ export const importDbFomJson = async (content: ArrayBuffer) => {
   const a = JSON.parse(new TextDecoder().decode(content));
   const db = await indexDb;
 
-  Object.entries(a).map(async ([key, value]) => {
-    if (Object.keys(ObjectStores).includes(key) && value) {
-      await db.put(key, value, key);
+  Object.entries(a).forEach(async ([objectStoreKey, value]) => {
+    if (Object.keys(ObjectStores).includes(objectStoreKey) && value) {
+      Object.entries(value).forEach(async ([key, value]) => {
+        await db.put(objectStoreKey, value, key);
+      });
     }
   });
 };
