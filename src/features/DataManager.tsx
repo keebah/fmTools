@@ -1,4 +1,5 @@
 import { Button, Card, DataList, Flex } from "@radix-ui/themes";
+import { Header } from "@radix-ui/themes/dist/cjs/components/table";
 import { useContext, useRef } from "react";
 
 import { AppContext } from "../context/AppContext";
@@ -13,9 +14,11 @@ export const DataManager = () => {
   return (
     <Flex direction="row">
       <Card>
+        Import text file from football manager:
         <Importer />
       </Card>
       <Card>
+        Import / Export all tool data:
         <Flex gap="2">
           <Button
             onClick={() => {
@@ -53,8 +56,10 @@ export const DataManager = () => {
             inputFile.current.value = "";
           }}
         />
+      </Card>
+      <Card>
+        <Header>Existing data sets:</Header>
         <DataList.Root>
-          <div>Data Set Name</div>
           {data?.map((item) => (
             <DataList.Item align="center">
               <DataList.Label>{item.name}</DataList.Label>

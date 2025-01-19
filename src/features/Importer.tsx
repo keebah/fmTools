@@ -14,7 +14,6 @@ export const Importer = () => {
   return (
     <>
       <Flex align="center">
-        <div className="mr-1">Import Data:</div>
         <div>
           <input
             type="file"
