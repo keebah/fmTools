@@ -1,4 +1,4 @@
-import { Settings } from "../types/app";
+import { SettingsType } from "../types/app";
 import { Attributes, Player } from "../types/player";
 import { Role, Roles, RoleWithKey } from "../types/role";
 import { ABR } from "./roles/abr";
@@ -192,7 +192,7 @@ export const calculateRoleAttributeScore = (
 export const calculateUserRoleScore = (
   player: Player,
   role: RoleWithKey,
-  settings: Settings
+  settings: SettingsType
 ) => {
   const roleAttributes = settings.userRoleWeights[role.key];
   return calculateRoleAttributeScore(player.attributes, roleAttributes);

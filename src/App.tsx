@@ -7,14 +7,17 @@ import { DataManager } from "./features/DataManager";
 import { Settings } from "./features/Settings";
 // import { TacticsPage } from "./features/TacticsPage";
 import "./index.css";
+import { SettingsType } from "./types/app";
 import { Data } from "./types/player";
 
 export interface IIndexDBData {
-  data: Data[];
+  data: { data: Data[] };
+  settings: SettingsType;
 }
 
 function App() {
   const { data, setPrimaryDataSet } = useContext(AppContext);
+  console.log(data);
   return (
     <Flex gap="2" direction="column">
       <Card>

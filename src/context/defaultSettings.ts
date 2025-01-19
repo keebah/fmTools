@@ -1,7 +1,7 @@
 import { defaultAttributes } from "../helpers/roles/abr";
-import { Settings } from "../types/app";
+import { SettingsType } from "../types/app";
 
-export const defaultSettings: Settings = {
+export const defaultSettings: SettingsType = {
   decimals: 1,
   primaryWeightFM: 2,
   secondaryWeightFM: 1,
