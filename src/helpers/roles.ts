@@ -194,6 +194,10 @@ export const calculateUserRoleScore = (
   role: RoleWithKey,
   settings: SettingsType
 ) => {
+  const userRoleWeights = settings?.userRoleWeights;
+  if (!userRoleWeights || !Object.keys(userRoleWeights).includes(role.key)) {
+    return 0;
+  }
   const roleAttributes = settings.userRoleWeights[role.key];
   return calculateRoleAttributeScore(player.attributes, roleAttributes);
 };
