@@ -11,3 +11,6 @@ Tools for football manager. Used to calculate a rating for a player for a given 
 6. import the textfile in the data manager section
 
 You now have a data set imported into the tool. Check it out by selecting the data in the dropdown "Primary Data".
+
+## Adjusting the settings
+To calculate correct scores for each role&duty combination, navigate to the settings tab and adjust the FM role score balance. With this you can decide the weight of the primary attributes against the secondary attributes. 
