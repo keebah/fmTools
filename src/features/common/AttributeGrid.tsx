@@ -59,8 +59,11 @@ const groupedAttributes = {
 
 export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
   const { settings, setSettings } = useContext(AppContext);
+  const userRoleWeights = settings.userRoleWeights;
   const roleValues =
-    role !== undefined ? settings.userRoleWeights[role.key] : defaultAttributes;
+    role !== undefined && userRoleWeights !== undefined
+      ? settings?.userRoleWeights[role.key]
+      : defaultAttributes;
   const updateAttributeInRole = (
     key: keyof Attributes,
     stringValue: string
