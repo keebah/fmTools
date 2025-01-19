@@ -17,7 +17,6 @@ export interface IIndexDBData {
 
 function App() {
   const { data, setPrimaryDataSet } = useContext(AppContext);
-  console.log(data);
   return (
     <Flex gap="2" direction="column">
       <Card>

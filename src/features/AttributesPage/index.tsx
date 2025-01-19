@@ -38,7 +38,6 @@ export const AttributesPage = () => {
               <Checkbox
                 defaultChecked={hideEmptyColumns}
                 onClick={() => {
-                  console.log("a");
                   setHideEmptyColumns(!hideEmptyColumns);
                 }}
               />

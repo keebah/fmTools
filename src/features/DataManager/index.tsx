@@ -2,9 +2,9 @@ import { Button, Card, DataList, Flex } from "@radix-ui/themes";
 import { Header } from "@radix-ui/themes/dist/cjs/components/table";
 import { useContext, useRef } from "react";
 
-import { AppContext } from "../context/AppContext";
-import { exportDbToJson, importDbFomJson } from "../indexDB";
-import { Data } from "../types/player";
+import { AppContext } from "../../context/AppContext";
+import { exportDbToJson, importDbFomJson } from "../../indexDB";
+import { Data } from "../../types/player";
 import { Importer } from "./Importer";
 
 export const DataManager = () => {
