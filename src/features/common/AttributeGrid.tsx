@@ -93,7 +93,6 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
                 <TextField.Root
                   disabled={!role?.key}
                   size="1"
-                  placeholder="Decimals for calculated numbers"
                   onChange={(e) => updateAttributeInRole(key, e.target.value)}
                   value={value}
                 />
@@ -113,7 +112,7 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
                 <TextField.Root
                   disabled={!role?.key}
                   size="1"
-                  placeholder="Decimals for calculated numbers"
+                  onChange={(e) => updateAttributeInRole(key, e.target.value)}
                   value={value}
                 />
               </DataList.Value>
@@ -133,7 +132,7 @@ export const AttributeGrid = ({ role }: { role: RoleWithKey | undefined }) => {
                   <TextField.Root
                     disabled={!role?.key}
                     size="1"
-                    placeholder="Decimals for calculated numbers"
+                    onChange={(e) => updateAttributeInRole(key, e.target.value)}
                     value={value}
                   />
                 </DataList.Value>

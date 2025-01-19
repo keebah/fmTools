@@ -53,8 +53,11 @@ export const AppContextProvider = ({
   };
   const setSettings = (changes: Partial<Settings>) => {
     setSettingsState((prev) => {
+      console.log(prev, changes);
       const update = { ...prev, ...changes };
       if (update) {
+        console.log(prev, changes);
+
         saveObjectToObjectStore("settings", update);
         return update;
       }

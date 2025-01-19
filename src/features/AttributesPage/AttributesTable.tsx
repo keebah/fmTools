@@ -160,6 +160,7 @@ export const AttributesTable = ({
                 "Average of the primary attributes for selected role",
               sortable: true,
               title: "FMP",
+              maxWidth: 76,
             },
             {
               cellRenderer: ({ value }: ICellRendererParams) =>
@@ -172,6 +173,7 @@ export const AttributesTable = ({
                 "Average of the secondary attributes for selected role",
               sortable: true,
               title: "FMS",
+              maxWidth: 76,
             },
             {
               cellRenderer: ({ value }: ICellRendererParams) =>
@@ -184,6 +186,7 @@ export const AttributesTable = ({
                 "Weighted average of the primary and secondary attributes for selected role",
               sortable: true,
               title: "FMT",
+              maxWidth: 76,
             },
             {
               cellRenderer: ({ value }: ICellRendererParams) =>
@@ -196,6 +199,7 @@ export const AttributesTable = ({
                 "Weighted average of attributes from the user setting",
               sortable: true,
               title: "User",
+              maxWidth: 96,
             },
           ]
         : []),

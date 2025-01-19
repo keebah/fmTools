@@ -33,7 +33,7 @@ export const Settings = () => {
           onChange={(e) =>
             setSettings({ primaryWeightFM: parseFloat(e.target.value) })
           }
-          value={settings.decimals}
+          value={settings.primaryWeightFM}
         />
         <Text>Secondary Weight:</Text>
         <TextField.Root
@@ -42,7 +42,7 @@ export const Settings = () => {
           onChange={(e) =>
             setSettings({ secondaryWeightFM: parseFloat(e.target.value) })
           }
-          value={settings.decimals}
+          value={settings.secondaryWeightFM}
         />
       </Card>
       <Card>

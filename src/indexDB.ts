@@ -101,8 +101,10 @@ export const exportDbToJson = async (filename?: string) => {
   const db = await indexDb;
   const promiseArray = Object.entries(ObjectStores).map(
     async ([key, value]) => {
+      const childKeys = await db.getAllKeys(value);
       const data = await db.getAll(value);
-      return [[key], ...data];
+      const returnArray = childKeys.map((item, index) => [item, data[index]]);
+      return [[key], Object.fromEntries(returnArray)];
     }
   );
 
@@ -122,9 +124,11 @@ export const importDbFomJson = async (content: ArrayBuffer) => {
   const a = JSON.parse(new TextDecoder().decode(content));
   const db = await indexDb;
 
-  Object.entries(a).map(async ([key, value]) => {
-    if (Object.keys(ObjectStores).includes(key) && value) {
-      await db.put(key, value, key);
+  Object.entries(a).forEach(async ([objectStoreKey, value]) => {
+    if (Object.keys(ObjectStores).includes(objectStoreKey) && value) {
+      Object.entries(value).forEach(async ([key, value]) => {
+        await db.put(objectStoreKey, value, key);
+      });
     }
   });
 };
