@@ -14,7 +14,11 @@ export const RoleSelector = ({
       onValueChange={(value) => {
         const key = value as keyof Roles;
         const role = roleAttributes[key];
-        setRole({ key, ...role });
+        if (value !== "none" && value !== undefined) {
+          setRole({ key, ...role });
+          return;
+        }
+        setRole(undefined);
       }}
     >
       <Select.Trigger radius="large" placeholder="Select role" />
