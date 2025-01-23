@@ -30,6 +30,17 @@ const calcTotalAttributes = (attributes: Attributes | undefined) => {
   });
 };
 
+const scoreColumnProps = (decimals: number, maxWidth: number) => {
+  return {
+    cellRenderer: ({ value }: ICellRendererParams) => value.toFixed(decimals),
+    filter: true,
+    flex: 1,
+    floatingFilter: false,
+    sortable: true,
+    maxWidth: maxWidth,
+  };
+};
+
 export const AttributesTable = ({
   hideEmptyColumns,
   primaryDataSet,
@@ -72,7 +83,22 @@ export const AttributesTable = ({
       );
     };
 
+    const returnFibra = () => {
+      if (!secondaryDataSet) {
+        return playerInPrimaryDataSet.fibra;
+      }
+      const playerInSecondaryDataSet = secondaryDataSet.players.find(
+        (secondPlayer) => playerInPrimaryDataSet.name === secondPlayer.name
+      );
+      if (playerInSecondaryDataSet) {
+        return playerInPrimaryDataSet.fibra - playerInSecondaryDataSet.fibra;
+      }
+      // if we don't find the player in the compare set we return NaNs to be able to
+      // filter easier afterwards
+      return playerInPrimaryDataSet.fibra;
+    };
     const attributes = returnPlayerAttributes();
+    const fibra = returnFibra();
     const roleValues =
       roleFilter !== undefined
         ? calculateFMRoleScore(playerInPrimaryDataSet, roleFilter, settings)
@@ -82,6 +108,7 @@ export const AttributesTable = ({
         ? calculateUserRoleScore(playerInPrimaryDataSet, roleFilter, settings)
         : 0;
     return {
+      fibra,
       fmp: roleValues?.primaryScore,
       fms: roleValues?.secondaryScore,
       fmt: roleValues?.totalScore,
@@ -136,6 +163,12 @@ export const AttributesTable = ({
         filter: true,
         floatingFilter: false,
       },
+      {
+        ...scoreColumnProps(settings.decimals, 96),
+        field: "fibra" as ColumnType,
+        headerTooltip: "Kampfgeist score",
+        title: "FIBRA",
+      },
       ...(showChangesOnly
         ? [
             {
@@ -150,56 +183,32 @@ export const AttributesTable = ({
       ...(roleFilter
         ? [
             {
-              cellRenderer: ({ value }: ICellRendererParams) =>
-                value.toFixed(settings.decimals),
+              ...scoreColumnProps(settings.decimals, 76),
               field: "fmp" as ColumnType,
-              filter: true,
-              flex: 1,
-              floatingFilter: false,
               headerTooltip:
                 "Average of the primary attributes for selected role",
-              sortable: true,
               title: "FMP",
-              maxWidth: 76,
             },
             {
-              cellRenderer: ({ value }: ICellRendererParams) =>
-                value.toFixed(settings.decimals),
+              ...scoreColumnProps(settings.decimals, 76),
               field: "fms" as ColumnType,
-              filter: true,
-              flex: 1,
-              floatingFilter: false,
               headerTooltip:
                 "Average of the secondary attributes for selected role",
-              sortable: true,
               title: "FMS",
-              maxWidth: 76,
             },
             {
-              cellRenderer: ({ value }: ICellRendererParams) =>
-                value.toFixed(settings.decimals),
+              ...scoreColumnProps(settings.decimals, 76),
               field: "fmt" as ColumnType,
-              filter: true,
-              flex: 1,
-              floatingFilter: false,
               headerTooltip:
                 "Weighted average of the primary and secondary attributes for selected role",
-              sortable: true,
               title: "FMT",
-              maxWidth: 76,
             },
             {
-              cellRenderer: ({ value }: ICellRendererParams) =>
-                value.toFixed(settings.decimals),
+              ...scoreColumnProps(settings.decimals, 96),
               field: "user" as ColumnType,
-              filter: true,
-              flex: 1,
-              floatingFilter: false,
               headerTooltip:
                 "Weighted average of attributes from the user setting",
-              sortable: true,
               title: "User",
-              maxWidth: 96,
             },
           ]
         : []),

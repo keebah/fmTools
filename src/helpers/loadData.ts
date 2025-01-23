@@ -59,6 +59,17 @@ export const calcPhysisAngriff = (attributes: Player["attributes"]) => {
     attributes.Sprunghoehe * 1;
   return summe / gewichte;
 };
+export const calcFibra = (attributes: Player["attributes"]) => {
+  const gewichte = 6;
+  const summe =
+    attributes.Aggressivitaet * 1 +
+    attributes.Einsatzfreude * 1 +
+    attributes.Teamwork * 1 +
+    attributes.Zielstrebigkeit * 1 +
+    attributes.Mut * 1 +
+    attributes.Konzentration * 1;
+  return summe / gewichte;
+};
 const convertLineToPlayer = (line: string[]): Player => {
   const attributes: Attributes = {
     Abschluss: convertValue(line[2]),
@@ -118,6 +129,7 @@ const convertLineToPlayer = (line: string[]): Player => {
       mittelfeld: calcPhysisMittelfeld(attributes),
       angriff: calcPhysisAngriff(attributes),
     },
+    fibra: calcFibra(attributes),
   };
 };
 

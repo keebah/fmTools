@@ -16,6 +16,7 @@ export type Player = {
   name: string;
   attributes: Attributes;
   physis: { tor: number; abwehr: number; mittelfeld: number; angriff: number };
+  fibra: number;
 };
 
 export type Attributes = {
