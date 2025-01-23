@@ -1,4 +1,13 @@
-import { Box, Card, Flex, Heading, Select, Tabs } from "@radix-ui/themes";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import {
+  Box,
+  Card,
+  Flex,
+  Heading,
+  IconButton,
+  Select,
+  Tabs,
+} from "@radix-ui/themes";
 import { useContext } from "react";
 
 import { AppContext } from "./context/AppContext";
@@ -41,6 +50,19 @@ function App() {
               ))}
             </Select.Content>
           </Select.Root>
+          <IconButton>
+            <GitHubLogoIcon
+              width="18"
+              height="18"
+              onClick={() => {
+                window.open(
+                  "https://github.com/keebah/fmTools",
+                  "_blank",
+                  "noreferrer"
+                );
+              }}
+            />
+          </IconButton>
         </Flex>
       </Card>
       <Card>
