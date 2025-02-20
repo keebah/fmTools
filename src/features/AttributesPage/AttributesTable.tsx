@@ -2,7 +2,7 @@ import { ICellRendererParams } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
-import { useCallback, useContext, useMemo, useRef } from "react";
+import { useCallback, useContext, useMemo, useRef, useState } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { dummyPlayer } from "../../helpers/player";
@@ -12,6 +12,7 @@ import {
 } from "../../helpers/roles";
 import { Attributes, Data, Player } from "../../types/player";
 import { RoleWithKey } from "../../types/role";
+import PlayerDialog from "../common/PlayerDialog";
 import { filterInvalidRows, filterZeroRows, filterZeros } from "./helpers";
 
 type ColumnType = "name" & keyof Attributes;
@@ -32,7 +33,7 @@ const calcTotalAttributes = (attributes: Attributes | undefined) => {
 
 const scoreColumnProps = (decimals: number, maxWidth: number) => {
   return {
-    cellRenderer: ({ value }: ICellRendererParams) => value.toFixed(decimals),
+    cellRenderer: ({ value }: ICellRendererParams) => value?.toFixed(decimals),
     filter: true,
     flex: 1,
     floatingFilter: false,
@@ -162,6 +163,18 @@ export const AttributesTable = ({
         sortable: true,
         filter: true,
         floatingFilter: false,
+        cellRenderer: ({ value }: ICellRendererParams) => (
+          <div
+            onClick={() => {
+              setCurrentPlayer(
+                primaryDataSet?.players.find((player) => player.name === value)
+              );
+              setShowPlayerDialog(true);
+            }}
+          >
+            {value}
+          </div>
+        ),
       },
       {
         ...scoreColumnProps(settings.decimals, 96),
@@ -224,6 +237,8 @@ export const AttributesTable = ({
     fitAllColumns();
   }, [fitAllColumns]);
 
+  const [showPlayerDialog, setShowPlayerDialog] = useState(false);
+  const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
   return (
     <div className="w-full h-[calc(100vh-300px)] overflow-visible border-b-[2px] border-gray-900 pb-1 ag-theme-alpine">
       <AgGridReact
@@ -238,6 +253,13 @@ export const AttributesTable = ({
         ref={gridRef}
         rowData={rowData}
       />
+      {showPlayerDialog && currentPlayer && (
+        <PlayerDialog
+          open={showPlayerDialog}
+          setOpen={setShowPlayerDialog}
+          player={currentPlayer}
+        />
+      )}
     </div>
   );
 };
