@@ -1,22 +1,18 @@
-import { Button } from "@radix-ui/themes";
+import { Box, Card, Flex, Grid } from "@radix-ui/themes";
 import { useContext, useState } from "react";
 
-import { Input } from "../../components/Input";
 import { AppContext } from "../../context/AppContext";
 import {
   attackGroup,
   calculateRoleScore,
-  defenseGroup,
-  keeperGroup,
-  midfieldGroup,
   roleAttributes,
 } from "../../helpers/roles";
 import { sortByTotalScore } from "../../helpers/sorting";
 import { Player, PlayerWithRole } from "../../types/player";
 import { RoleWithKey } from "../../types/role";
 import { Tactic, TacticPlayers } from "../../types/tactics";
-import { BestRoleForPlayer } from "./BestRoleForPlayer";
-import { TacticsGrid } from "./TacticsGrid";
+import { RoleSelector } from "../common/RoleSelector";
+import { RoleSelectorTacticsGrid } from "../common/RoleSelectorTacticsGrid";
 
 export type SetTacticType = (
   action: "player" | "role",
@@ -96,7 +92,184 @@ export const TacticsPage = () => {
   }
 
   return (
-    <div>
+    <>
+      <Card>
+        <Grid columns="7" gap="3" rows="repeat(2, 64px)" width="auto">
+          <Box></Box>
+          <Box>
+            <Card>
+              STZL
+              <RoleSelectorTacticsGrid
+                availableRoles={attackGroup}
+                onValueChange={() => {}}
+              />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              STZ
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              STZR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              OML
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              OMZL
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              OMZ
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              OMZR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              OMR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              ML
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              MZL
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              MZ
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              MZR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              MR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              FVL
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              DMZL
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              DMZ
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              DMZR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              FVR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              VL
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              VZL
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              VZ
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box>
+            <Card>
+              VZR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>
+          <Box></Box>
+          <Box>
+            <Card>
+              VR
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box></Box>
+          <Box></Box>
+          <Box></Box>{" "}
+          <Box>
+            <Card>
+              TW
+              <RoleSelector setRole={() => {}} />
+            </Card>
+          </Box>{" "}
+          <Box></Box>
+          <Box></Box>
+          <Box></Box>
+        </Grid>
+      </Card>
+      <Flex>
+        <Card>Score</Card>
+        <Card>Stuff</Card>
+      </Flex>
+    </>
+  );
+  {
+    /* <div>
       <div>
         <Button onClick={() => setSelectedPlayers([])}>Clear</Button>
         Scores: P: {tactic?.scores.primaryScore.toFixed(
@@ -173,6 +346,6 @@ export const TacticsPage = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div> */
+  }
 };
