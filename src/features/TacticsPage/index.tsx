@@ -1,4 +1,4 @@
-import { Box, Card, Flex, Grid } from "@radix-ui/themes";
+import { Box, Button, Card, Flex, Grid } from "@radix-ui/themes";
 import { useContext, useState } from "react";
 
 import { AppContext } from "../../context/AppContext";
@@ -262,8 +262,14 @@ export const TacticsPage = () => {
         </Grid>
       </Card>
       <Flex>
-        <Card>Score</Card>
-        <Card>Stuff</Card>
+        <Card>
+          Scores: P: {tactic?.scores.primaryScore.toFixed(settings.decimals)} S:{" "}
+          {tactic?.scores.secondaryScore.toFixed(settings.decimals)} T:{" "}
+          {tactic?.scores.totalScore.toFixed(settings.decimals)}
+        </Card>
+        <Card>
+          {/*<Button onClick={() => setSelectedPlayers([])}>Clear</Button>*/}
+        </Card>
       </Flex>
     </>
   );
