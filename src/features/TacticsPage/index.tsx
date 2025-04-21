@@ -12,7 +12,7 @@ import { Player, PlayerWithRole } from "../../types/player";
 import { RoleWithKey } from "../../types/role";
 import { Tactic, TacticPlayers } from "../../types/tactics";
 import { RoleSelector } from "../common/RoleSelector";
-import { RoleSelectorTacticsGrid } from "../common/RoleSelectorTacticsGrid";
+import { TacticsGridPositionBox } from "./TacticsGridPositionBox";
 
 export type SetTacticType = (
   action: "player" | "role",
@@ -90,28 +90,27 @@ export const TacticsPage = () => {
   if (!primaryDataSet) {
     return <>Need to select data set</>;
   }
-
+  console.log(tactic);
   return (
     <>
       <Card>
-        <Grid columns="7" gap="3" rows="repeat(2, 64px)" width="auto">
+        <Grid columns="7" gap="3" rows="6" width="auto">
           <Box></Box>
-          <Box>
-            <Card>
-              STZL
-              <RoleSelectorTacticsGrid
-                availableRoles={attackGroup}
-                onValueChange={() => {}}
-              />
-            </Card>
-          </Box>
+          <TacticsGridPositionBox
+            allowedRoles={attackGroup}
+            content={primaryDataSet}
+            position={"STZL"}
+            tactic={tactic}
+            setTactic={setTactic}
+          />
           <Box></Box>
-          <Box>
-            <Card>
-              STZ
-              <RoleSelector setRole={() => {}} />
-            </Card>
-          </Box>
+          <TacticsGridPositionBox
+            allowedRoles={attackGroup}
+            content={primaryDataSet}
+            position={"STZ"}
+            tactic={tactic}
+            setTactic={setTactic}
+          />
           <Box></Box>
           <Box>
             <Card>
