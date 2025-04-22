@@ -1,4 +1,5 @@
 import { Box, Card } from "@radix-ui/themes";
+
 import { SetTacticType } from ".";
 import { Data } from "../../types/player";
 import { Role, Roles, RoleWithKey } from "../../types/role";
@@ -13,12 +14,16 @@ export const TacticsGridPositionBox = ({
   content,
   position,
   tactic,
+  setFocusedPosition,
   setTactic,
 }: {
   allowedRoles: { [key: string]: Role };
   content: Data | undefined;
   position: keyof TacticPlayers;
   tactic: Tactic | undefined;
+  setFocusedPosition: React.Dispatch<
+    React.SetStateAction<keyof TacticPlayers | undefined>
+  >;
   setTactic: SetTacticType;
 }) => {
   const players = tactic?.players;
@@ -38,6 +43,7 @@ export const TacticsGridPositionBox = ({
     position: keyof TacticPlayers
   ) => {
     return (value: string) => {
+      setFocusedPosition(position);
       if (value === "none") {
         setTactic("role", undefined, position, undefined);
         return;
@@ -53,6 +59,7 @@ export const TacticsGridPositionBox = ({
 
   const onPlayerSelectorChange = (position: keyof TacticPlayers) => {
     return (value: string) => {
+      setFocusedPosition(position);
       const player = content?.players.find((player) => player.name === value);
       setTactic("player", player, position, undefined);
     };
@@ -66,15 +73,19 @@ export const TacticsGridPositionBox = ({
   }
   return (
     <Box>
-      <Card>
-        <PlayerSelect
-          availablePlayers={availablePlayers}
-          onValueChange={onPlayerSelectorChange(position)}
-        />
-        <RoleSelectorTacticsGrid
-          availableRoles={allowedRoles}
-          onValueChange={onRoleSelectorChange(allowedRoles, position)}
-        />
+      <Card onClick={() => setFocusedPosition(position)}>
+        <div>
+          <PlayerSelect
+            availablePlayers={availablePlayers}
+            onValueChange={onPlayerSelectorChange(position)}
+          />
+        </div>
+        <div>
+          <RoleSelectorTacticsGrid
+            availableRoles={allowedRoles}
+            onValueChange={onRoleSelectorChange(allowedRoles, position)}
+          />
+        </div>
       </Card>
     </Box>
   );
