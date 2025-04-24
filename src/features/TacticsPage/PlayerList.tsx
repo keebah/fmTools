@@ -1,12 +1,33 @@
 import { Card, Grid } from "@radix-ui/themes";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { calculateRoleScore, roleAttributes } from "../../helpers/roles";
 import { sortByTotalScore } from "../../helpers/sorting";
 import { Player } from "../../types/player";
+import { RoleWithKey } from "../../types/role";
 import { Tactic, TacticPlayers } from "../../types/tactics";
 import { cn } from "../utils/tailwind";
+
+const returnRoleScore = (
+  player: Player,
+  selectedRole: RoleWithKey | undefined
+) => {
+  if (selectedRole) {
+    return {
+      roleName: selectedRole.key,
+      ...calculateRoleScore(player, selectedRole),
+    };
+  }
+  const rolesWithScore = Object.entries(roleAttributes)
+    .map(([key, role]) => {
+      const roleScore = calculateRoleScore(player, role);
+      return { roleName: key, ...roleScore };
+    })
+    .sort(sortByTotalScore);
+  console.log(player, rolesWithScore);
+  return rolesWithScore[0];
+};
 
 export const PlayerList = ({
   focusedPosition,
@@ -34,34 +55,24 @@ export const PlayerList = ({
   const playerIsUsedInTactic = (player: Player | undefined) => {
     return allPlayersInTactics.some((item) => item === player?.name);
   };
-
   const playersWithAllRoleScores = primaryDataSet?.players
     ?.map((player) => {
-      const filteredRoles = Object.entries(roleAttributes).filter(
-        ([key]) => selectedRole?.key === key
-      );
-      const roleScores = filteredRoles
-        .map(([key, role]) => {
-          const roleScore = calculateRoleScore(player, role);
-          return { name: key, ...roleScore };
-        })
-        .sort(sortByTotalScore);
-      const sortedScores = roleScores && roleScores.sort(sortByTotalScore);
+      const roleScore = returnRoleScore(player, selectedRole);
       return {
         ...player,
-        sortedScores,
-        totalScore: sortedScores.length > 0 ? sortedScores[0].totalScore : 0, // it's actually the highest score but like this I can re-use the sort function
+        ...roleScore,
       };
     })
     .sort(sortByTotalScore);
+
   return (
     <Card>
       {selectedRole
         ? `Showing score for: ${selectedRole.key}`
         : "No Role Selected"}
-      <Grid columns="2" gapX="1">
+      <Grid columns="3" gapX="1">
         {playersWithAllRoleScores?.map((item) => (
-          <>
+          <Fragment key={item.name}>
             <div
               className={cn(
                 item.name === selectedPlayer?.name
@@ -84,7 +95,8 @@ export const PlayerList = ({
             >
               {item.totalScore.toFixed(settings.decimals)}
             </div>
-          </>
+            <div>{item.roleName}</div>
+          </Fragment>
         ))}
       </Grid>
     </Card>
