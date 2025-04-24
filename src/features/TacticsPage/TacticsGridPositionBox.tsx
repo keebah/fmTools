@@ -1,6 +1,9 @@
 import { Box, Card } from "@radix-ui/themes";
+import { useContext } from "react";
 
 import { SetTacticType } from ".";
+import { AppContext } from "../../context/AppContext";
+import { calculateRoleScore } from "../../helpers/roles";
 import { Data } from "../../types/player";
 import { Role, Roles, RoleWithKey } from "../../types/role";
 import { Tactic, TacticPlayers } from "../../types/tactics";
@@ -26,6 +29,7 @@ export const TacticsGridPositionBox = ({
   >;
   setTactic: SetTacticType;
 }) => {
+  const { settings } = useContext(AppContext);
   const players = tactic?.players;
   const player = players && players[position]?.player;
   const selectablePlayers =
@@ -38,6 +42,9 @@ export const TacticsGridPositionBox = ({
   const availablePlayers = player
     ? [player, ...selectablePlayers]
     : selectablePlayers;
+
+  const role = players && players[position]?.role;
+
   const onRoleSelectorChange = (
     allowedRoles: Partial<Roles>,
     position: keyof TacticPlayers
@@ -71,6 +78,8 @@ export const TacticsGridPositionBox = ({
       </Box>
     );
   }
+
+  const scoreInThisSlot = player && role && calculateRoleScore(player, role);
   return (
     <Box>
       <Card onClick={() => setFocusedPosition(position)}>
@@ -85,6 +94,9 @@ export const TacticsGridPositionBox = ({
             availableRoles={allowedRoles}
             onValueChange={onRoleSelectorChange(allowedRoles, position)}
           />
+          <span className="ml-1">
+            {scoreInThisSlot?.totalScore.toFixed(settings.decimals)}
+          </span>
         </div>
       </Card>
     </Box>

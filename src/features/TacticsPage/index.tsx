@@ -18,8 +18,7 @@ export type SetTacticType = (
 
 export const TacticsPage = () => {
   const { primaryDataSet, settings } = useContext(AppContext);
-  // const [roleFilter, setRoleFilter] = useState([""]);
-  // const [selectedPlayers, setSelectedPlayers] = useState<PlayerWithRole[]>([]);
+
   const [focusedPosition, setFocusedPositions] = useState<
     keyof TacticPlayers | undefined
   >();
@@ -66,7 +65,10 @@ export const TacticsPage = () => {
   if (!primaryDataSet) {
     return <>Need to select data set</>;
   }
-
+  const playersInTactic = tactic?.players;
+  const playerCount =
+    playersInTactic &&
+    Object.values(playersInTactic).filter((item) => !!item.player).length;
   return (
     <>
       <Flex>
@@ -81,9 +83,18 @@ export const TacticsPage = () => {
           <Flex>
             <Card>
               Scores: P:{" "}
-              {tactic?.scores.primaryScore.toFixed(settings.decimals)} S:{" "}
-              {tactic?.scores.secondaryScore.toFixed(settings.decimals)} T:{" "}
-              {tactic?.scores.totalScore.toFixed(settings.decimals)}
+              {(
+                (tactic?.scores.primaryScore ?? 0) / (playerCount ?? 1)
+              ).toFixed(settings.decimals)}{" "}
+              S:{" "}
+              {(
+                (tactic?.scores.secondaryScore ?? 0) / (playerCount ?? 1)
+              ).toFixed(settings.decimals)}{" "}
+              T:{" "}
+              {((tactic?.scores.totalScore ?? 0) / (playerCount ?? 1)).toFixed(
+                settings.decimals
+              )}{" "}
+              Players: {playerCount}
             </Card>
             <Card></Card>
           </Flex>
