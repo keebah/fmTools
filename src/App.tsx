@@ -14,7 +14,7 @@ import { AppContext } from "./context/AppContext";
 import { AttributesPage } from "./features/AttributesPage";
 import { DataManager } from "./features/DataManager";
 import { Settings } from "./features/Settings";
-// import { TacticsPage } from "./features/TacticsPage";
+import { TacticsPage } from "./features/TacticsPage";
 import "./index.css";
 import { SettingsType } from "./types/app";
 import { Data } from "./types/player";
@@ -69,7 +69,7 @@ function App() {
         <Tabs.Root defaultValue="account">
           <Tabs.List>
             <Tabs.Trigger value="attributes">Attributes</Tabs.Trigger>
-            {/* <Tabs.Trigger value="tactics">Tactics</Tabs.Trigger> */}
+            <Tabs.Trigger value="tactics">Tactics</Tabs.Trigger>
             <Tabs.Trigger value="dataManager">Data Manager</Tabs.Trigger>
             <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
           </Tabs.List>
@@ -77,9 +77,9 @@ function App() {
             <Tabs.Content value="attributes">
               <AttributesPage />
             </Tabs.Content>
-            {/* <Tabs.Content value="tactics">
+            <Tabs.Content value="tactics">
               <TacticsPage />
-            </Tabs.Content> */}
+            </Tabs.Content>
             <Tabs.Content value="dataManager">
               <DataManager />
             </Tabs.Content>{" "}
