@@ -69,7 +69,7 @@ export const PlayerList = ({
     <Card>
       {selectedRole
         ? `Showing score for: ${selectedRole.key}`
-        : "No Role Selected"}
+        : `No Role Selected for position ${focusedPosition}`}
       <Grid columns="3" gapX="1">
         {playersWithAllRoleScores?.map((item) => (
           <Fragment key={item.name}>

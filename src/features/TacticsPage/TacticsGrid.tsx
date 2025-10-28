@@ -23,10 +23,12 @@ import { TacticsGridPositionBox } from "./TacticsGridPositionBox";
 
 export const TacticsGrid = ({
   tactic,
+  focusedPosition,
   setFocusedPosition,
   setTactic,
 }: {
   tactic: Tactic | undefined;
+  focusedPosition: keyof TacticPlayers | undefined;
   setFocusedPosition: React.Dispatch<
     React.SetStateAction<keyof TacticPlayers | undefined>
   >;
@@ -38,6 +40,7 @@ export const TacticsGrid = ({
     <Grid columns="7" gap="3" rows="6" width="auto">
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "STZL"}
         allowedRoles={attackGroup}
         content={primaryDataSet}
         position={"STZL"}
@@ -47,6 +50,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "STZ"}
         allowedRoles={attackGroup}
         content={primaryDataSet}
         position={"STZ"}
@@ -56,6 +60,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "STZR"}
         allowedRoles={attackGroup}
         content={primaryDataSet}
         position={"STZR"}
@@ -65,6 +70,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "OML"}
         allowedRoles={omaGroup}
         content={primaryDataSet}
         position={"OML"}
@@ -74,6 +80,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "OMZL"}
         allowedRoles={omcGroup}
         content={primaryDataSet}
         position={"OMZL"}
@@ -82,6 +89,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "OM"}
         allowedRoles={omcGroup}
         content={primaryDataSet}
         position={"OM"}
@@ -90,6 +98,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "OMZR"}
         allowedRoles={omcGroup}
         content={primaryDataSet}
         position={"OMZR"}
@@ -99,6 +108,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "OMR"}
         allowedRoles={omaGroup}
         content={primaryDataSet}
         position={"OMR"}
@@ -107,6 +117,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "ML"}
         allowedRoles={maGroup}
         content={primaryDataSet}
         position={"ML"}
@@ -116,6 +127,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "MZL"}
         allowedRoles={mzGroup}
         content={primaryDataSet}
         position={"MZL"}
@@ -124,6 +136,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "MZ"}
         allowedRoles={mGroup}
         content={primaryDataSet}
         position={"MZ"}
@@ -132,6 +145,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "MZR"}
         allowedRoles={mzGroup}
         content={primaryDataSet}
         position={"MZR"}
@@ -141,6 +155,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "MR"}
         allowedRoles={maGroup}
         content={primaryDataSet}
         position={"MR"}
@@ -149,6 +164,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "FVL"}
         allowedRoles={fvaGroup}
         content={primaryDataSet}
         position={"FVL"}
@@ -158,6 +174,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "DMZL"}
         allowedRoles={dmzGroup}
         content={primaryDataSet}
         position={"DMZL"}
@@ -166,6 +183,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "DM"}
         allowedRoles={dmGroup}
         content={primaryDataSet}
         position={"DM"}
@@ -174,6 +192,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "DMZR"}
         allowedRoles={dmzGroup}
         content={primaryDataSet}
         position={"DMZR"}
@@ -183,6 +202,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "FVR"}
         allowedRoles={fvaGroup}
         content={primaryDataSet}
         position={"FVR"}
@@ -191,6 +211,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "VL"}
         allowedRoles={vaGroup}
         content={primaryDataSet}
         position={"VL"}
@@ -200,6 +221,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "VZL"}
         allowedRoles={vzGroup}
         content={primaryDataSet}
         position={"VZL"}
@@ -208,6 +230,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "VZ"}
         allowedRoles={vGroup}
         content={primaryDataSet}
         position={"VZ"}
@@ -216,6 +239,7 @@ export const TacticsGrid = ({
         setTactic={setTactic}
       />
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "VZR"}
         allowedRoles={vzGroup}
         content={primaryDataSet}
         position={"VZR"}
@@ -225,6 +249,7 @@ export const TacticsGrid = ({
       />
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "VR"}
         allowedRoles={vaGroup}
         content={primaryDataSet}
         position={"VR"}
@@ -236,6 +261,7 @@ export const TacticsGrid = ({
       <Box></Box>
       <Box></Box>
       <TacticsGridPositionBox
+        isFocused={focusedPosition == "TW"}
         allowedRoles={keeperGroup}
         content={primaryDataSet}
         position={"TW"}

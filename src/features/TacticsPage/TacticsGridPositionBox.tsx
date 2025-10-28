@@ -17,11 +17,13 @@ export const TacticsGridPositionBox = ({
   content,
   position,
   tactic,
+  isFocused,
   setFocusedPosition,
   setTactic,
 }: {
   allowedRoles: { [key: string]: Role };
   content: Data | undefined;
+  isFocused: boolean;
   position: keyof TacticPlayers;
   tactic: Tactic | undefined;
   setFocusedPosition: React.Dispatch<
@@ -82,7 +84,10 @@ export const TacticsGridPositionBox = ({
   const scoreInThisSlot = player && role && calculateRoleScore(player, role);
   return (
     <Box>
-      <Card onClick={() => setFocusedPosition(position)}>
+      <Card
+        className={isFocused ? "border-2" : ""}
+        onClick={() => setFocusedPosition(position)}
+      >
         <div>
           <PlayerSelect
             availablePlayers={availablePlayers}

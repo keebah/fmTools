@@ -75,6 +75,7 @@ export const TacticsPage = () => {
         <div>
           <Card>
             <TacticsGrid
+              focusedPosition={focusedPosition}
               tactic={tactic}
               setTactic={setTactic}
               setFocusedPosition={setFocusedPositions}
