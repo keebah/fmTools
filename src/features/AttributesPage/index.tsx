@@ -1,4 +1,11 @@
-import { Card, Checkbox, Flex, Separator, Text } from "@radix-ui/themes";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Flex,
+  Separator,
+  Text,
+} from "@radix-ui/themes";
 import { useContext, useState } from "react";
 
 import { AppContext } from "../../context/AppContext";
@@ -6,10 +13,12 @@ import { RoleWithKey } from "../../types/role";
 import { RoleSelector } from "../common/RoleSelector";
 import { AttributesTable } from "./AttributesTable";
 import { ComparisonDataSelectBox } from "./ComparsionDataSelectBox";
+import ComparePlayerDialog from "../common/ComparePlayerDialog";
 
 export const AttributesPage = () => {
   const [showChangesOnly, setShowChangesOnly] = useState(false);
   const [hideEmptyColumns, setHideEmptyColumns] = useState(false);
+  const [showComparePlayers, setShowComparePlayers] = useState(false);
 
   const [role, setRole] = useState<RoleWithKey | undefined>(undefined);
 
@@ -51,6 +60,12 @@ export const AttributesPage = () => {
             </Text>
             <RoleSelector setRole={setRole} />
           </Flex>
+          <Separator orientation="vertical" />
+          <Flex gap="1" align="center">
+            <Button onClick={() => setShowComparePlayers(true)}>
+              Compare Players
+            </Button>
+          </Flex>
         </Flex>
       </Card>
       <Card>
@@ -62,6 +77,12 @@ export const AttributesPage = () => {
           showChangesOnly={showChangesOnly}
         />
       </Card>
+      {showComparePlayers && (
+        <ComparePlayerDialog
+          open={showComparePlayers}
+          setOpen={setShowComparePlayers}
+        />
+      )}
     </div>
   );
 };
