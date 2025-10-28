@@ -3,7 +3,6 @@ import { RoleScoreDisplay } from "../../components/RoleScoreDisplay";
 import { Data } from "../../types/player";
 import { Role, Roles } from "../../types/role";
 import { Tactic, TacticPlayers } from "../../types/tactics";
-import { ProposalForEntry } from "./ProposalForEntry";
 
 export type SelectedRole = { roleName: string } & Role;
 
